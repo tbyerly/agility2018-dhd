@@ -1,0 +1,5 @@
+---
+
+ansible_host: 10.1.1.4
+vs_destination: 10.1.10.240
+node_destination: 10.1.10.30
