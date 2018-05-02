@@ -6,14 +6,13 @@ Estimated completion time: 45 minutes
 Task 1 – Initial Set-up
 -----------------------
 
-- Open a web browser and access supplied link.(Given at Location)
+- Open the Chrome web browser and access the DHD from the toolbar shortcut.
 
-- Login to the BIG-IP Configuration Utility via your preferred browser?
+- Login to the BIG-IP Configuration Utility.
 
  .. NOTE:: When you first power up a F5 DHD device you would go through the
   steps of Licensing and Provisioning.  We have assigned the management
-  IP, hostname, NTP and DNS servers.  You will be re-activating the
-  license using a new license key.
+  IP, hostname, NTP and DNS servers.
 
 - On the **System > Platform** page configure the following, and then
   click **Update**.
@@ -57,17 +56,6 @@ Task 1 – Initial Set-up
 
 - When done click **Submit**.
 
-- Access the Jumbox via RDP. PuTTY into the Hybrid Defender. Login with
-  ``root`` and restart services
-
-  ``bigstart restart``
-
-Take a break, ask questions, talk to your neighbor ..it will take
-several minutes to restart
-
-.. NOTE:: You MUST re-activate, even if the current license key
-   hasn’t expired. For Silverline access each BIG-IP system must use a
-   unique license key.
 
 Task 2 – DDoS Hybrid Defender iApp and Base Configuration
 ---------------------------------------------------------
