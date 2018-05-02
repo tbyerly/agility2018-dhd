@@ -1,11 +1,15 @@
-Introduction to DDoS with F5 Herculon
-=====================================
+Introduction to DDoS with F5 DDoS Hybrid Defender
+=================================================
 
-DDoS Hybrid Defender, a hybrid DDoS solution that offers comprehensive
-protection, high availability, and is easy to deploy and manage. It
-guards against aggressive volumetric and targeted DDoS attacks, includes
-hardware-assisted DDoS mitigation, and optionally, connects with
-Silverline, a cloud-based scrubbing service.
+F5® DDoS Hybrid Defender™ provides next-generation cloud and on-premises
+distributed denial-of-service (DDoS) defenses to ensure real-time protections against
+volumetric DDoS threats; dynamic network and applications attacks; and threats
+hiding within encrypted traffic.
+
+Today’s DDoS attacks are rapidly becoming more severe, more sophisticated, and more complex.
+Now, an attack will likely blend different attack vectors that are run simultaneously,
+designed to find the weakest link in your infrastructure—whether it’s your network devices,
+your applications, or your network bandwidth—and then exploit it.
 
 This class covers the following topics:
 
