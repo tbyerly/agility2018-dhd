@@ -1,10 +1,8 @@
-Module – Installing a BIG-IP Appliance
-======================================
+DDoS Hybrid Defender Setup
+==========================
 
-.. TODO:: Needs module description
-
-In this module you will learn how to install a |f5| |bip| Appliance into your
-datacenter.
+In this module you will learn how to complete the initial setup of |f5|
+DDoS Hybrid Defender
 
 .. toctree::
    :maxdepth: 1
