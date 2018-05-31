@@ -14,8 +14,10 @@ Task 1 – Initial Set-up
   steps of Licensing and Provisioning.  We have assigned the management
   IP, hostname, NTP and DNS servers.
 
-- On the **System > Platform** page configure the following, and then
-  click **Update**.
+.. NOTE:: If you are familiar with the BIG-IP UI, You will notice the menus on the left are consolidated.
+This is an indication you are working with a DDoS Hybrid efender device.
+
+|image100|
 
   +----------------------------------------+--------------------------+
   | Host Name                              | <your name>.f5demo.com   |
@@ -26,24 +28,6 @@ Task 1 – Initial Set-up
   +----------------------------------------+--------------------------+
 
 - This will log you out. Log back in
-
-- On **Device Management->Devices** select the device and then click
-  “\ **Change Device Name**\ …”. Update the device name to match
-  the hostname you have chosen. Retain Current Authority
-
-- Click **Update** to save changes
-
-- Review and Verify the following: \ **System -> Configuration ->
-  Device -> NTP** page add **pool.ntp.org** to the Time Server
-  List, and then click **Update**.
-
-- Review and Verify the following: **System -> Configuration -> Device
-  ->DNS** page add 8.8.8.8 to the DNS Lookup Server List, and then
-  click **Update**.
-
-- Open the **System > License** page and **re-activate** the BIG-IP
-  system using the new development license key using Manual mode.
-  Copy and Paste License file.
 
   |image6|
 
@@ -57,78 +41,22 @@ Task 1 – Initial Set-up
 - When done click **Submit**.
 
 
-Task 2 – DDoS Hybrid Defender iApp and Base Configuration
+Task 2 – DDoS Hybrid Defender Base Configuration
 ---------------------------------------------------------
 
-- In the BIG-IP Configuration Utility, open **DoS Protection > Quick
-  Configuration** page.
+- The architecture and design decsions shoul d ave been made already.
+Based on F5 recommendations we are going to deploy this device in L2 Transparent Mode.
 
-- Select Install RPM method of Onboard
+|image101|
 
-- Click **Install**
+- Click Network Setup in the left hand menu. Then Select Topology.
+You will notice the various option you canselect based on the prior architecture decisions.
 
-  |image7|
+- Click **Create** om the upper right side.
 
-- Open the About page
+- Fill outthe information from the table below.
 
-  |image8|
-
-- This page displays the current version of DDoS Hybrid Defender (DHD).
-  You use this page to install and update the iApp LX version for DHD
-  when newer versions are released.
-
-  |image9|
-
-- In the BIG-IP Configuration Utility, click **iApps**, **Templates**
-  and **Import**, importing the two templates located on the jumpbox documents
-  folder.
-
-  |image10|
-
-- Use the **Browse** and **Upload** buttons. (You will do this once for
-  each template)
-
-- In the BIG-IP Configuration Utility, open **iApps > Application
-  Services** and select **Create**
-
-  |image11|
-
-- You will be creating two services based on the two Silverline
-  Templates:
-
-  - F5.silverline\_connector
-
-  - F5.silverline\_dos\_monitor
-
-  |image12|
-
-- Use the default settings for the Silverline connector
-
-- Use the Silverline username and password supplied
-
-.. Note:: This is case sensitive – make sure email address is all lowercase
-
-|image13|
-
-|image14|
-
-- Create the 2\ :sup:`nd` service for the Silverline DOS Monitor
-  (f5.silverline\_dos\_monitor)
-
-  |image15|
-
-- Use the default settings for the dos\_connector except for Volumetric
-  Attack Event Monitoring, switch the network object from interface to
-  VLAN.
-
-  |image16|
-
-- Open the **DoS Protection > Quick Configuration** **Network
-  Configuration** page.
-
-  |image17|
-
-- In the Default Network section click **default VLAN**.
+- In the DVLAN Group Name fill in **defaultVLAN**.
 
 - Configure the VLANs using following information, and then click
   **Done Editing**.
@@ -152,14 +80,8 @@ Task 2 – DDoS Hybrid Defender iApp and Base Configuration
 
   |image18|
 
-- At the bottom of the page click **Update** to create the default
+- At the bottom of the page click **Finished** to create the default
   network.
-
-- Open the **Network > VLANs > VLAN Groups** page and click
-  **defaultVLAN**.
-
-- A Bridged (VLAN Group) L2 configuration consistent recommended
-  practices for most deployments was automatically created
 
 - Open the **Network > DNS Resolvers > DNS Resolver** list page and
   click **Create**.
@@ -169,26 +91,6 @@ Task 2 – DDoS Hybrid Defender iApp and Base Configuration
 - A DNS resolver is required by bot signatures to allow for proper
   detection of benign search engines such as Google and Bing.
 
-- On the Jumpbox desktop, PuTTY to the BIG-IP
-
-- Login as ``root``
-
-- Verify DNS by typing the following
-
-  ``nslookup api.f5silverline.com``
-
-- Type the following to verify the correct date setting:
-
-  ``date``
-
-- If the BIG-IP system date is not accurate, correct it using the
-  following commands:
-
-  .. code-block:: console
-
-     bigstart stop ntpd
-     ntpdate 10.1.1.254
-     bigstart start ntpd
 
 Task 3 – Configure Silverline Signaling
 ---------------------------------------
@@ -196,48 +98,7 @@ Task 3 – Configure Silverline Signaling
 - In the BIG-IP Configuration Utility, open the **DoS Protection >
   Quick Configuration** page.
 
-- Open the **Silverline** page.
-
-  |image19|
-
-- Configure using following information, and then click **Update**.
-
-  +-------------------+--------------------------------+
-  | Username          | dhd2017us@f5agility.com        |
-  +===================+================================+
-  | Password          | HybridDefense!Wins!            |
-  +-------------------+--------------------------------+
-  | Service Address   | https://api.f5silverline.com   |
-  +-------------------+--------------------------------+
-
-- Register the device with the Silverline iApp, to provide bandwidth
-  utilization updates in **iApps->Application
-  Services->Applications->silverline\_connector**. In the iApp, select
-  **Reconfigure** and then click **Finished**. This will cause the iApp
-  to register under the new device name.
-
-- Use a web browser and access https://portal.f5silverline.com.
-
-- Log in with the above credentials
-
-- In the Silverline browser, open the **Config->Hybrid
-  Configuration->Hybrid Device Management** page\ **.**
-
-  |image20|
-
-- Locate your DHD device by searching for (<your name
-  prefix>.f5demo.com) .
-
-- Click the **Approve** button to approve device registration.
-
-  |image21|
-
-.. NOTE:: For Silverline device registration to function properly there
-   must be some specific considerations. The BIG-IP system must have a
-   unique device ID, which is comprised of attributes like Base MAC and
-   registration key. In Ravello and similar virtual environments the Hybrid
-   Defender VE must be re-licensed uniquely each time.
-
+-
 Task 4 – Configure DHD Device Bandwidth Thresholds
 --------------------------------------------------
 

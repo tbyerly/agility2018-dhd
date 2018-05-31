@@ -1,4 +1,4 @@
-Lab 2 – Start Baseline Traffic Generation
+Lab 3 – Start Baseline Traffic Generation
 ==============================================
 
 Task 1 – Create Protected Objects that the baseline traffic will be targeting

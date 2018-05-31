@@ -20,7 +20,6 @@ The following components have been included in your lab environment:
 - 1 x Linux Attacker (Ubuntu 14.04)
 - 1 x Linux Good Client (Ubuntu 14.04)
 - 1 x Linux LAMP Webserver (xubuntu 14.04)
-- 1 x Linux LAMP Auction site (xubuntu 14.04)
 - 1 x Windows Jumphost
 
 Lab Components
@@ -40,8 +39,6 @@ Lab Components
 | Good Client                        |     ubuntu                    |     Use key           |
 +------------------------------------+-------------------------------+-----------------------+
 | Attacker                           |     ubuntu                    |     Use key           |
-+------------------------------------+-------------------------------+-----------------------+
-| Auction CLI                        |     root                      |     default           |
 +------------------------------------+-------------------------------+-----------------------+
 | Lamp CLI                           |     root                      |     default           |
 +------------------------------------+-------------------------------+-----------------------+
@@ -74,7 +71,7 @@ Task 1 – Open your RDP client and connect to your Windows Jumpbox
 
 |image4|
 
-.. NOTE:: All Exercises/Tasks are to be completed from the Windows Jumpbox. There are various shortcuts -- Chrome Incognito, Putty shortcuts, Licensing Folders on the jumpbox that you will use through the exercises.
+.. NOTE:: All Exercises/Tasks are to be completed from the Windows Jumpbox. There are various shortcuts -- Chrome Incognito, Putty shortcuts, on the jumpbox that you will use through the exercises.
 
 |image5|
 

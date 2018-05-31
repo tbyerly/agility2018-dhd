@@ -1,4 +1,4 @@
-Lab 3 – Configuring Hybrid Defender DDoS protection
+Lab 2 – Configuring Hybrid Defender DDoS protection
 ===================================================
 
 Task 1 – Disable Device-Level DHD DoS Protection
