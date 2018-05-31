@@ -5,7 +5,7 @@
 # ------------
 #
 # REQUIRED: Your class/lab name
-classname = "Getting Started with F5 BIG-IP"
+classname = "DDoS Attack Protection"
 
 # OPTIONAL: The URL to the GitHub Repository for this class
 github_repo = "https://github.com/f5devcentral/your-class-repo"
@@ -51,6 +51,7 @@ rst_prolog = """
 .. |ics| replace:: iControl SOAP API
 .. |f5|  replace:: F5 Networks
 .. |f5i| replace:: F5 Networks, Inc.
+.. |dhd| replace:: DDoS Hybrid Defender
 .. |year| replace:: %s
 """ % (classname,
        classname,
@@ -256,6 +257,3 @@ texinfo_documents = [
      author, classname, classname,
      'Training'),
 ]
-
-
-
