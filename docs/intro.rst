@@ -13,7 +13,7 @@ your applications, or your network bandwidth—and then exploit it.
 
 This class covers the following topics:
 
-- Initial Set-up, Device Configuration and Protected Object Configuration.
+- Initial Set-up, Device Configuration, Protected Object Configuration, Launching DDoS Attacks and Viewing Attacks and Logs in the Dashboard.
 
 .. toctree::
    :maxdepth: 2
