@@ -9,7 +9,7 @@ lab and access your jump host.
 	 jumphost. No installation or interaction with your local system is
 	 required. You will use **Putty** that has been preconfigured with appropriate keys in
 	 order to access the **DHD CLI**, **Good Client**, and the **Attacker** systems.
-	 The shortcuts are on the desktop. You will be logged in as "root".
+	 The shortcuts are on the desktop. You will log in as "root" or "ubuntu".
 
 Lab Topology
 ~~~~~~~~~~~~
