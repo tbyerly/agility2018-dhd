@@ -11,9 +11,7 @@ This class covers the following topics:
 
 - Initial Set-up, Device Configuration and working with basic device-level
   DDoS vectors to mitigate the most commonly encountered attacks. Then we will
-  cover Auto-thresholding, bad actor detection, DNS reflection and
-  amplification, real-time blackholing, mitigation of L7 floods, low-and-slow
-  attacks and behavioral attacks.
+  cover Auto-thresholding, bad actor detection, mitigation of L7 attacks behavioral attacks.
 
 .. toctree::
    :maxdepth: 2
