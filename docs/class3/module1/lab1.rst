@@ -100,8 +100,8 @@ You will notice the various option you can select based on the prior architectur
    :width: 6.14167in
    :height: 0.76803in
 .. |image100| image:: /_static/DDoSMenu.PNG
-   :width: 1627
-   :height: 585
-   .. |image101| image:: /_static/GuidedConfig.PNG
-   :width: 1613
-   :height: 849   
+   :width: 1627px
+   :height: 585px
+.. |image101| image:: /_static/GuidedConfig.PNG
+   :width: 1613px
+   :height: 849px   
