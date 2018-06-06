@@ -18,6 +18,8 @@ that the following vectors are configured:
 
 |image35|
 
+
+
 - Click **Update** when finished.
 
 You will now launch the attacks and show the behavior
