@@ -10,12 +10,11 @@ Task 1 – Initial Set-up
 
 - Login to the BIG-IP Configuration Utility.
 
- .. NOTE:: When you first power up a F5 DHD device you would normally go through the
+.. NOTE:: When you first power up a F5 DHD device you would normally go through the
   steps of Licensing and Provisioning and basic set-up.  We have licensed, assigned the management
   IP, hostname, NTP and DNS servers for you.
 
-.. NOTE:: If you are familiar with the BIG-IP UI, You will notice the menus on the left are consolidated.
-This is an indication you are working with a DDoS Hybrid efender device.
+.. NOTE:: If you are familiar with the BIG-IP UI, You will notice the menus on the left are consolidated. This is an indication you are working with a DDoS Hybrid defender device.
 
 |image100|
 
@@ -101,8 +100,8 @@ You will notice the various option you can select based on the prior architectur
    :width: 6.14167in
    :height: 0.76803in
 .. |image100| image:: /_static/DDoSMenu.PNG
-   :width: 6.64028in
-   :height: 1.65186in
-.. |image101| image:: /_static/GuidedConfig.PNG
-   :width: 6.64028in
-   :height: 3.17847in
+   :width: 1627
+   :height: 585
+   .. |image101| image:: /_static/GuidedConfig.PNG
+   :width: 1613
+   :height: 849   
