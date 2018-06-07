@@ -1,11 +1,10 @@
-Lab 2 – Configuring Hybrid Defender DDoS Device protection
+Lab 2 – Configuring Hybrid Defender DDoS Device Protection
 ==========================================================
 
 Task 1 – Verify Communication Through the DHD Device.
 -----------------------------------------------------
 
-- **PuTTY** to the **BIG-IP CLI** (10.1.1.245) from your jumpbox desktop shortcut and resize window by
-  making it wider. You will be logged on as ``root``.
+- **PuTTY** to the **BIG-IP CLI** (10.1.1.245) from your jumpbox desktop shortcut and resize window by making it wider. You will be logged on as ``root``.
 
 - At the **config** prompt, type (or copy and paste) the following
   command:
@@ -25,9 +24,7 @@ The attacker can successfully communicate with a back-end resource behind the BI
 
 .. NOTE:: The listener for the ICMP packets is the VLAN group.
 
-- Cancel the ``ping`` command, then verify the ``tcpdump`` stops receiving
-  ICMP packets, and then press **Enter** several times to clear the
-  recent log entries.
+- Cancel the ``ping`` command, then verify the ``tcpdump`` stops receiving ICMP packets, and then press **Enter** several times to clear the recent log entries.
 
 Task 2 – Disable **Device-Level** DHD DoS Protection
 ----------------------------------------------------
@@ -36,7 +33,7 @@ Task 2 – Disable **Device-Level** DHD DoS Protection
 
 |image205|
 
-- On the left side of the page select the checkbox for **Bad Source**, **ICMPv4 flood**, **TCP SYN flood** and **UDP Flood**.
+- On the left side of the page select the checkbox for **ICMPv4 flood**, **TCP SYN flood** and **UDP Flood**.
 
 - At the bottom just below the last vector, chose the drop down **Set State** and then select **Disabled**.
 
@@ -58,11 +55,11 @@ Task 2 – Disable **Device-Level** DHD DoS Protection
 
 These are some of the different scripts we’ll be using during the exercises to simulate DoS attacks.
 
-- Type (or copy and paste) the following commands:
+- Type (or copy and paste) the following command:
 
   ``for i in {1..10}; do ./icmpflood.sh; done``
 
-This script launches 1,000,000 ICMP requests and then repeats for a total of ten occurrences.
+This script launches the Attack and then repeats for a total of ten occurrences.
 
 - View the ``tcpdump`` window and verify that ICMP attack traffic is reaching the back-end server.
 
@@ -70,7 +67,7 @@ This script launches 1,000,000 ICMP requests and then repeats for a total of ten
 
 - In the Configuration Utility, open the **DoS Configuration > DoS Overview (non HTTP)** page.
 
-- View the Protection Profile and results returned.
+- View the Protection Profile and notice no results are returned. We disabled those vectors.
 
 |image207|
 
@@ -78,7 +75,7 @@ This script launches 1,000,000 ICMP requests and then repeats for a total of ten
 
 |image208|
 
-- Notice what was observed. A Volumetric, Device-Wide attack based on PPS.
+- Notice no logs are captured.  We could have chosen **Learn Only** or **Detect Only** and had different results. If you want to test, feel free.
 
 Both of these locations we will return to throughout this course to see how our DHD is viewing these attacks.
 
@@ -89,17 +86,13 @@ In this task you will re-configure **device-level** DoS protection and then issu
 
 -  In the Configuration Utility, in the **DoS Configuration, Device Protection** section click **Network**.
 
-   |image35|
-
-- On the left side of the page select the checkbox for **Bad Source**, **ICMPv4 flood**, **TCP SYN flood** and **UDP Flood**.
+- On the left side of the page select the checkbox for **ICMPv4 flood**.
 
 - At the bottom just below the last vector, chose the drop down **Set State** and then select **Mitigate*.
 
 .. NOTE:: You have the option of Learn Only and Detect Only as well.
 
 -  Navigate back to the top of the window and Select **Commit Changes to System**
-
-.. NOTE:: Bad Source is enabled to be able to add the IP addresses to the blacklist.
 
 .. NOTE:: This returns the configuration back to factory supplied device level
       enforcement.
@@ -111,12 +104,12 @@ In this task you will re-configure **device-level** DoS protection and then issu
 .. |image206| image:: /_static/devicesettings.png
    :width: 1393px
    :height: 588px
-.. |image207| image:: /_static/DoSProtection.PNG
-   :width: 1849px
-   :height: 517px
-.. |image208| image:: /_static/networklogs1.png
-   :width: 1651px
-   :height: 566px
+.. |image207| image:: /_static/ddosnomitigation.png
+   :width: 1629px
+   :height: 399px
+.. |image208| image:: /_static/eventlognoevents.png
+   :width: 1637px
+   :height: 412px
 .. |image209| image:: /_static/CommitChanges.PNG
    :width: 1643px
    :height: 404px
