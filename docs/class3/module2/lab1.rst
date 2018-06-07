@@ -4,39 +4,39 @@ Lab 3 – Start Baseline Traffic Generation
 Task 1 – Create Protected Objects that the baseline traffic will be targeting
 -----------------------------------------------------------------------------
 
--  In the BIG-IP Configuration Utility, open the **DoS Protection>>Quick
-   Configuration** page and in the **Protected Objects** section click
-   **Create**.
+The DHD device wide protection is enforced for all traffic flowing through the device. For more granular
+control, we use **Protected Objects** and configure mitigation settings for those objects to be enforced.
 
--  Configure a protected object using the following information, and
-   then click **Create**.
+In this task you will configure **object-level** DoS protection, and then issue an attack and review the results.
+
+-  In the BIG-IP Configuration Utility, open the **DoS Configuration>> Pritected Objects** page and in the **Protected Objects** section click the
+   **Create** dropdown and select **Protected Object"
+
+|image210|
+
+-  Configure the Protected Object using the following information, and then click **Create**.
 
    +------------------------+--------------------+
    | Name                   | Server5            |
    +========================+====================+
-   | IP Address             | 10.1.20.15         |
+   | Destination Address    | 10.1.20.15         |
    +------------------------+--------------------+
-   | Port                   | \*                 |
+   | Port                   | \* All Ports       |
    +------------------------+--------------------+
    | Protocol               | All Protocols      |
    +------------------------+--------------------+
-   | VLAN                   | Any                |
+   | Protection Profile:    | dos                |
    +------------------------+--------------------+
-   | Protection Settings:   | Log and Mitigate   |
-   | Action                 |                    |
+   | Eviction Policy:       | DHD_EvictPol       |
    +------------------------+--------------------+
-   | Protection Settings:   | (un-selected)      |
-   | Silverline             |                    |
+   | VLAN(s):               | defaultVLAN        |
    +------------------------+--------------------+
-   | Protection Settings:   | IPv4, TCP          |
-   | DDoS Settings          |                    |
+   | Logging Profiles:      | local-dos          |
    +------------------------+--------------------+
 
-   |image29|
+- Click **Save**
 
--  This protected object will be used for the Auto-Thresholding lab.
-
-   |image30|
+   -  This protected object will be used for the Auto-Thresholding lab.
 
 Task 2 – Run Scripts to start L4 traffic generation – Good Traffic
 ------------------------------------------------------------------
@@ -55,9 +55,9 @@ Task 2 – Run Scripts to start L4 traffic generation – Good Traffic
       # cd ~/scripts
       # ./baseline_l4.sh
 
-.. |image29| image:: /_static/class2/image31.png
-   :width: 5.15178in
-   :height: 4.97569in
+.. |image210| image:: /_static/protectedobject.png
+   :width: 1641px
+   :height: 366px
 .. |image30| image:: /_static/class2/image32.png
    :width: 5.30972in
    :height: 0.45031in
