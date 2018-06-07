@@ -8,7 +8,9 @@ Task 1 – Initial Set-up
 
 - Open the Chrome web browser and access the DHD from the toolbar shortcut.
 
-- Login to the BIG-IP Configuration Utility.
+- Login to the BIG-IP Configuration Utility using the Admin account.
+
+|image200|
 
 .. NOTE:: When you first power up a F5 DHD device you would normally go through the
   steps of Licensing and Provisioning and basic set-up.  We have licensed, assigned the management
@@ -16,21 +18,11 @@ Task 1 – Initial Set-up
 
 .. NOTE:: If you are familiar with the BIG-IP UI, You will notice the menus on the left are consolidated. This is an indication you are working with a DDoS Hybrid defender device.
 
-|image100|
+|image201|
 
-  +----------------------------------------+--------------------------+
-  | Host Name                              | <your name>.f5demo.com   |
-  +========================================+==========================+
-  | Root Account (Password and Confirm)    | f5DEMOs4u                |
-  +----------------------------------------+--------------------------+
-  | Admin Account (Password and Confirm)   | f5DEMOs4u                |
-  +----------------------------------------+--------------------------+
+  - Explore the **Resource Provisioning** page
 
-- This will log you out. Log back in
-
-  |image6|
-
-- Click **Next** and explore **Resource Provisioning** page
+|image202|
 
 .. NOTE:: The above task ensures that you are using a purpose built
   DDoS Hybrid Defender.  If you are familiar with other
@@ -43,15 +35,15 @@ Task 1 – Initial Set-up
 Task 2 – DDoS Hybrid Defender Base Configuration
 ---------------------------------------------------------
 
-- The architecture and design decsions should have been made already.
-Based on F5 recommendations we are going to deploy this device in L2 Transparent Mode.
-
-|image101|
+- The architecture and design decisions should have been made already. Based on F5 recommendations we are going to deploy this device in L2 Transparent Mode.
 
 - Click Network Setup in the left hand menu. Then Select Topology.
-You will notice the various option you can select based on the prior architecture decisions.
+- You will notice the various options you can select based on the prior architecture decisions.
+- For this classes purpose Click on the VLAN Group image.
 
-- Click **Create** om the upper right side.
+|image203|
+
+- Click **Create** on the upper right side.
 
 - Fill out the information from the table below.
 
@@ -61,7 +53,7 @@ You will notice the various option you can select based on the prior architectur
   **Done Editing**.
 
   +-----------------------+----------------------------------+
-  | \ **Internal:         | 20                               |
+  | **Internal:           | 20                               |
   | VLAN Tag**            |                                  |
   +=======================+==================================+
   | **Internal:           | 1.2 Untagged                     |
@@ -77,21 +69,12 @@ You will notice the various option you can select based on the prior architectur
   | Interfaces**          |                                  |
   +-----------------------+----------------------------------+
 
-  |image18|
-
-- At the bottom of the page click **Finished** to create the default
+  - At the bottom of the page click **Finished** to create the default
   network.
 
-- Open the **Network > DNS Resolvers > DNS Resolver** list page and
-  click **Create**.
+  |image204|
 
-- Enter default\_DNS\_resolver and then click **Finished**.
-
-- A DNS resolver is required by bot signatures to allow for proper
-  detection of benign search engines such as Google and Bing.
-
-
-
+This completes the intital Network Set-Up of DHD
 
 .. |image6| image:: /_static/image8.png
    :width: 6.64028in
@@ -99,9 +82,18 @@ You will notice the various option you can select based on the prior architectur
 .. |image18| image:: /_static/image20.png
    :width: 6.14167in
    :height: 0.76803in
-.. |image100| image:: /_static/DDoSMenu.PNG
+.. |image201| image:: /_static/DDoSMenu.PNG
    :width: 1627px
    :height: 585px
-.. |image101| image:: /_static/GuidedConfig.PNG
+.. |image203| image:: /_static/GuidedConfig.PNG
    :width: 1613px
-   :height: 849px   
+   :height: 849px
+.. |image200| image:: /_static/logon.png
+   :width: 701px
+   :height: 462px
+.. |image202| image:: /_static/ResourceProvisioning.PNG
+   :width: 1310px
+   :height: 828px
+ .. |image204| image:: /_static/VLAN Groups.PNG
+      :width: 1567px
+      :height: 404px
