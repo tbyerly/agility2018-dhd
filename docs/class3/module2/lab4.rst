@@ -1,4 +1,4 @@
-Lab 8 – Configuring L7 Attack Protection
+Lab 4 – Configuring L7 Attack Protection
 ========================================
 
 In this exercise we will use a protected object and enforce mitigation

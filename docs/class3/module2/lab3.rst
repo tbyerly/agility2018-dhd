@@ -1,98 +1,61 @@
-Lab 6 – Using Auto Thresholding
+Lab 3 – Using Auto Thresholding
 ===============================
 
-This exercise will simulate a newly configured Protected Object where
-the security administrator is unsure what values to assign to a few
-common vectors. Note that auto-thresholding is useful at both the Device
-and Protected Object levels.
+This exercise will simulate a newly configured Protected Object where the security administrator is unsure what values to assign to a few
+common vectors. Note that auto-thresholding is useful at both the Device and Protected Object levels.
 
-.. NOTE:: This demo may place significant stress on the demo environment.
-   This may make the DHD UI less responsive. This is unavoidable since for
-   auto-thresholding to block, the attack must be damaging enough to cause
-   stress, which will push the CPU on the Virtual Environment very high.
-   Remember that this is a virtual environment with minimal resources for
-   lab under high stress and that the Hybrid Defender appliances mitigate
+.. NOTE:: This demo may place significant stress on the demo environment. This may make the DHD UI less responsive. This is unavoidable since for
+   auto-thresholding to block, the attack must be damaging enough to cause stress, which will push the CPU on the Virtual Environment very high.
+   Remember that this is a virtual environment with minimal resources for lab under high stress and that the Hybrid Defender appliances mitigate
    these attacks in dedicated hardware.
 
 Task 1 – Configure Auto Thresholding
 ------------------------------------
 
--  On the **Good Client**, if you have not already done so, start the
-   network baselining. This step is needed if you didn’t start the good
-   traffic generation in Exercise 3 or accidently stopped it.
+-  On the **Good Client**, if you have not already done so, start the network baselining. This step is needed if you didn’t start the good
+   traffic generation in Exercise 2 or accidently stopped it.
 
-   .. code-block:: console
+.. code-block:: console
 
       # cd ~/scripts
       # ./baseline_l4.sh
 
--  In the Hybrid Defender UI, in Quick Configuration, select the **Server5** Protected Object and verify that the IPv4 and TCP vectors are all at default thresholds with auto-threshold disabled:
+-  In the Hybrid Defender UI, in Dos Configuration >> Device Protection, **Click** Auto Threshold **Start Relearning**
 
-   +----------------------------+-------------+
-   | Setting                    | Value       |
-   +============================+=============+
-   | All Detection Thresholds   | 30000 pps   |
-   +----------------------------+-------------+
-   | All Rate Limits            | Infinite    |
-   +----------------------------+-------------+
-   | Auto Thresholding          | Disabled    |
-   +----------------------------+-------------+
+|image51|
 
-   |image51|
+In the Hybrid Defender WebUI, in the **Server5** Protected Object configuration, enable auto-thresholding for the following vectors:
+**ICMPv4 Flood, TCP SYN Flood, TCP Push Flood, TCP RST Flood, TCP SYN ACK Flood** by selecting each vector and **clicking the Set Threshold
+drop down and selecting **Fully Automatic**. When all vectors are configured, Go back to the top and Select **Commit Changes to System
 
--  In the Hybrid Defender CLI (BIGIP ssh window), restart
-   auto-thresholding:
+-  In the Hybrid Defender WebUI, view the Auto Threshold event log by navigating to **Visibility>>Event Logs>>DoS>>Network>>Auto Threshold**.
 
-   .. code-block:: console
+|image52|
 
-      # tmsh run security dos device-config auto-threshold-relearn
-      # tmsh run security dos virtual name Server5 auto-threshold-relearn
-
-In the Hybrid Defender WebUI, in the **Server5** Protected Object
-configuration, enable auto-thresholding for the following vectors:
-**ICMPv4 Flood, TCP SYN Flood, TCP Push Flood, TCP RST Flood, TCP SYN
-ACK Flood** by selecting each vector and **clicking the Auto-Threshold
-Configuration radio button**. When all vectors are configured, click
-**Update** at the bottom of the screen.
-
--  In the Hybrid Defender WebUI, view the Auto Threshold event log by
-   navigating to **Security>>Event Logs>>DoS>>Network>>Auto Threshold**.
-
-   |image52|
-
-The system is updating the detection thresholds. With auto-thresholding,
-the system adjusts the detection thresholds based on observed traffic
-patterns. However, mitigation rate limits are always dynamic based on
-detected system or protected object stress. If anomalous levels of
-traffic are running, but there is no stress, the Hybrid Defender will
-generate alerts but will not block traffic. Under stress, the rate
+The system is updating the detection thresholds. With auto-thresholding, the system adjusts the detection thresholds based on observed traffic patterns.
+However, mitigation rate limits are always dynamic based on detected system or protected object stress. If anomalous levels of
+traffic are running, but there is no stress, the Hybrid Defender will generate alerts but will not block traffic. Under stress, the rate
 limits are automatically created and adjusted dynamically.
 
 Task 2 – Create Stress to trigger Auto Thresholding and view Reports
 --------------------------------------------------------------------
 
--  Let’s create some stress with a Flood attack. In the **Attacker** CLI
-   start the auto-threshold flood:
+-  Let’s create some stress with a Flood attack. In the **Attacker** CLI start the auto-threshold flood:
 
-   .. code-block:: console
+  .. code-block:: console
 
-      # cd ~/scripts
-      # ./autot_flood.sh
+    # cd ~/scripts
+    # ./autot_flood.sh
 
-   This is a long duration attack. You can terminate it with Ctrl+C when
-   finished.
+This is a long duration attack. You can terminate it with Ctrl+C when finished.
 
--  In the Hybrid Defender WebUI, review the Auto Threshold event log.
-   You will see that Rate limits are being automatically set and
-   adjusted to mitigate the flood attack.
+-  In the Hybrid Defender WebUI, review the Auto Threshold event log.  You will see that Rate limits are being automatically set and
+adjusted to mitigate the flood attack.
 
-   |image53|
+|image53|
 
--  In the Hybrid Defender WebUI, view the DoS Overview. Note that the
-   ICMP Flood attack is being mitigated and the rate limit thresholds
-   for each of the auto-threshold vectors have been adjusted based on
-   stress, including vectors that are not detecting or blocking an
-   attack.
+-  In the Hybrid Defender WebUI, view the DoS Overview. Note that the ICMP Flood attack is being mitigated and the rate limit thresholds
+ for each of the auto-threshold vectors have been adjusted based on stress, including vectors that are not detecting or blocking an attack.
 
    |image54|
 
@@ -134,12 +97,12 @@ Task 2 – Create Stress to trigger Auto Thresholding and view Reports
 -  **Clean-up**: Stop the baseline traffic generation from the
    **good-client** if still running using CTRL+C
 
-.. |image51| image:: /_static/class2/image52.png
-   :width: 5.30972in
-   :height: 3.63532in
-.. |image52| image:: /_static/class2/image53.png
-   :width: 5.30972in
-   :height: 1.23126in
+.. |image51| image:: /_static/DeviceProtection.PNG
+   :width: 1887px
+   :height: 779px
+.. |image52| image:: /_static/autothreshold.png
+   :width: 1662px
+   :height: 452px
 .. |image53| image:: /_static/class2/image54.png
    :width: 5.30972in
    :height: 2.24436in

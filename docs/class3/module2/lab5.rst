@@ -1,4 +1,4 @@
-Lab 9 – Configuring L7  Behavioral Attack Protection
+Lab 5 – Configuring L7  Behavioral Attack Protection
 ====================================================
 
 In this exercise we will use a protected object and show how behavioral DDoS works.
