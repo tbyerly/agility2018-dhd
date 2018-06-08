@@ -1,114 +1,160 @@
-Lab 5 - Bad Actor Detection Demo
-================================
+Lab 6 – Using Auto Thresholding
+===============================
 
-In this demo you will run an attack from specific IP addresses. The
-Hybrid Defender will be configured to perform bad actor detection, limit
-the attack on a per-IP basis with more aggressive thresholds and then,
-based on this detection, automatically blacklist the offending IP
-address adding them to the (hardware-accelerated) dynamic blacklist.
+This exercise will simulate a newly configured Protected Object where
+the security administrator is unsure what values to assign to a few
+common vectors. Note that auto-thresholding is useful at both the Device
+and Protected Object levels.
 
-Task 1 - Open the following tabs in the DHD UI
-----------------------------------------------
+.. NOTE:: This demo may place significant stress on the demo environment.
+   This may make the DHD UI less responsive. This is unavoidable since for
+   auto-thresholding to block, the attack must be damaging enough to cause
+   stress, which will push the CPU on the Virtual Environment very high.
+   Remember that this is a virtual environment with minimal resources for
+   lab under high stress and that the Hybrid Defender appliances mitigate
+   these attacks in dedicated hardware.
 
--  **DoS Protection->Quick Configuration->ServerNet**
+Task 1 – Configure Auto Thresholding
+------------------------------------
 
--  **Security->DoS Protection->DoS Overview** (leave filter at default:
-   “DoS Attack”)
+-  On the **Good Client**, if you have not already done so, start the
+   network baselining. This step is needed if you didn’t start the good
+   traffic generation in Exercise 3 or accidently stopped it.
 
--  **Statistics->DoS Visibility**
+   .. code-block:: console
 
--  **Security->Event Logs->Network->IP Intelligence**
+      # cd ~/scripts
+      # ./baseline_l4.sh
 
-Task 2 – Configure the following UDP Flood vectors for ServerNet
-----------------------------------------------------------------
+-  In the Hybrid Defender UI, in Quick Configuration, select the **Server5** Protected Object and verify that the IPv4 and TCP vectors are all at default thresholds with auto-threshold disabled:
 
-- **DoS Protection->Quick Configuration->ServerNet**
+   +----------------------------+-------------+
+   | Setting                    | Value       |
+   +============================+=============+
+   | All Detection Thresholds   | 30000 pps   |
+   +----------------------------+-------------+
+   | All Rate Limits            | Infinite    |
+   +----------------------------+-------------+
+   | Auto Thresholding          | Disabled    |
+   +----------------------------+-------------+
 
-Set the following:
-  DDoS Settings: UDP, Sweep
+   |image51|
 
-  - Click **UDP Flood**
+-  In the Hybrid Defender CLI (BIGIP ssh window), restart
+   auto-thresholding:
 
-    - Detection Threshold PPS: 1000
+   .. code-block:: console
 
-    - Detection Threshold Percent: 500
+      # tmsh run security dos device-config auto-threshold-relearn
+      # tmsh run security dos virtual name Server5 auto-threshold-relearn
 
-    - Rate Limit: 2000
+In the Hybrid Defender WebUI, in the **Server5** Protected Object
+configuration, enable auto-thresholding for the following vectors:
+**ICMPv4 Flood, TCP SYN Flood, TCP Push Flood, TCP RST Flood, TCP SYN
+ACK Flood** by selecting each vector and **clicking the Auto-Threshold
+Configuration radio button**. When all vectors are configured, click
+**Update** at the bottom of the screen.
 
-  - Bad Actor Detection - Check
+-  In the Hybrid Defender WebUI, view the Auto Threshold event log by
+   navigating to **Security>>Event Logs>>DoS>>Network>>Auto Threshold**.
 
-    - Per Source IP Detection PPS: 100
+   |image52|
 
-    - Per Source IP Rate Limit PPS: 2000
+The system is updating the detection thresholds. With auto-thresholding,
+the system adjusts the detection thresholds based on observed traffic
+patterns. However, mitigation rate limits are always dynamic based on
+detected system or protected object stress. If anomalous levels of
+traffic are running, but there is no stress, the Hybrid Defender will
+generate alerts but will not block traffic. Under stress, the rate
+limits are automatically created and adjusted dynamically.
 
-  - Blacklist Attacking Address
+Task 2 – Create Stress to trigger Auto Thresholding and view Reports
+--------------------------------------------------------------------
 
-    - Detection Time: 15
+-  Let’s create some stress with a Flood attack. In the **Attacker** CLI
+   start the auto-threshold flood:
 
-    - Duration: 120
+   .. code-block:: console
 
-  |image40|
+      # cd ~/scripts
+      # ./autot_flood.sh
 
-- Click **Update** when finished.
+   This is a long duration attack. You can terminate it with Ctrl+C when
+   finished.
 
-- Access the **Attacker** system CLI and run the UDP flood attack:
+-  In the Hybrid Defender WebUI, review the Auto Threshold event log.
+   You will see that Rate limits are being automatically set and
+   adjusted to mitigate the flood attack.
 
-  .. code-block:: console
+   |image53|
 
-     # cd ~/scripts
-     # ./udp_flood.sh
+-  In the Hybrid Defender WebUI, view the DoS Overview. Note that the
+   ICMP Flood attack is being mitigated and the rate limit thresholds
+   for each of the auto-threshold vectors have been adjusted based on
+   stress, including vectors that are not detecting or blocking an
+   attack.
 
-  From the menu, select ‘1’ to start the attack
+   |image54|
 
-  .. code-block:: console
+   |image55|
 
-     root@attacker-a:~/scripts# ./udp_flood.sh
+-  Select the filter type to **Virtual Server (DoS protected)** and
+   **Server5** and view how various thresholds are dynamically adjusted
+   based on the stress.
 
-     1)Attack start
-     2)Attack end
-     3)Quit
+   |image56|
 
-     # ?
+-  Terminate the attack in the Attacker CLI with Ctrl+C.
 
-.. NOTE:: This attack is relatively short-lived. You can launch it
-   again if the attack ends and you are not finished viewing the various
-   reports. Simply type ‘1’ again, to re-run the attack.
+-  After the attack has ended, in the Hybrid Defender WebUI, navigate to
+   the DoS Visibility page. Under Vectors, select ICMPv4 Flood. View
+   various details.
 
-- In the Hybrid Defender UI, show the **Security > DoS Protection >DoS Overview** page. Note the blocks by Bad Actor.
+   |image57|
 
-  |image41|
+-  **Clean-up**: On the Attacker CLI, if the attack is still running
+   be certain to end it with Ctrl-C.
 
-- In the Hybrid Defender UI, show the **Security > Event Logs > Network >
-  IP Intelligence** Event Logs. Note the IP addresses that are being
-  added to the denial\_of\_service blacklist.
+-  **Clean-up**: For repeatability, it is necessary to disable the
+   auto-thresholding for the **ICMPv4 Flood, TCP RST Flood, TCP Push
+   Flood, TCP SYN ACK Flood** and **TCP SYN Flood** vectors on the
+   **Server5** protected object. **Switch them back to Manual
+   Configuration.**
 
-  |image42|
+   |image58|
 
-- In the Hybrid Defender WebUI, show the **Statistics >** **DoS
-  Visibility**. Expand the Vectors inspector and select UDP Flood. When
-  it updates, select a flood from the timeline. Note in the Attacks
-  panel the #IPs blocked is 10.
+-  **Clean-up**: After disabling auto-thresholding, clear the learning
+   on the Hybrid Defender CLI with:
 
-  |image43|
+   .. code-block:: console
 
-From the menu, select ‘2’ to end the attack
+      # tmsh run security dos device-config auto-threshold-relearn
+      # tmsh run security dos virtual name Server5 auto-threshold-relearn
 
-or
+-  **Clean-up**: Stop the baseline traffic generation from the
+   **good-client** if still running using CTRL+C
 
-.. code-block:: console
-
-   # sudo bash
-   # killall -9 hping3
-
-.. |image40| image:: /_static/image42.png
-   :width: 6.54028in
-   :height: 3.96667in
-.. |image41| image:: /_static/image43.png
-   :width: 6.55417in
-   :height: 1.14653in
-.. |image42| image:: /_static/image44.png
-   :width: 6.55428in
-   :height: 1.89375in
-.. |image43| image:: /_static/image45.png
-   :width: 6.58750in
-   :height: 6.24028in
+.. |image51| image:: /_static/class2/image52.png
+   :width: 5.30972in
+   :height: 3.63532in
+.. |image52| image:: /_static/class2/image53.png
+   :width: 5.30972in
+   :height: 1.23126in
+.. |image53| image:: /_static/class2/image54.png
+   :width: 5.30972in
+   :height: 2.24436in
+.. |image54| image:: /_static/class2/image55.png
+   :width: 5.30972in
+   :height: 1.32482in
+.. |image55| image:: /_static/class2/image56.png
+   :width: 5.30972in
+   :height: 1.30599in
+.. |image56| image:: /_static/class2/image57.png
+   :width: 5.30972in
+   :height: 2.71126in
+.. |image57| image:: /_static/class2/image58.png
+   :width: 5.30972in
+   :height: 2.48122in
+.. |image58| image:: /_static/class2/image59.png
+   :width: 2.31293in
+   :height: 2.81771in

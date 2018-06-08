@@ -101,9 +101,9 @@ In this task you will re-configure **device-level** DoS protection and then issu
 .. |image205| image:: /_static/DeviceProtection.PNG
    :width: 1887px
    :height: 779px
-.. |image206| image:: /_static/devicesettings.png
-   :width: 1393px
-   :height: 588px
+.. |image206| image:: /_static/SetState.PNG
+   :width: 1448px
+   :height: 298px
 .. |image207| image:: /_static/ddosnomitigation.png
    :width: 1629px
    :height: 399px

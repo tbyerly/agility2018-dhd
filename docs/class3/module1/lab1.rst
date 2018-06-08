@@ -22,7 +22,7 @@ Task 1 – Initial Set-up
 
 - If you need to access more options, there  is a shortcut at the bottom of the Menu page.
 
-|image210|
+|image211|
 
 - Explore the **Resource Provisioning** page
 
@@ -47,13 +47,11 @@ The architecture and design decisions should have been made already. Based on F5
 
 - Click **Create** on the upper right side.
 
-- Fill out the information from the table below.
+- Fill out the information from the table below. Then Click **Done Editing** within that section.
 
-- In the VLAN Group Name fill in **defaultVLAN**.
-
-- Configure the VLANs using following information, and then click
-  **Done Editing** within that section.
-
+  +-----------------------+----------------------------------+
+  | **VLAN Group:         | defaultVlan                      |
+  |                       |                                  |
   +-----------------------+----------------------------------+
   | **Internal:           | 20                               |
   | VLAN Tag**            |                                  |
@@ -68,10 +66,10 @@ The architecture and design decisions should have been made already. Based on F5
   | Interfaces**          |                                  |
   +-----------------------+----------------------------------+
 
+|image204|
+
   - At the bottom of the page click **Finished** to create the default
   network.
-
-  |image204|
 
 This completes the intital Network Set-Up of DHD.
 
@@ -84,10 +82,10 @@ This completes the intital Network Set-Up of DHD.
 .. |image200| image:: /_static/logon.png
    :width: 701px
    :height: 462px
-.. |image202| image:: /_static/resourceprovisioning.png
+.. |image202| image:: /_static/ResourceProvisioning.PNG
    :width: 1310px
    :height: 828px
-.. |image210| image:: /_static/advancedmenu.png
+.. |image211| image:: /_static/advancedmenu.png
    :width: 261px
    :height: 474px
 .. |image204| image:: /_static/defaultVLANnoip.png

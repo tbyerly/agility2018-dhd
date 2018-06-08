@@ -48,8 +48,8 @@ You will now launch the attacks and show the behavior
 
 - Open the following tabs in the DHD UI (Duplicate Tabs to make it easier):
 
-- **DoS Configuration >> DoS Overview->ServerNet**
-- **Visibility >> Dashboard**
+- **DoS Configuration >> DoS Overview >> Filer Type >> Try Both DoS Attack and Device Dos**
+- **Visibility >> Dashboard** Change Dashboard to **Real Time** Centered on the timeline.
 - **Visibility >> Event Logs >> DoS >> Network >> Events**
 
 - Access the **Attacker** shell and run the following commands/attack (if already in the folder just issue the command)
@@ -59,19 +59,18 @@ You will now launch the attacks and show the behavior
     # cd ~/scripts
     # ./multivector.sh
 
-- Click **Refresh** on the DoS Overview page. You will see some attacks mitigated by **Device Configuration** and some mitigated by the more specific settings on the **ServerNet Protected Object**.
+- Click **Refresh** on the DoS Overview page. Look at Explore both **DoS Attack and Device Dos**
 
-  |image36|
+|image36|
+|image37|
 
-Navigate to **Security->Event Logs->DoS->Network->Events**.
+Navigate to **Visibility >> Dashboard**. Explore the amount of rich data returned.
 
-- Click on “custom search…” link.
+|image38|
 
-- Drag one of the values from the “Attack Type” column into the custom
-  search builder. From the Action column, drag Drop into the search
-  builder. Click “Search”.
+Navigate to **Visibility >> Event Logs >> DoS >> Network >> Events**
 
-  |image37|
+|image39|
 
 - Further explore the DoS Event logs. For example, clear the search and identify the “Stop” and “Start” times for an attack, etc.
 
@@ -79,30 +78,15 @@ Navigate to **Security->Event Logs->DoS->Network->Events**.
    :width: 1641px
    :height: 366px
    :height: 4.36042in
-.. |image36| image:: /_static/image38.png
-   :width: 6.41389in
-   :height: 1.87424in
-.. |image37| image:: /_static/image39.png
-   :width: 6.41389in
-   :height: 2.26358in
-.. |image38| image:: /_static/image40.png
-   :width: 6.41389in
-   :height: 1.06667in
-.. |image39| image:: /_static/image41.png
-   :width: 6.41389in
-   :height: 3.65347in
-.. |image30| image:: /_static/image32.png
-   :width: 6.20151in
-   :height: 1.49784in
-.. |image31| image:: /_static/image33.png
-   :width: 3.26695in
-   :height: 0.70006in
-.. |image32| image:: /_static/image34.png
-   :width: 2.28106in
-   :height: 0.68981in
-.. |image33| image:: /_static/image35.png
-   :width: 4.90177in
-   :height: 0.96655in
-.. |image34| image:: /_static/image36.png
-   :width: 3.06463in
-   :height: 0.92886in
+.. |image36| image:: /_static/multivectordos.png
+   :width: 1611px
+   :height: 430px
+.. |image37| image:: /_static/multivector.png
+   :width: 1629px
+   :height: 616px
+.. |image38| image:: /_static/multivectordashboard.png
+   :width: 1620px
+   :height: 819px
+.. |image39| image:: /_static/multivectoreventlogs.png
+   :width: 1644px
+   :height: 594px

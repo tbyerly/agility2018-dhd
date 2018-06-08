@@ -1,8 +1,7 @@
-Lab 8 – Configuring L7 Attack Protection
-========================================
+Lab 9 – Configuring L7  Behavioral Attack Protection
+====================================================
 
-In this exercise we will use a protected object and enforce mitigation
-for low and slow/encrypted layer 7 attacks.
+In this exercise we will use a protected object and show how behavioral DDoS works.
 
 Task 1 – Create Protected Object and Launch Attack
 --------------------------------------------------
@@ -15,146 +14,142 @@ Task 1 – Create Protected Object and Launch Attack
    then click **Create**.
 
    +------------------------+-----------------------------+
-   | Name                   | Server1                     |
+   | Name                   | Auction                     |
    +========================+=============================+
-   | IP Address             | 10.1.20.11                  |
+   | IP Address             | 10.1.20.101                 |
    +------------------------+-----------------------------+
-   | Port                   | 443                         |
+   | Port / Protocol        | 80  TCP                     |
    +------------------------+-----------------------------+
    | VLAN (Selected)        | defaultVLAN (uncheck ANY)   |
    +------------------------+-----------------------------+
    | Protection Settings:   | Log and Mitigate            |
    | Action                 |                             |
    +------------------------+-----------------------------+
-   | Protection Settings:   | Yes (selected)              |
-   | Silverline             |                             |
-   +------------------------+-----------------------------+
-   | Protection Settings:   | IPv4, TCP                   |
+   | Protection Settings:   | HTTP                        |
    | DDoS Settings          |                             |
    +------------------------+-----------------------------+
 
-   |image72|
+- Make sure **Auction** is with a capital "A".
 
--  Launch attacks without any layer 7 protection configured
+- Under the HTTP section make the following adjustments:
 
--  Open the following in separate tabs in the Hybrid Defender WebUI:
+  - Set Behavioral to Standard Protection.
 
--  **DoS Protection>>Quick Configuration**
+  - Make sure you check "Request Signature Detection"
 
--  **Security>>Reporting>>DoS>>Analysis**
+  - Set Proactive Bot Defense to "Disabled"
 
--  From a **Firefox browser** go to https://10.1.20.11. Ignore SSL
-   warning and Add Exception.
+  - Set DOS tool to "Report"
 
-.. NOTE:: This bypasses the Hybrid Defender and accesses the server directly,
-   showing the availability and/or performance of the site directly. Click around a few links.
-   This is the site we will launch an attack against and mitigate.
+  |image96|
 
--  Verify that the configuration is providing no L7 protections by
-   taking the server offline with a slowloris attack. Note that apache
-   will try to clean up the slow flows, but they will do so
-   inefficiently and the server is impacted (which will show as an
-   outage, missing objects and/or slower responsiveness). Run the
-   slowloris attack from the Attacker CLI:
+- When finished click **Create**
 
-   .. code-block:: console
+- From the Good Client CLI, issue the following command.
 
-      # cd ~/scripts
-      # ./slowloris.sh
+  .. code-block:: console
 
-   The tool will rapidly show the site offline (10-15 seconds, with trivial
-   traffic load):
+    ~/scripts/generate_clean_traffic.sh
 
-   |image73|
+  .. NOTE::  This will need to run for approximately 10 minutes.
 
--  Refresh https://10.1.20.11 to show the effects of the attack. [Note
-   that since we are running locally from the Win7 system in a
-   virtualized environment, you may be able to access the site, however
-   it will be slower and often the GIFs will not load. An internet user
-   would not be able to “fight through” the attack to get to the server
-   as often as a system on the local LAN.]
+- From the DHD CLI issue the following commands:
 
--  Stop the slowloris attack by using CTRL+C.
+  .. code-block:: console
 
--  Start a more effective Slow Read attack.
+     #/root/scripts/l7bdos-reset.sh
+     #/root/scripts/l7-mon.sh
 
-   This attack is harder for DoS mitigation tools to mitigate and can be
-   very effective even with a tiny number of concurrent connections
-   trickling in very slowly to the server to fly below the radar of network
-   detections. In our example we will open 10 connections per second and
-   read the response data at 1 byte / sec. The attack would be effective
-   even at 1 cps, it would just take a bit longer to build up the
-   connections.
+- Monitor the window.  When you see the following number go to 100, you will move on.
 
--  From the **Attacker** CLI/shell start the slowread attack:
+  |image91|
 
-   .. code-block:: console
+- The health of the Protected Object will be shown. In general, a healthy system will show a value around .45. If the value is .5 consistently, then for some reason no learning is occurring and you should check your configuration and verify that baselining traffic is hitting the protected object in  question.
 
-      # cd ~/scripts
-      # ./slowread.sh
+- If the system has detected and is mitigating and attack, or not. This will show in the output of ‘info.attack’ signal. The two numbers in brackets indicate if there is an attack (1 = yes, 0 = no) and if the system is mitigating that attack (1 = yes, 0 = no).
 
-   |image74|
+- The output will also include the ‘info.learning’ signal, which includes 4 comma-separated values that show the status of the admd behavioral dos learning:
 
-As soon as the site is down (service available: NO), refresh
-https://10.1.20.11 to show that it is down/slow/intermittent.
+  |image99|
 
-Task 2 – Configure Protection/Mitigation, launch attack and view reports
-------------------------------------------------------------------------
+  - signal values: [baseline_learning_confidence, learned_bins_count , good_table_size , good_table_confidence]
 
--  In the Hybrid Defender WebUI, access the **Server1** Protected
-   Object.
+  - baseline learning_confidence in % - How confident the system is in the baseline learning.
 
--  Enable SSL.
+    - This should be between 80% - 90%
 
--  Select the default certificate and key. In your environment you would
-   select a valid/cert key for your application.
+  - learned_bins_count - number of learned bins
 
--  Enable ‘\ **Encrypt Session to Server**\ ’ to avoid any server
-   reconfiguration.
+    - This should be > 0
 
--  Enable the **HTTPS** mitigation family.
+  - good_table_size - number of learned requests
 
--  Click **Update**.
+    - This should be > 4000
 
-   |image75|
+  - good_table_confidence - how confident, as a percentage, the system is in the good table.
 
--  View the Attacker CLI/shell. The slow read attack is now no longer
-   showing the site as down (service available: YES) because Proactive
-   Bot Detection has mitigated the attack.
+    - It must be 100% for behavioral signatures.
 
-   |image76|
+- From the Attacker CLI issue the following command:
 
--  Refresh https://10.1.20.11 to see that the site behavior has returned
-   to normal.
+  .. code-block:: console
 
--  You were able to mitigate an encrypted layer 7 attack quickly and
-   with only a few simple steps.
+     ~/scripts/http_flood.sh
 
--  In the Hybrid Defender WebUI, view various reports in the
-   **Security>>Reporting>>DoS>>Analysis**
+  |image92|
 
--  **HTTP Report (Scroll towards the bottom) shows Proactive
-   Mitigation**.
+- Choose option **1**, "Attack Auction"
 
-   |image77|
+- You will see the attack start in the DHD SSH window:
 
--  Stop the Slow Read attack by using CTRL+C.
+  |image93|
 
-.. |image72| image:: /_static/class2/image73.png
-   :width: 5.30972in
-   :height: 4.87068in
-.. |image73| image:: /_static/class2/image74.png
-   :width: 3.76233in
-   :height: 3.28646in
-.. |image74| image:: /_static/class2/image75.png
-   :width: 5.30972in
-   :height: 4.10714in
-.. |image75| image:: /_static/class2/image76.png
-   :width: 5.30972in
-   :height: 3.07640in
-.. |image76| image:: /_static/class2/image77.png
-   :width: 4.94792in
-   :height: 4.12023in
-.. |image77| image:: /_static/class2/image78.png
-   :width: 5.30972in
-   :height: 1.25578in
+- In addition you will see the good client start returning a status of 000 as it is unresponsive. It no longer returns a Status 200. Until the DHD starts mitigation.
+
+  |image97|
+
+- Once the DHD has enough data a Stable Signature is detected.
+
+  |image98|
+
+- Let this run for 2 minutes.  Stop the attack by pressing "Enter"" a couple of times in the **Attacker** window the choosing option "3" to stop the "Attack"
+
+  .. NOTE:: The DHD does not record the end of the attack right away, it is very conservative, therefore you may have to wait 5 minutes to see the results.
+
+  |image94|
+
+- You can see in the top-left that a Behavioral Signature was created.
+
+- Click on this link, then click on the Signature to see it.
+
+  |image95|
+
+- This concludes the DHD Hands on Labs.
+
+.. |image91| image:: /_static/image57.png
+   :width: 6.50000in
+   :height: 1.87068in
+.. |image92| image:: /_static/image58.png
+   :width: 4.590033in
+   :height: 1.17006in
+.. |image93| image:: /_static/image66.png
+   :width: 6.50000in
+   :height: 2.11000in
+.. |image94| image:: /_static/image60.png
+   :width: 6.50000in
+   :height: 4.58068in
+.. |image95| image:: /_static/image61.png
+   :width: 6.50000in
+   :height: 3.72068in
+.. |image96| image:: /_static/image67.jpg
+   :width: 6.37000in
+   :height: 4.32068in
+.. |image97| image:: /_static/image68.png
+   :width: 6.37000in
+   :height: 4.32068in
+.. |image98| image:: /_static/image69.png
+   :width: 6.37000in
+   :height: 4.32068in
+.. |image99| image:: /_static/image63.png
+   :width: 6.54000in
+   :height: 0.68068in
