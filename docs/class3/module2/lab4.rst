@@ -1,160 +1,160 @@
-Lab 6 – Using Auto Thresholding
-===============================
+Lab 4 – Configuring L7 Attack Protection
+========================================
 
-This exercise will simulate a newly configured Protected Object where
-the security administrator is unsure what values to assign to a few
-common vectors. Note that auto-thresholding is useful at both the Device
-and Protected Object levels.
+In this exercise we will use a protected object and enforce mitigation
+for low and slow/encrypted layer 7 attacks.
 
-.. NOTE:: This demo may place significant stress on the demo environment.
-   This may make the DHD UI less responsive. This is unavoidable since for
-   auto-thresholding to block, the attack must be damaging enough to cause
-   stress, which will push the CPU on the Virtual Environment very high.
-   Remember that this is a virtual environment with minimal resources for
-   lab under high stress and that the Hybrid Defender appliances mitigate
-   these attacks in dedicated hardware.
+Task 1 – Create Protected Object and Launch Attack
+--------------------------------------------------
 
-Task 1 – Configure Auto Thresholding
-------------------------------------
+-  In the BIG-IP Configuration Utility, open the **DoS Protection >
+   Quick Configuration** page and in the Protected Objects section click
+   **Create**.
 
--  On the **Good Client**, if you have not already done so, start the
-   network baselining. This step is needed if you didn’t start the good
-   traffic generation in Exercise 3 or accidently stopped it.
+-  Configure a protected object using the following information, and
+   then click **Create**.
 
-   .. code-block:: console
+   +------------------------+-----------------------------+
+   | Name                   | Server1                     |
+   +========================+=============================+
+   | IP Address             | 10.1.20.11                  |
+   +------------------------+-----------------------------+
+   | Port                   | 443                         |
+   +------------------------+-----------------------------+
+   | VLAN (Selected)        | defaultVLAN (uncheck ANY)   |
+   +------------------------+-----------------------------+
+   | Protection Settings:   | Log and Mitigate            |
+   | Action                 |                             |
+   +------------------------+-----------------------------+
+   | Protection Settings:   | Yes (selected)              |
+   | Silverline             |                             |
+   +------------------------+-----------------------------+
+   | Protection Settings:   | IPv4, TCP                   |
+   | DDoS Settings          |                             |
+   +------------------------+-----------------------------+
 
-      # cd ~/scripts
-      # ./baseline_l4.sh
+   |image72|
 
--  In the Hybrid Defender UI, in Quick Configuration, select the **Server5** Protected Object and verify that the IPv4 and TCP vectors are all at default thresholds with auto-threshold disabled:
+-  Launch attacks without any layer 7 protection configured
 
-   +----------------------------+-------------+
-   | Setting                    | Value       |
-   +============================+=============+
-   | All Detection Thresholds   | 30000 pps   |
-   +----------------------------+-------------+
-   | All Rate Limits            | Infinite    |
-   +----------------------------+-------------+
-   | Auto Thresholding          | Disabled    |
-   +----------------------------+-------------+
+-  Open the following in separate tabs in the Hybrid Defender WebUI:
 
-   |image51|
+-  **DoS Protection>>Quick Configuration**
 
--  In the Hybrid Defender CLI (BIGIP ssh window), restart
-   auto-thresholding:
+-  **Security>>Reporting>>DoS>>Analysis**
 
-   .. code-block:: console
+-  From a **Firefox browser** go to https://10.1.20.11. Ignore SSL
+   warning and Add Exception.
 
-      # tmsh run security dos device-config auto-threshold-relearn
-      # tmsh run security dos virtual name Server5 auto-threshold-relearn
+.. NOTE:: This bypasses the Hybrid Defender and accesses the server directly,
+   showing the availability and/or performance of the site directly. Click around a few links.
+   This is the site we will launch an attack against and mitigate.
 
-In the Hybrid Defender WebUI, in the **Server5** Protected Object
-configuration, enable auto-thresholding for the following vectors:
-**ICMPv4 Flood, TCP SYN Flood, TCP Push Flood, TCP RST Flood, TCP SYN
-ACK Flood** by selecting each vector and **clicking the Auto-Threshold
-Configuration radio button**. When all vectors are configured, click
-**Update** at the bottom of the screen.
-
--  In the Hybrid Defender WebUI, view the Auto Threshold event log by
-   navigating to **Security>>Event Logs>>DoS>>Network>>Auto Threshold**.
-
-   |image52|
-
-The system is updating the detection thresholds. With auto-thresholding,
-the system adjusts the detection thresholds based on observed traffic
-patterns. However, mitigation rate limits are always dynamic based on
-detected system or protected object stress. If anomalous levels of
-traffic are running, but there is no stress, the Hybrid Defender will
-generate alerts but will not block traffic. Under stress, the rate
-limits are automatically created and adjusted dynamically.
-
-Task 2 – Create Stress to trigger Auto Thresholding and view Reports
---------------------------------------------------------------------
-
--  Let’s create some stress with a Flood attack. In the **Attacker** CLI
-   start the auto-threshold flood:
+-  Verify that the configuration is providing no L7 protections by
+   taking the server offline with a slowloris attack. Note that apache
+   will try to clean up the slow flows, but they will do so
+   inefficiently and the server is impacted (which will show as an
+   outage, missing objects and/or slower responsiveness). Run the
+   slowloris attack from the Attacker CLI:
 
    .. code-block:: console
 
       # cd ~/scripts
-      # ./autot_flood.sh
+      # ./slowloris.sh
 
-   This is a long duration attack. You can terminate it with Ctrl+C when
-   finished.
+   The tool will rapidly show the site offline (10-15 seconds, with trivial
+   traffic load):
 
--  In the Hybrid Defender WebUI, review the Auto Threshold event log.
-   You will see that Rate limits are being automatically set and
-   adjusted to mitigate the flood attack.
+   |image73|
 
-   |image53|
+-  Refresh https://10.1.20.11 to show the effects of the attack. [Note
+   that since we are running locally from the Win7 system in a
+   virtualized environment, you may be able to access the site, however
+   it will be slower and often the GIFs will not load. An internet user
+   would not be able to “fight through” the attack to get to the server
+   as often as a system on the local LAN.]
 
--  In the Hybrid Defender WebUI, view the DoS Overview. Note that the
-   ICMP Flood attack is being mitigated and the rate limit thresholds
-   for each of the auto-threshold vectors have been adjusted based on
-   stress, including vectors that are not detecting or blocking an
-   attack.
+-  Stop the slowloris attack by using CTRL+C.
 
-   |image54|
+-  Start a more effective Slow Read attack.
 
-   |image55|
+   This attack is harder for DoS mitigation tools to mitigate and can be
+   very effective even with a tiny number of concurrent connections
+   trickling in very slowly to the server to fly below the radar of network
+   detections. In our example we will open 10 connections per second and
+   read the response data at 1 byte / sec. The attack would be effective
+   even at 1 cps, it would just take a bit longer to build up the
+   connections.
 
--  Select the filter type to **Virtual Server (DoS protected)** and
-   **Server5** and view how various thresholds are dynamically adjusted
-   based on the stress.
-
-   |image56|
-
--  Terminate the attack in the Attacker CLI with Ctrl+C.
-
--  After the attack has ended, in the Hybrid Defender WebUI, navigate to
-   the DoS Visibility page. Under Vectors, select ICMPv4 Flood. View
-   various details.
-
-   |image57|
-
--  **Clean-up**: On the Attacker CLI, if the attack is still running
-   be certain to end it with Ctrl-C.
-
--  **Clean-up**: For repeatability, it is necessary to disable the
-   auto-thresholding for the **ICMPv4 Flood, TCP RST Flood, TCP Push
-   Flood, TCP SYN ACK Flood** and **TCP SYN Flood** vectors on the
-   **Server5** protected object. **Switch them back to Manual
-   Configuration.**
-
-   |image58|
-
--  **Clean-up**: After disabling auto-thresholding, clear the learning
-   on the Hybrid Defender CLI with:
+-  From the **Attacker** CLI/shell start the slowread attack:
 
    .. code-block:: console
 
-      # tmsh run security dos device-config auto-threshold-relearn
-      # tmsh run security dos virtual name Server5 auto-threshold-relearn
+      # cd ~/scripts
+      # ./slowread.sh
 
--  **Clean-up**: Stop the baseline traffic generation from the
-   **good-client** if still running using CTRL+C
+   |image74|
 
-.. |image51| image:: /_static/class2/image52.png
+As soon as the site is down (service available: NO), refresh
+https://10.1.20.11 to show that it is down/slow/intermittent.
+
+Task 2 – Configure Protection/Mitigation, launch attack and view reports
+------------------------------------------------------------------------
+
+-  In the Hybrid Defender WebUI, access the **Server1** Protected
+   Object.
+
+-  Enable SSL.
+
+-  Select the default certificate and key. In your environment you would
+   select a valid/cert key for your application.
+
+-  Enable ‘\ **Encrypt Session to Server**\ ’ to avoid any server
+   reconfiguration.
+
+-  Enable the **HTTPS** mitigation family.
+
+-  Click **Update**.
+
+   |image75|
+
+-  View the Attacker CLI/shell. The slow read attack is now no longer
+   showing the site as down (service available: YES) because Proactive
+   Bot Detection has mitigated the attack.
+
+   |image76|
+
+-  Refresh https://10.1.20.11 to see that the site behavior has returned
+   to normal.
+
+-  You were able to mitigate an encrypted layer 7 attack quickly and
+   with only a few simple steps.
+
+-  In the Hybrid Defender WebUI, view various reports in the
+   **Security>>Reporting>>DoS>>Analysis**
+
+-  **HTTP Report (Scroll towards the bottom) shows Proactive
+   Mitigation**.
+
+   |image77|
+
+-  Stop the Slow Read attack by using CTRL+C.
+
+.. |image72| image:: /_static/class2/image73.png
    :width: 5.30972in
-   :height: 3.63532in
-.. |image52| image:: /_static/class2/image53.png
+   :height: 4.87068in
+.. |image73| image:: /_static/class2/image74.png
+   :width: 3.76233in
+   :height: 3.28646in
+.. |image74| image:: /_static/class2/image75.png
    :width: 5.30972in
-   :height: 1.23126in
-.. |image53| image:: /_static/class2/image54.png
+   :height: 4.10714in
+.. |image75| image:: /_static/class2/image76.png
    :width: 5.30972in
-   :height: 2.24436in
-.. |image54| image:: /_static/class2/image55.png
+   :height: 3.07640in
+.. |image76| image:: /_static/class2/image77.png
+   :width: 4.94792in
+   :height: 4.12023in
+.. |image77| image:: /_static/class2/image78.png
    :width: 5.30972in
-   :height: 1.32482in
-.. |image55| image:: /_static/class2/image56.png
-   :width: 5.30972in
-   :height: 1.30599in
-.. |image56| image:: /_static/class2/image57.png
-   :width: 5.30972in
-   :height: 2.71126in
-.. |image57| image:: /_static/class2/image58.png
-   :width: 5.30972in
-   :height: 2.48122in
-.. |image58| image:: /_static/class2/image59.png
-   :width: 2.31293in
-   :height: 2.81771in
+   :height: 1.25578in
