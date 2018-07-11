@@ -22,6 +22,7 @@ Task 1 – Initial Set-up
 - If you need to access more options, there  is a shortcut at the bottom of the Menu page. **Show Advanced Menu**
 
 |image211|
+
 - Explore the **Resource Provisioning** page
 
 |image202|

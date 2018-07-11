@@ -42,11 +42,11 @@ Task 2 – Disable **Device-Level** DHD DoS Protection
 |image209|
 - On the Jumpbox in the **Attacker** PuTTY window type (or copy and paste) the following:
 
-  .. code-block:: console
+.. code-block:: console
 
-    # sudo su
-    # cd scripts
-    # ls
+  # sudo su
+  # cd scripts
+  # ls
 
 These are some of the different scripts we’ll be using during the exercises to simulate DoS attacks.
 
@@ -66,7 +66,7 @@ This script launches the Attack and then repeats for a total of ten occurrences.
 
 |image207|
 
-- Navigate to ** Visibility > Event Logs > DoS > Network >Events**.
+- Navigate to **Visibility > Event Logs > DoS > Network >Events**.
 
 |image208|
 

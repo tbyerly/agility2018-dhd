@@ -1,21 +1,18 @@
 Lab 4 – Configuring L7 Attack Protection
 ========================================
 
-In this exercise we will use a protected object and enforce mitigation
-for low and slow/encrypted layer 7 attacks.
+In this exercise we will use a protected object and enforce mitigation for low and slow/encrypted layer 7 attacks.
 
 Task 1 – Create Protected Object and Launch Attack
 --------------------------------------------------
 
--  In the BIG-IP Configuration Utility, open the **DoS Protection >
-   Quick Configuration** page and in the Protected Objects section click
+-  In the BIG-IP Configuration Utility, open the **DoS Protection > Quick Configuration** page and in the Protected Objects section click
    **Create**.
 
--  Configure a protected object using the following information, and
-   then click **Create**.
+-  Configure a protected object using the following information, and then click **Create**.
 
    +------------------------+-----------------------------+
-   | Name                   | Server1                     |
+   | Name                   | Server_HTTPS                |
    +========================+=============================+
    | IP Address             | 10.1.20.11                  |
    +------------------------+-----------------------------+
