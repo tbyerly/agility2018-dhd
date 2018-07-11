@@ -2,7 +2,7 @@ Lab 2 - Multi-vector Demo
 =========================
 
 In this simple demo you will launch a small number of network attacks and show the configuration, logging and reporting capabilities of the
-Hybrid Defender. The point of this demo is to provide context for a UI walkthrough with more live data live data.
+F5® DDoS Hybrid Defender™. The point of this demo is to provide context for a UI walk-through with more live data.
 
 Task 1 – Create a Protected Object that the Attacker will be targeting
 ----------------------------------------------------------------------
@@ -10,27 +10,27 @@ Task 1 – Create a Protected Object that the Attacker will be targeting
 The DHD device wide protection is enforced for all traffic flowing through the device. For more granular
 control, we use **Protected Objects** and configure mitigation settings for those objects to be enforced.
 
-In this task you will configure **object-level** DoS protection, and then issue an attack and review the results.
+In this task you will configure **Object-Level** DoS protection for a network, simulating your Server Network and then issue an attack and review the results.
 
 -  In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protected Objects** page and in the **Protected Objects** section click the
-   **Create** dropdown and select **Protected Object"
+   **Create** dropdown and select **Protected Object**.
 
-|image212|
+|image220|
 
 -  Configure the Protected Object using the following information, and then click **Create**.
 
    +------------------------+--------------------+
-   | Name                   | ServerNet            |
+   | Name                   | ServerNet          |
    +========================+====================+
-   | Destination Address    | 10.1.20.0/22         |
+   | Destination Address    | 10.1.20.0/22       |
    +------------------------+--------------------+
-   | Port                   | \* All Ports       |
+   | Port                   | \*All Ports        |
    +------------------------+--------------------+
    | Protocol               | All Protocols      |
    +------------------------+--------------------+
    | Protection Profile:    | dos                |
    +------------------------+--------------------+
-   | Eviction Policy:       | DHD_EvictPol       |
+   | Eviction Policy:       | Leave Blank        |
    +------------------------+--------------------+
    | VLAN(s):               | defaultVLAN        |
    +------------------------+--------------------+
@@ -48,23 +48,22 @@ You will now launch the attacks and show the behavior
 
 - Open the following tabs in the DHD UI (Duplicate Tabs to make it easier):
 
-- **DoS Configuration >> DoS Overview >> Filer Type >> Try Both DoS Attack and Device Dos**
-- **Visibility >> Dashboard** Change Dashboard to **Real Time** Centered on the timeline.
+- **DoS Configuration >> DoS Overview >> Filter Type >> Try Both DoS Attack and Device Dos**
+- **Visibility >> Dashboard** change Dashboard to **Real Time** which is centered on the timeline.
 - **Visibility >> Event Logs >> DoS >> Network >> Events**
 
 - Access the **Attacker** shell and run the following commands/attack (if already in the folder just issue the command)
 
-  .. code-block:: console
-    # sudo su
-    # cd ~/scripts
-    # ./multivector.sh
+.. code-block:: console
+  # sudo su
+  # cd ~/scripts
+  # ./multivector.sh
 
 - Click **Refresh** on the DoS Overview page. Look at Explore both **DoS Attack and Device Dos**
-
 |image36|
 |image37|
 
-Navigate to **Visibility >> Dashboard**. Explore the amount of rich data returned.
+Navigate to **Visibility >> Dashboard**. Explore the amount of rich data returned. Hover over the attacks. Scroll down and see what information is supplied.
 
 |image38|
 
@@ -74,7 +73,7 @@ Navigate to **Visibility >> Event Logs >> DoS >> Network >> Events**
 
 - Further explore the DoS Event logs. For example, clear the search and identify the “Stop” and “Start” times for an attack, etc.
 
-.. |image212| image:: /_static/protectedobject.png
+.. |image220| image:: /_static/protectedobject.png
    :width: 1641px
    :height: 366px
    :height: 4.36042in
@@ -84,9 +83,9 @@ Navigate to **Visibility >> Event Logs >> DoS >> Network >> Events**
 .. |image37| image:: /_static/multivector.png
    :width: 1629px
    :height: 616px
-.. |image38| image:: /_static/multivectordashboard.png
-   :width: 1620px
-   :height: 819px
-.. |image39| image:: /_static/multivectoreventlogs.png
-   :width: 1644px
-   :height: 594px
+.. |image38| image:: /_static/visibilitymultivector.png
+   :width: 1580px
+   :height: 841px
+.. |image39| image:: /_static/visibilitylogs.png
+   :width: 1535px
+   :height: 648px

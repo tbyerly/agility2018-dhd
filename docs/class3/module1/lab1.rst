@@ -19,11 +19,9 @@ Task 1 – Initial Set-up
 .. NOTE:: If you are familiar with the BIG-IP UI, You will notice the menus on the left are consolidated. This is an indication you are working with a DDoS Hybrid defender device.
 
 |image201|
-
-- If you need to access more options, there  is a shortcut at the bottom of the Menu page.
+- If you need to access more options, there  is a shortcut at the bottom of the Menu page. **Show Advanced Menu**
 
 |image211|
-
 - Explore the **Resource Provisioning** page
 
 |image202|
@@ -42,15 +40,13 @@ The architecture and design decisions should have been made already. Based on F5
 - Click **Network** in the left hand menu. Then Select **Topology**.
 - You will notice the various options you can select based on the prior architecture decisions.
 - For this classes purpose **Click** on the VLAN Group image.
-
 |image203|
-
 - Click **Create** on the upper right side.
 
 - Fill out the information from the table below. Then Click **Done Editing** within that section.
 
   +-----------------------+----------------------------------+
-  | **VLAN Group:         | defaultVlan                      |
+  | **VLAN Group Name:**  | defaultVlan                      |
   |                       |                                  |
   +-----------------------+----------------------------------+
   | **Internal:           | 20                               |
@@ -67,11 +63,9 @@ The architecture and design decisions should have been made already. Based on F5
   +-----------------------+----------------------------------+
 
 |image204|
+- At the bottom of the page click **Finished** to create the default network.
 
-  - At the bottom of the page click **Finished** to create the default
-  network.
-
-This completes the intital Network Set-Up of DHD.
+**This completes the initial Network Set-Up of DHD.**
 
 .. |image201| image:: /_static/DDoSMenu.PNG
    :width: 1627px

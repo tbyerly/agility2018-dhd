@@ -30,9 +30,7 @@ Task 2 – Disable **Device-Level** DHD DoS Protection
 ----------------------------------------------------
 
 - In the Configuration Utility, in the **DoS Configuration, Device Protection** section click **Network**.
-
 |image205|
-
 - On the left side of the page select the checkbox for **ICMPv4 flood**, **TCP SYN flood** and **UDP Flood**.
 
 - At the bottom just below the last vector, chose the drop down **Set State** and then select **Disabled**.
@@ -40,11 +38,8 @@ Task 2 – Disable **Device-Level** DHD DoS Protection
 .. HINT:: This is the new method for selecting and changing multiple items at one-time.
 
 |image206|
-
 - Navigate back to the top of the window and Select **Commit Changes to System**
-
 |image209|
-
 - On the Jumpbox in the **Attacker** PuTTY window type (or copy and paste) the following:
 
   .. code-block:: console
@@ -77,6 +72,8 @@ This script launches the Attack and then repeats for a total of ten occurrences.
 
 - Notice no logs are captured.  We could have chosen **Learn Only** or **Detect Only** and had different results. If you want to test, feel free.
 
+.. NOTE:: If you want to run the other attacks, use the format above.  ./synflood.sh and udp_flood.sh behave similar.   If you are not seeing the traffic on the DHD Cli, Stop and Re-Start the tcpdump.
+
 Both of these locations we will return to throughout this course to see how our DHD is viewing these attacks.
 
 Task 3 – Re-enable **Device-Level** DHD DoS Protection
@@ -86,16 +83,15 @@ In this task you will re-configure **device-level** DoS protection and then issu
 
 -  In the Configuration Utility, in the **DoS Configuration, Device Protection** section click **Network**.
 
-- On the left side of the page select the checkbox for **ICMPv4 flood**.
+- On the left side of the page select the checkbox for **ICMPv4 flood**, **TCP SYN flood** and **UDP Flood**.
 
-- At the bottom just below the last vector, chose the drop down **Set State** and then select **Mitigate*.
+- At the bottom just below the last vector, chose the drop down **Set State** and then select **Mitigate**.
 
 .. NOTE:: You have the option of Learn Only and Detect Only as well.
 
 -  Navigate back to the top of the window and Select **Commit Changes to System**
 
-.. NOTE:: This returns the configuration back to factory supplied device level
-      enforcement.
+.. NOTE:: This returns the configuration back to factory supplied device level enforcement.
 
 
 .. |image205| image:: /_static/DeviceProtection.PNG

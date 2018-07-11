@@ -1,7 +1,7 @@
 F5 Agility 2018:  DDoS Attack Protection
 =========================================
 
-DDoS Hybrid Defender, a hybrid DDoS solution that offers comprehensive
+F5® DDoS Hybrid Defender™, a hybrid DDoS solution that offers comprehensive
 protection, high availability, and is easy to deploy and manage. It
 guards against aggressive volumetric and targeted DDoS attacks, includes
 hardware-assisted DDoS mitigation, and optionally, connects with
@@ -11,7 +11,7 @@ This class covers the following topics:
 
 - Initial Set-up, Device Configuration and working with basic device-level
   DDoS vectors to mitigate the most commonly encountered attacks. Then we will
-  cover Auto-thresholding, bad actor detection, mitigation of L7 behavioral attacks.
+  cover Auto-thresholding, Bad Actor Detection, Mitigation of L7 Behavioral Attacks.
 
 .. toctree::
    :maxdepth: 2
