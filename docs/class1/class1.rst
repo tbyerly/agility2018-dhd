@@ -55,7 +55,7 @@ Task 1 – Open your RDP client and connect to your Windows Jumpbox
 
 - Click the Jumpbox RDP link.
 
- |image6|
+|image6|
 
  This will RDP to the Jumpbox where you will work all the labs from.
 
@@ -63,7 +63,7 @@ Task 1 – Open your RDP client and connect to your Windows Jumpbox
 
 - Login to the Jumpbox
 
--  User name: Jumpbox \ external\_user. Password: f5DEMOs4u
+-  User name: Jumpbox "\\" external\_user. Password: f5DEMOs4u
 
 |image3|
 

@@ -10,24 +10,24 @@ control, we use **Protected Objects** and configure mitigation settings for thos
 In this task you will configure **object-level** DoS protection, and then issue an attack and review the results.
 
 -  In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protected Objects** page and in the **Protected Objects** section click the
-   **Create** dropdown and select **Protected Object"
+   **Create** dropdown and select **Protected Object"**
 
 |image212|
 
--  Configure the Protected Object using the following information, and then click **Create**.
+- Configure the Protected Object using the following information, and then click **Create**.
 
    +------------------------+--------------------+
-   | Name                   | Server5            |
+   | Name                   | Server_General     |
    +========================+====================+
    | Destination Address    | 10.1.20.15         |
    +------------------------+--------------------+
-   | Port                   | \* All Ports       |
+   | Port                   | */ All Ports       |
    +------------------------+--------------------+
-   | Protocol               | All Protocols      |
+   | Protocol               | TCP                |
    +------------------------+--------------------+
    | Protection Profile:    | dos                |
    +------------------------+--------------------+
-   | Eviction Policy:       | DHD_EvictPol       |
+   | Eviction Policy:       | Blank              |
    +------------------------+--------------------+
    | VLAN(s):               | defaultVLAN        |
    +------------------------+--------------------+
@@ -36,7 +36,7 @@ In this task you will configure **object-level** DoS protection, and then issue 
 
 - Click **Save**
 
-   -  This protected object will be used for the Auto-Thresholding lab.
+-  This Protected Object will be used for the Auto-Thresholding lab.
 
 Task 2 – Run Scripts to start L4 traffic generation – Good Traffic
 ------------------------------------------------------------------
@@ -58,23 +58,23 @@ Task 2 – Run Scripts to start L4 traffic generation – Good Traffic
 Task 3 – View the New Visibility Page
 -------------------------------------
 
-You can now use the new DHD Visibility page to view the Dashboard, Anaysis, Event Logs and Debugging info.
+You can now use the new DHD Visibility page to view the Dashboard, Analysis, Event Logs and Debugging info.
 
 - In the Hybrid Defender WebUI, access the Visibility tab.
 
-.. NOTE:: DoS Visibility Dashboard is not a real-time monitoring tool. Events are displayed, much like other AVR-based reporting, in 5 minute windows. Do not expect events to be shown here immediately after running an attack. Quicker/real-time monitoring of on-going
-         DoS attacks is best accomplished in the DoS Event Logs and DoS Overview areas of the WebUI.
+.. NOTE:: DoS Visibility Dashboard defaults to not Auto-Refresh. Click the Button to set **Real-Time** to **on.**
 
 - You should see categories as:  Attack Duration, Attacks, Virtual Severs, System Health and Countries.
-Scroll through the Left Pane and explore the windows. Use the slider to shorten the timeframe if needed. You might have to hit refresh several times.
-
+Scroll through the Left Pane and explore the windows.
 |image213|
 
-- You should see the attacks in the timeline and a variety of details in the windows. Use the slider to shorten the timeframe if needed.
+- You can use the slider to shorten the time frame, or filter on the protocol, if desired when viewing attacks if needed.
 
 |image216|
 
-- In the **Attack Duration** window view the attack. Hover over for more details.
+.. NOTE:: The windows will show no attack information.  We are running a L4 baseline tool.  Later labs will observe real-time attacks.
+
+- Later when we have data and attacks, you will see the different attacks in the **Attack Duration** window. Hover over for more details.
 
 |image217|
 
@@ -88,9 +88,9 @@ This table displays details of each attack that has occurred.
 
 - Scroll down in the left-side of the page to view the **Virtual Servers** section.
 
-- You can see the details of protected object-level attacks.
+- You can see the details of **protected object**-level attacks.
 
-- Examples are; Virtual Server, Server Latency, Health, Current Conections, Blocked IP's...etc
+- Examples are; Virtual Server, Server Latency, Health, Current Connections, Blocked IP's...etc
 
 - Scroll down to the **System Health** section. This table displays the current health of the system.
 
@@ -106,7 +106,7 @@ Now focus on the Right Panel.
 
 |image215|
 
-- If it’s not already expanded, expand the **Virtual Servers** widget, and then select **/Common/Server5**.
+- If it’s not already expanded, expand the **Virtual Servers** widget, and then select **/Common/Server**.
 
 - This filters the results to only attacks at this protected object-level. Notice the changes to the map on in the **Countries** section.
 
@@ -115,7 +115,7 @@ Now focus on the Right Panel.
 .. |image212| image:: /_static/protectedobject.png
    :width: 1641px
    :height: 366px
-.. |image213| image:: /_static/visibility.png
+.. |image213| image:: /_static/dashboardoverview.png
    :width: 1666px
    :height: 599px
 .. |image214| image:: /_static/image35.png
