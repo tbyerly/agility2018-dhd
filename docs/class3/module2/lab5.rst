@@ -9,37 +9,38 @@ Task 1 – Create Protected Object and Launch Attack
 -  In the BIG-IP Configuration Utility, open the **DoS Protection > Quick Configuration** page and in the Protected Objects section click
    **Create**.
 
--  Configure a protected object using the following information, and then click **Create**.
+-  Configure a protected object using the following information, and then click **Save**.
 
-   +------------------------+-----------------------------+
-   | Name                   | Auction                     |
-   +========================+=============================+
-   | IP Address             | 10.1.20.101                 |
-   +------------------------+-----------------------------+
-   | Port / Protocol        | 80  TCP                     |
-   +------------------------+-----------------------------+
-   | VLAN (Selected)        | defaultVLAN (uncheck ANY)   |
-   +------------------------+-----------------------------+
-   | Protection Settings:   | Log and Mitigate            |
-   | Action                 |                             |
-   +------------------------+-----------------------------+
-   | Protection Settings:   | HTTP                        |
-   | DDoS Settings          |                             |
-   +------------------------+-----------------------------+
++------------------------+-----------------------------+
+| Name                   | L7_Behavioral               |
++========================+=============================+
+| Destination Address    | 10.1.20.11                  |
++------------------------+-----------------------------+
+| Service Port           | 80                         |
++------------------------+-----------------------------+
+| Protocol               | TCP                         |
++------------------------+-----------------------------+
+| Service Profile:       | DHD_http                    |
++------------------------+-----------------------------+
+| Protection Profile:    | dos_behavioral              |
++------------------------+-----------------------------+
+| VLAN(s)                | default_VLAN                |
++------------------------+-----------------------------+
+| Logging Profile(s)     | local-dos                   |
++------------------------+-----------------------------+
 
-- Make sure **Auction** is with a capital "A".
 
 - Under the HTTP section make the following adjustments:
 
-  - Set Behavioral to Standard Protection.
+- Set Behavioral to Standard Protection.
 
-  - Make sure you check "Request Signature Detection"
+- Make sure you check "Request Signature Detection"
 
-  - Set Proactive Bot Defense to "Disabled"
+- Set Proactive Bot Defense to "Disabled"
 
-  - Set DOS tool to "Report"
+- Set DOS tool to "Report"
 
-  |image96|
+|image96|
 
 - When finished click **Create**
 
@@ -49,14 +50,14 @@ Task 1 – Create Protected Object and Launch Attack
 
     ~/scripts/generate_clean_traffic.sh
 
-  .. NOTE::  This will need to run for approximately 10 minutes.
+.. NOTE::  This will need to run for approximately 10 minutes.
 
 - From the DHD CLI issue the following commands:
 
-  .. code-block:: console
+.. code-block:: console
 
-     #/root/scripts/l7bdos-reset.sh
-     #/root/scripts/l7-mon.sh
+   #/root/scripts/l7bdos-reset.sh
+   #/root/scripts/l7-mon.sh
 
 - Monitor the window.  When you see the following number go to 100, you will move on.
 
@@ -74,53 +75,53 @@ Task 1 – Create Protected Object and Launch Attack
 
   - baseline learning_confidence in % - How confident the system is in the baseline learning.
 
-    - This should be between 80% - 90%
+  - This should be between 80% - 90%
 
   - learned_bins_count - number of learned bins
 
-    - This should be > 0
+  - This should be > 0
 
   - good_table_size - number of learned requests
 
-    - This should be > 4000
+  - This should be > 4000
 
   - good_table_confidence - how confident, as a percentage, the system is in the good table.
 
-    - It must be 100% for behavioral signatures.
+  - It must be 100% for behavioral signatures.
 
 - From the Attacker CLI issue the following command:
 
-  .. code-block:: console
+.. code-block:: console
 
-     ~/scripts/http_flood.sh
+   ~/scripts/http_flood.sh
 
-  |image92|
+|image92|
 
 - Choose option **1**, "Attack Auction"
 
 - You will see the attack start in the DHD SSH window:
 
-  |image93|
+|image93|
 
 - In addition you will see the good client start returning a status of 000 as it is unresponsive. It no longer returns a Status 200. Until the DHD starts mitigation.
 
-  |image97|
+|image97|
 
 - Once the DHD has enough data a Stable Signature is detected.
 
-  |image98|
+|image98|
 
 - Let this run for 2 minutes.  Stop the attack by pressing "Enter"" a couple of times in the **Attacker** window the choosing option "3" to stop the "Attack"
 
-  .. NOTE:: The DHD does not record the end of the attack right away, it is very conservative, therefore you may have to wait 5 minutes to see the results.
+.. NOTE:: The DHD does not record the end of the attack right away, it is very conservative, therefore you may have to wait 5 minutes to see the results.
 
-  |image94|
+|image94|
 
 - You can see in the top-left that a Behavioral Signature was created.
 
 - Click on this link, then click on the Signature to see it.
 
-  |image95|
+|image95|
 
 - This concludes the DHD Hands on Labs.
 
