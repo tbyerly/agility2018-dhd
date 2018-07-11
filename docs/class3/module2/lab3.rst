@@ -52,7 +52,7 @@ This is a long duration attack. You can terminate it with Ctrl+C when finished.
 -  In the Hybrid Defender Web UI, view the Dos Configuration >> DoS Overview. Note that the ICMP Flood attack is being mitigated and the rate limit thresholds
 for each of the auto-threshold vectors have been adjusted based on stress, including vectors that are not detecting or blocking an attack.
 
-|image55|
+|image54|
 
 - Select the filter type to **Virtual Server (DoS protected)** and **Server5** and view how various thresholds are dynamically adjusted based on the stress.
 
@@ -62,15 +62,12 @@ for each of the auto-threshold vectors have been adjusted based on stress, inclu
 
 -  **Clean-up**: On the Attacker CLI, if the attack is still running be certain to end it with Ctrl-C.
 
--  **Clean-up**: For repeatability, it is necessary to disable the auto-thresholding for the **ICMPv4 Flood, TCP RST Flood, TCP Push
- Flood, TCP SYN ACK Flood** and **TCP SYN Flood** vectors on the **Server** protected object. Switch them back to Manual Configuration.
+-  **Clean-up**: After stopping the attack, clear the learning on the Hybrid Defender CLI with:
 
-  -  **Clean-up**: After disabling auto-thresholding, clear the learning on the Hybrid Defender CLI with:
+.. code-block:: console
 
-  .. code-block:: console
-
-    # tmsh run security dos device-config auto-threshold-relearn
-    # tmsh run security dos virtual name Server auto-threshold-relearn
+  # tmsh run security dos device-config auto-threshold-relearn
+  # tmsh run security dos virtual name Server auto-threshold-relearn
 
 -  **Clean-up**: Stop the baseline traffic generation from the **good-client** if still running using CTRL+C
 

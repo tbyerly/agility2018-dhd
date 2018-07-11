@@ -59,7 +59,7 @@ You will now launch the attacks and show the behavior
   # cd ~/scripts
   # ./multivector.sh
 
-- Click **Refresh** on the DoS Overview page. Look at Explore both **DoS Attack and Device Dos**
+- Click **Refresh** on the DoS Overview page. Look at Explore both **DoS Attack** and **Device Dos**
 |image36|
 |image37|
 
@@ -67,7 +67,9 @@ Navigate to **Visibility >> Dashboard**. Explore the amount of rich data returne
 
 |image38|
 
-Navigate to **Visibility >> Event Logs >> DoS >> Network >> Events**
+- Notice under Attack Duration the red heart symbol.  Signifies an ongoing attack.
+
+- Navigate to **Visibility >> Event Logs >> DoS >> Network >> Events**
 
 |image39|
 
@@ -76,7 +78,6 @@ Navigate to **Visibility >> Event Logs >> DoS >> Network >> Events**
 .. |image220| image:: /_static/protectedobject.png
    :width: 1641px
    :height: 366px
-   :height: 4.36042in
 .. |image36| image:: /_static/multivectordos.png
    :width: 1611px
    :height: 430px
