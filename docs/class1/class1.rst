@@ -57,7 +57,7 @@ Task 1 – Open your RDP client and connect to your Windows Jumpbox
 
 |image6|
 
- This will RDP to the Jumpbox where you will work all the labs from.
+This will RDP to the Jumpbox where you will work all the labs from.
 
 .. NOTE:: Use the show options to provide details.
 

@@ -6,12 +6,10 @@ In this exercise we will use a protected object and show how behavioral DDoS wor
 Task 1 – Create Protected Object and Launch Attack
 --------------------------------------------------
 
--  In the BIG-IP Configuration Utility, open the **DoS Protection >
-   Quick Configuration** page and in the Protected Objects section click
+-  In the BIG-IP Configuration Utility, open the **DoS Protection > Quick Configuration** page and in the Protected Objects section click
    **Create**.
 
--  Configure a protected object using the following information, and
-   then click **Create**.
+-  Configure a protected object using the following information, and then click **Create**.
 
    +------------------------+-----------------------------+
    | Name                   | Auction                     |
