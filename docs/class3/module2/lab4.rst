@@ -3,26 +3,37 @@ Lab 4 – Configuring L7 Attack Protection
 
 In this exercise we will use a protected object and enforce mitigation for low and slow/encrypted layer 7 attacks.
 
-Task 1 – Create Protected Object and Launch Attack
+Task 1 – Create Protection Profile for Dos HTTP Object
+------------------------------------------------------
+
+-  In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page and click the
+   **Create** button.
+
+- Name the profile dos_HTTP and **select** the HTTP Vectors. *Click the HTTP Vector page to configure.  Change the settings depicted inth image below.
+|image402|
+
+Task 2 – Create Protected Object and Launch Attack
 --------------------------------------------------
 
--  In the BIG-IP Configuration Utility, open the **DoS Protection > Quick Configuration** page and in the Protected Objects section click
-   **Create**.
+-  In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protected Objects** page and in the **Protected Objects** section click the
+   **Create** dropdown and select **Protected Object**.
+
+|image401|
 
 -  Configure a protected object using the following information, and then click **Save**.
 
    +------------------------+-----------------------------+
-   | Name                   | Server_HTTPS                |
-   +========================+=============================+
+   | Name                   | Server_HTTP                 |
+   +------------------------+-----------------------------+
    | Destination Address    | 10.1.20.11                  |
    +------------------------+-----------------------------+
-   | Service Port           | 443                         |
+   | Service Port           | 80                          |
    +------------------------+-----------------------------+
    | Protocol               | TCP                         |
    +------------------------+-----------------------------+
    | Service Profile:       | DHD_http                    |
    +------------------------+-----------------------------+
-   | Protection Profile:    | dos_HTTPS                   |
+   | Protection Profile:    | dos_HTTP                    |
    +------------------------+-----------------------------+
    | VLAN(s)                | default_VLAN                |
    +------------------------+-----------------------------+
@@ -31,15 +42,15 @@ Task 1 – Create Protected Object and Launch Attack
 
  |image72|
 
--  Launch attacks without any layer 7 protection configured
+.. NOTE:: We will first launch attacks with no protection to see the results.  The enable protection and compare the results.
 
 -  Open the following in separate tabs in the Hybrid Defender Web UI:
 
--  **DoS Protection>>Quick Configuration**
+-  **DoS Configuration>>Dos Overview**
 
--  **Security>>Reporting>>DoS>>Analysis**
+-  **Visibility>>Event Logs>>DoS>>Application Events**
 
--  From a **Firefox browser** go to https://10.1.20.11. Ignore SSL warning and Add Exception.
+-  From a the **Firefox browser** on the jumphost go to https://10.1.20.11. Ignore SSL warning and Add Exception.
 
 .. NOTE:: This bypasses the Hybrid Defender and accesses the server directly, showing the availability and/or performance of the site directly.
 Click around a few links. This is the site we will launch an attack against and mitigate.
@@ -114,9 +125,12 @@ Task 2 – Configure Protection/Mitigation, launch attack and view reports
 
 -  Stop the Slow Read attack by using CTRL+C.
 
-.. |image72| image:: /_static/image73.png
-   :width: 5.30972in
-   :height: 4.87068in
+.. |image401| image:: /_static/protectedobject.png
+   :width: 1641px
+   :height: 366px
+.. |image402| image:: /_static/dos_http.png
+   :width: 1641px
+   :height: 366px
 .. |image73| image:: /_static/image74.png
    :width: 3.76233in
    :height: 3.28646in
