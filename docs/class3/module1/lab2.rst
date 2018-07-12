@@ -29,13 +29,13 @@ The attacker can successfully communicate with a back-end resource behind the BI
 Task 2 – Disable **Device-Level** DHD DoS Protection
 ----------------------------------------------------
 
-- In the Configuration Utility, in the **DoS Configuration, Device Protection** section click **Network**.
+- In the Configuration Utility, in the **DoS Configuration > Device Protection** section click **Network**.
 |image205|
-- On the left side of the page select the checkbox for **ICMPv4 flood**, **TCP SYN flood** and **UDP Flood**.
+- On the left side of the page select the checkbox for **ICMPv4 flood** and **UDP Flood*.
 
 - At the bottom just below the last vector, chose the drop down **Set State** and then select **Disabled**.
 
-.. HINT:: This is the new method for selecting and changing multiple items at one-time.
+.. HINT:: This is the new method for selecting and changing multiple items at one-time. This will be how we will **Set State** and **Set Threshold**.
 
 |image206|
 - Navigate back to the top of the window and Select **Commit Changes to System**
@@ -62,7 +62,9 @@ This script launches the Attack and then repeats for a total of ten occurrences.
 
 - In the Configuration Utility, open the **DoS Configuration > DoS Overview (non HTTP)** page.
 
-- View the Protection Profile and notice no results are returned. We disabled those vectors.
+- Make sure the Filter Type is "Dos Attack".
+
+- View the Protection Profile and notice no results are returned,  you disabled those vectors.
 
 |image207|
 
@@ -72,7 +74,7 @@ This script launches the Attack and then repeats for a total of ten occurrences.
 
 - Notice no logs are captured.  We could have chosen **Learn Only** or **Detect Only** and had different results. If you want to test, feel free.
 
-.. NOTE:: If you want to run the other attacks, use the format above.  ./synflood.sh and udp_flood.sh behave similar.   If you are not seeing the traffic on the DHD Cli, Stop and Re-Start the tcpdump.
+.. NOTE:: If you want to run the other attacks, use the format above.  ./synflood.sh and udp_flood.sh behave similar.   If you are not seeing the traffic on the DHD CLI, Stop and Re-Start the tcpdump.
 
 Both of these locations we will return to throughout this course to see how our DHD is viewing these attacks.
 
@@ -81,9 +83,9 @@ Task 3 – Re-enable **Device-Level** DHD DoS Protection
 
 In this task you will re-configure **device-level** DoS protection and then issue the same command and review the results.
 
--  In the Configuration Utility, in the **DoS Configuration, Device Protection** section click **Network**.
+-  In the Configuration Utility, in the **DoS Configuration > Device Protection** under Log Publisher select "local-db-publisher". The click the **Network** section.
 
-- On the left side of the page select the checkbox for **ICMPv4 flood**, **TCP SYN flood** and **UDP Flood**.
+- On the left side of the page select the checkbox for **ICMPv4 flood** and **UDP Flood**.
 
 - At the bottom just below the last vector, chose the drop down **Set State** and then select **Mitigate**.
 
@@ -93,6 +95,45 @@ In this task you will re-configure **device-level** DoS protection and then issu
 
 .. NOTE:: This returns the configuration back to factory supplied device level enforcement.
 
+Task 4 – Attack the |dhd| again and see what you can tell.
+----------------------------------------------------------
+- Type (or copy and paste) the following command:
+
+  ``for i in {1..10}; do ./icmpflood.sh; done``
+
+- In the Configuration Utility, open the **DoS Configuration > DoS Overview (non HTTP)** page.
+
+- Make sure the Filter Type is "Device Dos".
+
+- This page will show the preset vectors for the Device and the Current **Attack Status**, **Average EPS**, **Current Dropped EPS** and the **Detection Threshold**s including the *Threshold Mode**.
+
+- Scroll down until you see ICMPv4 Flood.
+|image290|
+
+.. ATTENTION:: Why is the DHD not dropping packets?
+
+.. HINT:: Look at the Manual Thresholds set and the current rate of packets.  We are nor generating enough traffic.
+
+- We need to set a lower threshold Manually.
+
+- In the Configuration Utility, open the **DoS Configuration > DoS Protection** page. Scroll down in the Network section to ICMPv4 flood.  **Click** ICMPv4 flood.
+
+.. NOTE:: The new fly out page.
+
+- Manually Set The Detection Threshold PPS to 100 and the Mitigation Threshold EPS to 500. Scroll up and **Commit Changes to System**
+|image291|
+
+- In the Configuration Utility, open the **DoS Configuration > DoS Overview (non HTTP)** page.
+
+- Make sure the Filter Type is "Dos Attack". See the Dropped traffic with the new thresholds. Alternatively, you can go "Device DoS", scroll down to ICMPv4 Flood and see the same information."
+|image292|
+- Look at the Protection Profile: dos-device, attack status and various rates.
+
+- You can terminate the Attack with Ctrl+C when finished.
+
+This concludes this section where we looked at setting manual thresholds to mitigate attacks that might not have been mitigated with the default settings.
+
+.. NOTE:: We did this to only one vector.  These same procedure can be applied to all the vectors or selected vectors, depending on your environment.
 
 .. |image205| image:: /_static/DeviceProtection.PNG
    :width: 1887px
@@ -109,3 +150,12 @@ In this task you will re-configure **device-level** DoS protection and then issu
 .. |image209| image:: /_static/CommitChanges.PNG
    :width: 1643px
    :height: 404px
+.. |image290| image:: /_static/icmpv4flooddevice.PNG
+   :width: 1586px
+   :height: 255px
+.. |image291| image:: /_static/flyouticmpv4.png
+   :width: 1604px
+   :height: 697px
+.. |image291| image:: /_static/icmpv4flooddropped.png
+   :width: 1593px
+   :height: 346px

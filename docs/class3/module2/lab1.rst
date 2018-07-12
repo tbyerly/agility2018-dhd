@@ -1,68 +1,13 @@
-Lab 1 – Start Baseline Traffic Generation
-==============================================
+Lab 1 – Quick GUI Overview of the Visibility and reporting Available
+====================================================================
 
-Task 1 – Create Protected Objects that the baseline traffic will be targeting
+Task 1 – View the New Visibility Page
 -----------------------------------------------------------------------------
-
-The DHD device wide protection is enforced for all traffic flowing through the device. For more granular
-control, we use **Protected Objects** and configure mitigation settings for those objects to be enforced.
-
-In this task you will configure **object-level** DoS protection, and then issue an attack and review the results.
-
--  In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protected Objects** page and in the **Protected Objects** section click the
-   **Create** dropdown and select **Protected Object"**
-
-|image212|
-
-- Configure the Protected Object using the following information, and then click **Create**.
-
- +------------------------+--------------------+
- | Name                   | Server             |
- +========================+====================+
- | Destination Address    | 10.1.20.15         |
- +------------------------+--------------------+
- | Port                   | \*All Ports        |
- +------------------------+--------------------+
- | Protocol               | TCP                |
- +------------------------+--------------------+
- | Protection Profile:    | dos                |
- +------------------------+--------------------+
- | Eviction Policy:       | Blank              |
- +------------------------+--------------------+
- | VLAN(s):               | defaultVLAN        |
- +------------------------+--------------------+
- | Logging Profiles:      | local-dos          |
- +------------------------+--------------------+
-
-- Click **Save**
-
--  This Protected Object will be used for the Auto-Thresholding lab.
-
-Task 2 – Run Scripts to start L4 traffic generation – Good Traffic
-------------------------------------------------------------------
-
--  Putty SSH (use the desktop shortcut) to open a shell to the **good client system**.
-
--  Accept the SSH Warning.
-
--  Enter "ubuntu" as the user. The session is preconfigured to authenticate with a certificate.
-
--  Start the auto-threshold baselining script with:
-
-   .. code-block:: console
-
-      # sudo su
-      # cd ~/scripts
-      # ./baseline_l4.sh
-
-Task 3 – View the New Visibility Page
--------------------------------------
-
 You can now use the new DHD Visibility page to view the Dashboard, Analysis, Event Logs and Debugging info.
 
-- In the Hybrid Defender WebUI, access the Visibility tab.
+- In the Hybrid Defender Web UI, access the Visibility tab.
 
-.. NOTE:: DoS Visibility Dashboard defaults to not Auto-Refresh. Click the Button to set **Real-Time** to **on.**
+.. NOTE:: DoS Visibility Dashboard defaults to not Auto-Refresh. Click the Button to set **Real-Time** to **ON**.
 
 - You should see categories as:  Attack Duration, Attacks, Virtual Severs, System Health and Countries.
 Scroll through the Left Pane and explore the windows.
@@ -72,9 +17,7 @@ Scroll through the Left Pane and explore the windows.
 
 |image216|
 
-.. NOTE:: The windows will show no attack information.  We are running a L4 baseline tool.  Later labs will observe real-time attacks.
-
-- Later when we have data and attacks, you will see the different attacks in the **Attack Duration** window. Hover over for more details.
+- Later when we have data and attacks, you will see the different attacks in the **Attack Duration** window. You will be able to hover over for more details.
 
 |image217|
 
@@ -98,7 +41,7 @@ This table displays details of each attack that has occurred.
 
 Now focus on the Right Panel.
 
-- View the various widgets in the panel on the right-side of the page. The top can be expaned and contracted visa the slider bar.
+- View the various widgets in the panel on the right-side of the page. The top can be expanded and contracted visa the slider bar.
 
 |image214|
 

@@ -49,8 +49,7 @@ Task 2 – Create Stress to trigger Auto Thresholding and view Reports
 
 This is a long duration attack. You can terminate it with Ctrl+C when finished.
 
--  In the Hybrid Defender Web UI, view the Dos Configuration >> DoS Overview. Note that the ICMP Flood attack is being mitigated and the rate limit thresholds
-for each of the auto-threshold vectors have been adjusted based on stress, including vectors that are not detecting or blocking an attack.
+-  In the Hybrid Defender Web UI, view the Dos Configuration >> DoS Overview. Note that the ICMP Flood attack is being mitigated and the rate limit thresholds for each of the auto-threshold vectors have been adjusted based on stress, including vectors that are not detecting or blocking an attack.
 
 |image54|
 
