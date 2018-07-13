@@ -21,7 +21,7 @@ In this task you will configure **Object-Level** DoS protection for a network (L
 
    +------------------------+--------------------+
    | Name                   | ServerNet          |
-   +========================+====================+
+   +------------------------+--------------------+
    | Destination Address    | 10.1.20.0/22       |
    +------------------------+--------------------+
    | Port                   | \*All Ports        |
@@ -48,6 +48,7 @@ launched at 10.1.20.12, which is an interface on the LAMP server.
 
 - In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page.  **Click** dos, Then Check the **Network** box under the Families Heading.
 Then click the Network Section.  Notice all vectors are disabled.  Check the top box to select all the vectors, Scroll to the bottom and Select Mitigate.  Scroll to the top and **Commit Changes to System**.
+
 |image221|
 
 You will now launch the attacks and show the behavior
@@ -71,7 +72,7 @@ You will now launch the attacks and show the behavior
 
 .. NOTE:: The screens show different info, why? Use the last lesson to adjust thresholds of the current attacks to see different results.
 
-.. HINT:: Manual thresholds under **Dos Overview > Filter Type Device Dos.  Scroll down and see all the vectors and rates.  Adjust if you desire.
+.. HINT:: Manual thresholds under **Dos Overview** >> Filter Type >> Device Dos.  Scroll down and see all the vectors and rates.  Adjust if you desire.
 
 - Change the View Filter and see how you get different Views of some of he same data in a different context.
 
@@ -106,6 +107,6 @@ You will now launch the attacks and show the behavior
 .. |image39| image:: /_static/visibilitylogs.png
    :width: 1535px
    :height: 648px
-.. |image221| image:: /_static/defaultdosprofiledisabled.png
+.. |image221| image:: /_static/defaultdosprofiledisabled.PNG
    :width: 1467px
    :height: 681px

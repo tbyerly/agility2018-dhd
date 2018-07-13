@@ -9,7 +9,8 @@ Task 1 – Create Protection Profile for Dos HTTP Object
 -  In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page and click the
    **Create** button.
 
-- Name the profile dos_HTTP and **select** the HTTP Vectors. *Click the HTTP Vector page to configure.  Change the settings depicted inth image below.
+- Name the profile dos_HTTP and **select** the HTTP Vectors. *Click the HTTP Vector page to configure.  Change the settings depicted in the image below.
+
 |image402|
 
 Task 2 – Create Protected Object and Launch Attack
@@ -20,25 +21,25 @@ Task 2 – Create Protected Object and Launch Attack
 
 |image401|
 
--  Configure a protected object using the following information, and then click **Save**.
+- Configure a protected object using the following information, and then click **Save**.
 
-   +------------------------+-----------------------------+
-   | Name                   | Server_HTTP                 |
-   +------------------------+-----------------------------+
-   | Destination Address    | 10.1.20.11                  |
-   +------------------------+-----------------------------+
-   | Service Port           | 80                          |
-   +------------------------+-----------------------------+
-   | Protocol               | TCP                         |
-   +------------------------+-----------------------------+
-   | Service Profile:       | DHD_http                    |
-   +------------------------+-----------------------------+
-   | Protection Profile:    | dos_HTTP                    |
-   +------------------------+-----------------------------+
-   | VLAN(s)                | default_VLAN                |
-   +------------------------+-----------------------------+
-   | Logging Profile(s)     | local-dos                   |
-   +------------------------+-----------------------------+
+  +------------------------+-----------------------------+
+  | Name                   | Server_HTTP                 |
+  +------------------------+-----------------------------+
+  | Destination Address    | 10.1.20.11                  |
+  +------------------------+-----------------------------+
+  | Service Port           | 80                          |
+  +------------------------+-----------------------------+
+  | Protocol               | TCP                         |
+  +------------------------+-----------------------------+
+  | Service Profile:       | DHD_http                    |
+  +------------------------+-----------------------------+
+  | Protection Profile:    | dos_HTTP                    |
+  +------------------------+-----------------------------+
+  | VLAN(s)                | default_VLAN                |
+  +------------------------+-----------------------------+
+  | Logging Profile(s)     | local-dos                   |
+  +------------------------+-----------------------------+
 
  |image72|
 
