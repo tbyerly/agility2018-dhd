@@ -17,8 +17,7 @@ Task 1 – Verify Communication Through the DHD Device.
 
   ``ping 10.1.20.12``
 
-- Examine the **tcpdump** window and verify ICMP packets are flowing
-  through the BIG-IP DHD.
+- Examine the **tcpdump** window and verify ICMP packets are flowing through the BIG-IP DHD.
 
 The attacker can successfully communicate with a back-end resource behind the BIG-IP DHD.
 
@@ -31,7 +30,7 @@ Task 2 – Disable **Device-Level** DHD DoS Protection
 
 - In the Configuration Utility, in the **DoS Configuration > Device Protection** section click **Network**.
 |image205|
-- On the left side of the page select the checkbox for **ICMPv4 flood** and **UDP Flood*.
+- On the left side of the page select the checkbox for **ICMPv4 flood** and **UDP Flood**.
 
 - At the bottom just below the last vector, chose the drop down **Set State** and then select **Disabled**.
 
@@ -105,7 +104,7 @@ Task 4 – Attack the |dhd| again and see what you can tell.
 
 - Make sure the Filter Type is "Device Dos".
 
-- This page will show the preset vectors for the Device and the Current **Attack Status**, **Average EPS**, **Current Dropped EPS** and the **Detection Threshold**s including the *Threshold Mode**.
+- This page will show the preset vectors for the Device and the Current **Attack Status**, **Average EPS**, **Current Dropped EPS** and the **Detection Thresholds** including the **Threshold Mode**.
 
 - Scroll down until you see ICMPv4 Flood.
 |image290|
@@ -150,12 +149,12 @@ This concludes this section where we looked at setting manual thresholds to miti
 .. |image209| image:: /_static/CommitChanges.PNG
    :width: 1643px
    :height: 404px
-.. |image290| image:: /_static/icmpv4flooddevice.PNG
+.. |image290| image:: /_static/icmpv4flooddevice.png
    :width: 1586px
    :height: 255px
 .. |image291| image:: /_static/flyouticmpv4.png
    :width: 1604px
    :height: 697px
-.. |image291| image:: /_static/icmpv4flooddropped.png
+.. |image292| image:: /_static/icmpv4flooddropped.png
    :width: 1593px
    :height: 346px
