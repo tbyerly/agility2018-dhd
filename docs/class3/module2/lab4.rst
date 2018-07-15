@@ -6,7 +6,7 @@ In this exercise we will use a protected object and enforce mitigation for low a
 Task 1 – Create Protection Profile for Dos HTTP Object
 ------------------------------------------------------
 
--  In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page and click the
+- In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page and click the
    **Create** button.
 
 - Name the profile dos_HTTP and **select** the HTTP Vectors. *Click the HTTP Vector page to configure.  Change the settings depicted in the image below.

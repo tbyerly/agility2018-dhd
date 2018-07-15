@@ -22,6 +22,8 @@ The following components have been included in your lab environment:
 - 1 x Linux LAMP Webserver (xubuntu 14.04)
 - 1 x Windows Jumphost
 
+|image2|
+
 Lab Components
 ^^^^^^^^^^^^^^
 
@@ -63,7 +65,7 @@ This will RDP to the Jumpbox where you will work all the labs from.
 
 - Login to the Jumpbox
 
--  User name: Jumpbox "\\" external\_user. Password: f5DEMOs4u
+-  User name: Jumpbox\external\_user. Password: f5DEMOs4u
 
 |image3|
 
@@ -88,4 +90,6 @@ This will RDP to the Jumpbox where you will work all the labs from.
 .. |image6| image:: /_static/image71.png
    :width: 6.64028in
    :height: 4.05694in
-`
+.. |image2| image:: /_static/image2.png
+	 :width: 796px
+	 :height: 783px

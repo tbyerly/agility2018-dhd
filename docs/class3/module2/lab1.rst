@@ -1,4 +1,4 @@
-Lab 1 – Quick GUI Overview of the Visibility and reporting Available
+Lab 1 – Quick GUI Overview of the Visibility and Reporting Available
 ====================================================================
 
 Task 1 – View the New Visibility Page
