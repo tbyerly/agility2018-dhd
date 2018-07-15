@@ -24,7 +24,7 @@ Task 2 – Create Protected Object and Launch Attack
 - Configure a protected object using the following information, and then click **Save**.
 
 +------------------------+-----------------------------+
-| Name                   | L7_Behavioral               |
+| Name                   | Auction                     |
 +------------------------+-----------------------------+
 | Destination Address    | 10.1.20.11                  |
 +------------------------+-----------------------------+
@@ -43,17 +43,20 @@ Task 2 – Create Protected Object and Launch Attack
 
 |image500|
 
+.. WARNING:: Name needs to be exact or demo will fail.
+
 - Next we need to modify the VS we created earlier to pass traffic.
 
-- At the bottom of the Men **Click** the "Show Advanced Menu"" >> Local Traffic >> Virtual Servers >> Virtual Server List >> Select the L7_Behaviroal Server.
+- At the bottom of the Menu **Click** the "Show Advanced Menu"" >> Local Traffic >> Virtual Servers >> Virtual Server List >> Select the Auction Server.
 
 - Under ""Configuration"" Select **Advanced**
-  - Ensure the following are Set:
-    Source Address translation to none
-    Uncheck Address translation
-    Uncheck Port translation
-    Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN (mbr931)
-      To figure out interface type "tmsh list net vlan" You want the next hope to be the internal interface.
+- Ensure the following are Set:
+  -Source Address translation to none
+  -Uncheck Address translation
+  -Uncheck Port translation
+  -Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN (mbr931)
+
+-To figure out interface type "tmsh list net vlan" You want the next hope to be the internal interface.
 
 - Click **Update**
 
@@ -63,7 +66,7 @@ Task 2 – Create Protected Object and Launch Attack
 
   ~/scripts/generate_clean_traffic.sh
 
-  Make sure you are receiving Status Code 200.
+Make sure you are receiving Status Code 200.
 
 .. NOTE::  This will need to run for approximately 10 minutes.
 
@@ -142,18 +145,18 @@ Task 2 – Create Protected Object and Launch Attack
 - This concludes the DHD Hands on Labs.
 
 .. |image500| image:: /_static/behavioralinitial.png
-   :width: 1504px
-   :height: 327px
+   :width: 1639px
+   :height: 295px
 .. |image501| image:: /_static/behavioralunderattack.png
    :width: 953px
    :height: 283px
 .. |image502| image:: /_static/behavioralhealthclimbing.png
    :width: 963px
    :height: 573px
-.. |image5032| image:: /_static/behavioraldosexpanded.png
+.. |image503| image:: /_static/behavioraldosexpanded.PNG
    :width: 1855px
    :height: 791px
-.. |image504| image:: /_static/behavioraleventlog.png
+.. |image504| image:: /_static/behavioraleventlog.PNG
    :width: 1522px
    :height: 353px
 .. |image505| image:: /_static/behavioralsig2.png
