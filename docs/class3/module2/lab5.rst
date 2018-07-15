@@ -51,10 +51,10 @@ Task 2 – Create Protected Object and Launch Attack
 
 - Under ""Configuration"" Select **Advanced**
 - Ensure the following are Set:
-  -Source Address translation to none
-  -Uncheck Address translation
-  -Uncheck Port translation
-  -Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN (mbr931)
+  #.Source Address translation to none
+  #.Uncheck Address translation
+  #.Uncheck Port translation
+  #.Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN (mbr931)
 
 -To figure out interface type "tmsh list net vlan" You want the next hope to be the internal interface.
 
@@ -66,6 +66,7 @@ Task 2 – Create Protected Object and Launch Attack
 
   ~/scripts/generate_clean_traffic.sh
 
+
 Make sure you are receiving Status Code 200.
 
 .. NOTE::  This will need to run for approximately 10 minutes.
@@ -75,7 +76,7 @@ Make sure you are receiving Status Code 200.
 .. code-block:: console
 
    #/root/scripts/l7bdos-reset.sh
-   #/root/scripts/l7-mon.sh
+   #admd -s vs. | grep -e learning -e health -e attack
 
 - Monitor the window.  When you see the following number go to 100, you will move on.
 
