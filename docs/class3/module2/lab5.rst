@@ -6,13 +6,16 @@ In this exercise we will use a protected object and analyze how the |dhd| reacts
 Task 1 – Create Protection Profile for Dos Behavioral Object
 ------------------------------------------------------
 
-- In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page and click the
-   **Create** button.
+- In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page and click the **Create** button.
 
-- Name the profile dos_behavioral and **select** the HTTP Families. *Click the HTTP Vector page to configure.
+- Name the profile dos_behavioral and **select** the "HTTP Families". **Click** the HTTP Vector page to configure.
 Click "Behavioral Bad Actor". The Fly Out opens and unselect "Bad Actor Detection".
 
-- **Click** The "HTTP Group Configuration" Place the "Operation Mode" into Blocking and the "Behavioral Base Attributes" into Standard Mitigation and Signatue Detection Selected.
+- **Click** The "HTTP Group Configuration"
+-Place the "Operation Mode" into Blocking
+-The "Behavioral Base Attributes" into Standard Mitigation
+-Signature Detection Selected.
+
 This places this profile into a behavioral based detection profile.
 
 Task 2 – Create Protected Object and Launch Attack
@@ -51,12 +54,12 @@ Task 2 – Create Protected Object and Launch Attack
 
 - Under ""Configuration"" Select **Advanced**
 - Ensure the following are Set:
-  #.Source Address translation to none
-  #.Uncheck Address translation
-  #.Uncheck Port translation
-  #.Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN (mbr931)
+-Source Address translation to none
+-Uncheck Address translation
+-Uncheck Port translation
+-Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN (mbr931)
 
--To figure out interface type "tmsh list net vlan" You want the next hope to be the internal interface.
+- To figure out interface type "tmsh list net vlan" You want the next hope to be the internal interface.
 
 - Click **Update**
 
