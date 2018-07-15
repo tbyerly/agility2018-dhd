@@ -12,58 +12,58 @@ common vectors. Note that auto-thresholding is useful at both the **Device** and
 Task 1 – Create Protected Objects that the baseline traffic will be targeting
 -----------------------------------------------------------------------------
 
-   The DHD device wide protection is enforced for all traffic flowing through the device. For more granular
-   control, we use **Protected Objects** and configure mitigation settings for those objects to be enforced.
+The DHD device wide protection is enforced for all traffic flowing through the device. For more granular
+control, we use **Protected Objects** and configure mitigation settings for those objects to be enforced.
 
-   In this task you will configure **object-level** DoS protection, and then issue an attack and review the results.
+In this task you will configure **object-level** DoS protection, and then issue an attack and review the results.
 
-   -  In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protected Objects** page and in the **Protected Objects** section click the
+- In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protected Objects** page and in the **Protected Objects** section click the
       **Create** dropdown and select **Protected Object"**
 
-   |image212|
+|image212|
 
-   - Configure the Protected Object using the following information, and then click **Create**.
+- Configure the Protected Object using the following information, and then click **Create**.
 
-    +------------------------+--------------------+
-    | Name                   | Server15             |
-    +========================+====================+
-    | Destination Address    | 10.1.20.15         |
-    +------------------------+--------------------+
-    | Port                   | \*All Ports        |
-    +------------------------+--------------------+
-    | Protocol               | TCP                |
-    +------------------------+--------------------+
-    | Protection Profile:    | dos                |
-    +------------------------+--------------------+
-    | Eviction Policy:       | Blank              |
-    +------------------------+--------------------+
-    | VLAN(s):               | defaultVLAN        |
-    +------------------------+--------------------+
-    | Logging Profiles:      | local-dos          |
-    +------------------------+--------------------+
+  +------------------------+--------------------+
+  | Name                   | Server15           |
+  +------------------------+--------------------+
+  | Destination Address    | 10.1.20.15         |
+  +------------------------+--------------------+
+  | Port                   | \*All Ports        |
+  +------------------------+--------------------+
+  | Protocol               | TCP                |
+  +------------------------+--------------------+
+  | Protection Profile:    | dos                |
+  +------------------------+--------------------+
+  | Eviction Policy:       | Blank              |
+  +------------------------+--------------------+
+  | VLAN(s):               | defaultVLAN        |
+  +------------------------+--------------------+
+  | Logging Profiles:      | local-dos          |
+  +------------------------+--------------------+
 
-   - Click **Save**
+- Click **Save**
 
-   -  This Protected Object will be used for the Auto-Thresholding lab.
+-  This Protected Object will be used for the Auto-Thresholding lab.
 
- Task 2 – Run Scripts to start L4 traffic generation – Good Traffic
+Task 2 – Run Scripts to start L4 traffic generation – Good Traffic
 ------------------------------------------------------------------
 
-   -  Putty SSH (use the desktop shortcut) to open a shell to the **good client system**.
+- Putty SSH (use the desktop shortcut) to open a shell to the **good client system**.
 
-   -  Accept the SSH Warning.
+- Accept the SSH Warning.
 
-   -  Enter "ubuntu" as the user. The session is preconfigured to authenticate with a certificate.
+- Enter "ubuntu" as the user. The session is preconfigured to authenticate with a certificate.
 
-   -  Start the auto-threshold base-lining script with:
+- Start the auto-threshold base-lining script with:
 
-      .. code-block:: console
+.. code-block:: console
 
-         # sudo su
-         # cd ~/scripts
-         # ./baseline_l4.sh
+   # sudo su
+   # cd ~/scripts
+   # ./baseline_l4.sh
 
--  In the Hybrid Defender UI, in **Dos Configuration >> Device Protection**, **Click** in the AutoThreshold Section **Start Relearning**
+- In the Hybrid Defender UI, in **Dos Configuration >> Device Protection**, **Click** in the AutoThreshold Section **Start Relearning**
 |image51|
 
 In the Hybrid Defender Web UI, Navigate to **Dos Configuration > Protection Profiles**  Select the **dos** profile and Click the **Network** box.
@@ -84,7 +84,7 @@ limits are automatically created and adjusted dynamically.
 Task 3 – Create Stress to trigger Auto Thresholding and view Reports
 --------------------------------------------------------------------
 
--  Let’s create some stress with a Flood attack. In the **Attacker** CLI start the auto-threshold flood:
+- Let’s create some stress with a Flood attack. In the **Attacker** CLI start the auto-threshold flood:
 
 .. code-block:: console
 
@@ -94,15 +94,15 @@ Task 3 – Create Stress to trigger Auto Thresholding and view Reports
 
 This is a long duration attack. You can terminate it with Ctrl+C when finished.
 
--  In the Hybrid Defender Web UI, view the Dos Configuration >> DoS Overview. Note that the ICMP Flood attack is being mitigated and the rate limit thresholds for each of the auto-threshold vectors have been adjusted based on stress, including vectors that are not detecting or blocking an attack.
+- In the Hybrid Defender Web UI, view the Dos Configuration >> DoS Overview. Note that the ICMP Flood attack is being mitigated and the rate limit thresholds for each of the auto-threshold vectors have been adjusted based on stress, including vectors that are not detecting or blocking an attack.
 
 |image54|
 
 - Select the filter type to **Virtual Server (DoS protected)** and **Server15** and view how various thresholds are dynamically adjusted based on the stress.
 
--  Terminate the attack in the Attacker CLI with Ctrl+C.
+- Terminate the attack in the Attacker CLI with Ctrl+C.
 
--  After the attack has ended, in the Hybrid Defender Web UI, navigate to the DoS Visibility page. Under Vectors, select ICMPv4 Flood. View the various details.
+- After the attack has ended, in the Hybrid Defender Web UI, navigate to the **DoS Visibility** page. Under Vectors, select ICMPv4 Flood. View the various details.
 
 .. ATTENTION::  If you want to run other attacks and see the UI and logging, adjust settings so you can mitigate attacks.  Please do so.  This will also be done in the Advanced Class.
 
@@ -113,10 +113,13 @@ This is a long duration attack. You can terminate it with Ctrl+C when finished.
 .. code-block:: console
 
   # tmsh run security dos device-config auto-threshold-relearn
-  # tmsh run security dos virtual name Server auto-threshold-relearn
+  # tmsh run security dos virtual name Server15 auto-threshold-relearn
 
 -  **Clean-up**: Stop the baseline traffic generation from the **good-client** if still running using CTRL+C
 
+.. |image212| image:: /_static/protectedobject.png
+   :width: 1641px
+   :height: 366px
 .. |image51| image:: /_static/DeviceProtection.PNG
    :width: 1887px
    :height: 779px

@@ -12,17 +12,17 @@ control, we use **Protected Objects** and configure mitigation settings for thos
 
 In this task you will configure **Object-Level** DoS protection for a network (L4), simulating your Server Network and then issue an attack and review the results.
 
--  In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protected Objects** page and in the **Protected Objects** section click the
+- In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protected Objects** page and in the **Protected Objects** section click the
    **Create** dropdown and select **Protected Object**.
 
 |image220|
 
--  Configure the Protected Object using the following information, and then click **Create**.
+- Configure the Protected Object using the following information, and then click **Create**.
 
    +------------------------+--------------------+
    | Name                   | ServerNet          |
    +------------------------+--------------------+
-   | Destination Address    | 10.1.20.0/22       |
+   | Destination Address    | 10.1.20.0/24       |
    +------------------------+--------------------+
    | Port                   | \*All Ports        |
    +------------------------+--------------------+
@@ -39,7 +39,7 @@ In this task you will configure **Object-Level** DoS protection for a network (L
 
 - Click **Save**
 
-This protected object is defending all ports/protocols for 10.1.20.0/22, which is the network behind the Hybrid Defender. Attacks will be
+This protected object is defending all ports/protocols for 10.1.20.0/24, which is the network behind the Hybrid Defender. Attacks will be
 launched at 10.1.20.12, which is an interface on the LAMP server.
 
 - Click **Update** when finished.

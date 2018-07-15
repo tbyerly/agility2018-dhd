@@ -1,15 +1,27 @@
 Lab 5 – Configuring L7  Behavioral Attack Protection
 ====================================================
 
-In this exercise we will use a protected object and show how behavioral DDoS works.
+In this exercise we will use a protected object and analyze how the |dhd| reacts and mitigates L7 attacks based on Behavioral Analysis.
 
-Task 1 – Create Protected Object and Launch Attack
+Task 1 – Create Protection Profile for Dos Behavioral Object
+------------------------------------------------------
+
+- In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page and click the
+   **Create** button.
+
+- Name the profile dos_behavioral and **select** the HTTP Families. *Click the HTTP Vector page to configure.
+Click "Behavioral Bad Actor". The Fly Out opens and unselect "Bad Actor Detection".
+
+- **Click** The "HTTP Group Configuration" Place the "Operation Mode" into Blocking and the "Behavioral Base Attributes" into Standard Mitigation and Signatue Detection Selected.
+This places this profile into a behavioral based detection profile.
+
+Task 2 – Create Protected Object and Launch Attack
 --------------------------------------------------
 
--  In the BIG-IP Configuration Utility, open the **DoS Protection > Quick Configuration** page and in the Protected Objects section click
+- In the BIG-IP Configuration Utility, open the **DoS Protection > Quick Configuration** page and in the Protected Objects section click
    **Create**.
 
--  Configure a protected object using the following information, and then click **Save**.
+- Configure a protected object using the following information, and then click **Save**.
 
 +------------------------+-----------------------------+
 | Name                   | L7_Behavioral               |
@@ -29,26 +41,29 @@ Task 1 – Create Protected Object and Launch Attack
 | Logging Profile(s)     | local-dos                   |
 +------------------------+-----------------------------+
 
+|image500|
 
-- Under the HTTP section make the following adjustments:
+- Next we need to modify the VS we created earlier to pass traffic.
 
-- Set Behavioral to Standard Protection.
+- At the bottom of the Men **Click** the "Show Advanced Menu"" >> Local Traffic >> Virtual Servers >> Virtual Server List >> Select the L7_Behaviroal Server.
 
-- Make sure you check "Request Signature Detection"
+- Under ""Configuration"" Select **Advanced**
+  - Ensure the following are Set:
+    Source Address translation to none
+    Uncheck Address translation
+    Uncheck Port translation
+    Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN (mbr931)
+      To figure out interface type "tmsh list net vlan" You want the next hope to be the internal interface.
 
-- Set Proactive Bot Defense to "Disabled"
-
-- Set DOS tool to "Report"
-
-|image96|
-
-- When finished click **Create**
+- Click **Update**
 
 - From the Good Client CLI, issue the following command.
 
-  .. code-block:: console
+.. code-block:: console
 
-    ~/scripts/generate_clean_traffic.sh
+  ~/scripts/generate_clean_traffic.sh
+
+  Make sure you are receiving Status Code 200.
 
 .. NOTE::  This will need to run for approximately 10 minutes.
 
@@ -61,7 +76,7 @@ Task 1 – Create Protected Object and Launch Attack
 
 - Monitor the window.  When you see the following number go to 100, you will move on.
 
-  |image91|
+|image502|
 
 - The health of the Protected Object will be shown. In general, a healthy system will show a value around .45. If the value is .5 consistently, then for some reason no learning is occurring and you should check your configuration and verify that baselining traffic is hitting the protected object in  question.
 
@@ -69,25 +84,25 @@ Task 1 – Create Protected Object and Launch Attack
 
 - The output will also include the ‘info.learning’ signal, which includes 4 comma-separated values that show the status of the admd behavioral dos learning:
 
-  |image99|
+|image99|
 
-  - signal values: [baseline_learning_confidence, learned_bins_count , good_table_size , good_table_confidence]
+- signal values: [baseline_learning_confidence, learned_bins_count , good_table_size , good_table_confidence]
 
-  - baseline learning_confidence in % - How confident the system is in the baseline learning.
+- baseline learning_confidence in % - How confident the system is in the baseline learning.
 
-  - This should be between 80% - 90%
+- This should be between 80% - 90%
 
-  - learned_bins_count - number of learned bins
+- learned_bins_count - number of learned bins
 
-  - This should be > 0
+- This should be > 0
 
-  - good_table_size - number of learned requests
+- good_table_size - number of learned requests
 
-  - This should be > 4000
+- This should be > 4000
 
-  - good_table_confidence - how confident, as a percentage, the system is in the good table.
+- good_table_confidence - how confident, as a percentage, the system is in the good table.
 
-  - It must be 100% for behavioral signatures.
+- It must be 100% for behavioral signatures.
 
 - From the Attacker CLI issue the following command:
 
@@ -101,52 +116,53 @@ Task 1 – Create Protected Object and Launch Attack
 
 - You will see the attack start in the DHD SSH window:
 
-|image93|
+|image501|
 
 - In addition you will see the good client start returning a status of 000 as it is unresponsive. It no longer returns a Status 200. Until the DHD starts mitigation.
 
 |image97|
 
-- Once the DHD has enough data a Stable Signature is detected.
+- Explore Dos Configuration >> Protected Objects.  Click on the "Attack Status" to expand.
 
-|image98|
+|image503|
 
 - Let this run for 2 minutes.  Stop the attack by pressing "Enter"" a couple of times in the **Attacker** window the choosing option "3" to stop the "Attack"
 
 .. NOTE:: The DHD does not record the end of the attack right away, it is very conservative, therefore you may have to wait 5 minutes to see the results.
 
-|image94|
+- Look at the Event Logs.
 
-- You can see in the top-left that a Behavioral Signature was created.
+|image504|
 
-- Click on this link, then click on the Signature to see it.
+- Look at the Signature created.  Advanced Menu >> Security >> Dos Protection >> signatures
 
-|image95|
+|image505|
+
 
 - This concludes the DHD Hands on Labs.
 
-.. |image91| image:: /_static/image57.png
-   :width: 6.50000in
-   :height: 1.87068in
+.. |image500| image:: /_static/behavioralinitial.png
+   :width: 1504px
+   :height: 327px
+.. |image501| image:: /_static/behavioralunderattack.png
+   :width: 953px
+   :height: 283px
+.. |image502| image:: /_static/behavioralhealthclimbing.png
+   :width: 963px
+   :height: 573px
+.. |image5032| image:: /_static/behavioraldosexpanded.png
+   :width: 1855px
+   :height: 791px
+.. |image504| image:: /_static/behavioraleventlog.png
+   :width: 1522px
+   :height: 353px
+.. |image505| image:: /_static/behavioralsig2.png
+   :width: 1835px
+   :height: 648px
 .. |image92| image:: /_static/image58.png
    :width: 4.590033in
    :height: 1.17006in
-.. |image93| image:: /_static/image66.png
-   :width: 6.50000in
-   :height: 2.11000in
-.. |image94| image:: /_static/image60.png
-   :width: 6.50000in
-   :height: 4.58068in
-.. |image95| image:: /_static/image61.png
-   :width: 6.50000in
-   :height: 3.72068in
-.. |image96| image:: /_static/image67.jpg
-   :width: 6.37000in
-   :height: 4.32068in
 .. |image97| image:: /_static/image68.png
-   :width: 6.37000in
-   :height: 4.32068in
-.. |image98| image:: /_static/image69.png
    :width: 6.37000in
    :height: 4.32068in
 .. |image99| image:: /_static/image63.png
