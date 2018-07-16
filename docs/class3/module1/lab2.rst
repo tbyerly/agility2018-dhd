@@ -70,7 +70,7 @@ This script launches the Attack and then repeats for a total of ten occurrences.
 - Navigate to **Visibility > Event Logs > DoS > Network >Events**.
 
 |image208|
-
+- Go back to the **Attacker** and stop the script. Ctrl-C
 - Notice no logs are captured.  We could have chosen **Learn Only** or **Detect Only** and had different results. If you want to test, feel free.
 
 .. NOTE:: If you want to run the other attacks, use the format above.  ./synflood.sh and udp_flood.sh behave similar.   If you are not seeing the traffic on the DHD CLI, Stop and Re-Start the tcpdump.
@@ -82,7 +82,9 @@ Task 3 – Re-enable **Device-Level** DHD DoS Protection
 
 In this task you will re-configure **device-level** DoS protection and then issue the same command and review the results.
 
--  In the Configuration Utility, in the **DoS Configuration > Device Protection** under Log Publisher select "local-db-publisher". The click the **Network** section.
+-  In the Configuration Utility, in the **DoS Configuration > Device Protection** under Log Publisher select "local-db-publisher".
+
+- Next click the **Network** section.
 
 - On the left side of the page select the checkbox for **ICMPv4 flood** and **UDP Flood**.
 
@@ -111,17 +113,17 @@ Task 4 – Attack the |dhd| again and see what you can tell.
 
 .. ATTENTION:: Why is the DHD not dropping packets?
 
-.. HINT:: Look at the Manual Thresholds set and the current rate of packets.  We are nor generating enough traffic.
+.. HINT:: Look at the Manual Thresholds set and the current rate of packets.  We are not generating enough traffic.
 
 - We need to set a lower threshold Manually.
 
-- In the Configuration Utility, open the **DoS Configuration > DoS Protection** page. Scroll down in the Network section to ICMPv4 flood.  **Click** ICMPv4 flood.
+- In the Configuration Utility, open the **DoS Configuration >> Device Protection** page. Scroll down in the **Network** section to ICMPv4 flood.  **Click** ICMPv4 flood.
 
 .. NOTE:: The new fly out page.
 
 - Manually Set The Detection Threshold PPS to 100 and the Mitigation Threshold EPS to 500. Scroll up and **Commit Changes to System**
 |image291|
-
+- Relaunch the Attack from the Attacker CLI.
 - In the Configuration Utility, open the **DoS Configuration > DoS Overview (non HTTP)** page.
 
 - Make sure the Filter Type is "Dos Attack". See the Dropped traffic with the new thresholds. Alternatively, you can go "Device DoS", scroll down to ICMPv4 Flood and see the same information."

@@ -55,6 +55,8 @@ Task 2 – Run Scripts to start L4 traffic generation – Good Traffic
 
 - Enter "ubuntu" as the user. The session is preconfigured to authenticate with a certificate.
 
+- This script will generate baseline traffic against both 10.1.20.14 and 10.1.20.15 (Your Protected Object)
+
 - Start the auto-threshold base-lining script with:
 
 .. code-block:: console
@@ -66,11 +68,11 @@ Task 2 – Run Scripts to start L4 traffic generation – Good Traffic
 - In the Hybrid Defender UI, in **Dos Configuration >> Device Protection**, **Click** in the AutoThreshold Section **Start Relearning**
 |image51|
 
-In the Hybrid Defender Web UI, Navigate to **Dos Configuration > Protection Profiles**  Select the **dos** profile and Click the **Network** box.
-Verify auto-thresholding for the following vectors: **ICMPv4 Flood, TCP SYN Flood, TCP Push Flood, TCP RST Flood, TCP SYN ACK Flood**. If not set to **Fully Automatic**
+In the Hybrid Defender Web UI, Navigate to **Dos Configuration >> Protection Profiles**  Select the **dos** profile and Click the **Network** box.
+We will enable auto-thresholding for the following vectors: **ICMPv4 Flood, TCP SYN Flood, TCP Push Flood, TCP RST Flood, TCP SYN ACK Flood**. If not set to **Fully Automatic**
 select each vector and clicking the **Set Threshold Mode** drop down and selecting **Fully Automatic**. When all vectors are configured, Go back to the top and Select **Commit Changes to System**.
 
-- In the Hybrid Defender Web UI, view the Auto Threshold event log by navigating to **Visibility >> Event Logs >>DoS > >Network > >Auto Threshold**.
+- In the Hybrid Defender Web UI, view the Auto Threshold event log by navigating to **Visibility >> Event Logs >> DoS >> Network >> Auto Threshold**.
 
 |image52|
 
@@ -79,7 +81,7 @@ However, mitigation rate limits are always dynamic based on detected system or p
 traffic are running, but there is no stress, the Hybrid Defender will generate alerts but will not block traffic. Under stress, the rate
 limits are automatically created and adjusted dynamically.
 
-- In the Hybrid Defender UI, in **Dos Configuration >> Dos Overview**, view in Device Dos the device sees no attacks.
+- In the Hybrid Defender UI, navigate to **Dos Configuration >> Dos Overview**, view in Dos Attack or Device Dos, the device sees no attacks.
 
 Task 3 – Create Stress to trigger Auto Thresholding and view Reports
 --------------------------------------------------------------------
@@ -98,11 +100,11 @@ This is a long duration attack. You can terminate it with Ctrl+C when finished.
 
 |image54|
 
-- Select the filter type to **Virtual Server (DoS protected)** and **Server15** and view how various thresholds are dynamically adjusted based on the stress.
+- Select the filter type to **Virtual Server (DoS protected)** and **Server15** and view how various thresholds are dynamically adjusted based on the stress. But all the blocking is still being handled by the device-dos.
 
 - Terminate the attack in the Attacker CLI with Ctrl+C.
 
-- After the attack has ended, in the Hybrid Defender Web UI, navigate to the **DoS Visibility** page. Under Vectors, select ICMPv4 Flood. View the various details.
+- After the attack has ended, in the Hybrid Defender Web UI, navigate to the **DoS Visibility** page. Click the **Network** filter. Under Vectors, select ICMPv4 Flood. View the various details.
 
 .. ATTENTION::  If you want to run other attacks and see the UI and logging, adjust settings so you can mitigate attacks.  Please do so.  This will also be done in the Advanced Class.
 
