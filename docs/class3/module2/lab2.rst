@@ -19,35 +19,33 @@ In this task you will configure **Object-Level** DoS protection for a network (L
 
 - Configure the Protected Object using the following information, and then click **Create**.
 
-   +------------------------+--------------------+
-   | Name                   | ServerNet          |
-   +------------------------+--------------------+
-   | Destination Address    | 10.1.20.0/24       |
-   +------------------------+--------------------+
-   | Port                   | \*All Ports        |
-   +------------------------+--------------------+
-   | Protocol               | All Protocols      |
-   +------------------------+--------------------+
-   | Protection Profile:    | dos                |
-   +------------------------+--------------------+
-   | Eviction Policy:       | Leave Blank        |
-   +------------------------+--------------------+
-   | VLAN(s):               | defaultVLAN        |
-   +------------------------+--------------------+
-   | Logging Profiles:      | local-dos          |
-   +------------------------+--------------------+
+ +------------------------+--------------------+
+ | Name                   | ServerNet          |
+ +------------------------+--------------------+
+ | Destination Address    | 10.1.20.0/24       |
+ +------------------------+--------------------+
+ | Port                   | \*All Ports        |
+ +------------------------+--------------------+
+ | Protocol               | All Protocols      |
+ +------------------------+--------------------+
+ | Protection Profile:    | dos                |
+ +------------------------+--------------------+
+ | Eviction Policy:       | Leave Blank        |
+ +------------------------+--------------------+
+ | VLAN(s):               | defaultVLAN        |
+ +------------------------+--------------------+
+ | Logging Profiles:      | local-dos          |
+ +------------------------+--------------------+
 
 - Click **Save**
 
 This protected object is defending all ports/protocols for 10.1.20.0/24, which is the network behind the Hybrid Defender. Attacks will be
 launched at 10.1.20.12, which is an interface on the LAMP server.
 
-- Click **Update** when finished.
-
-- In the default dos profile no sections are selected or enabled.
+In the default dos profile no sections are selected or enabled for protected objects.
 
 - In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page.  **Click** dos, Then Check the **Network** box under the Families Heading.
-Then click the Network Section.  Notice all vectors are disabled.  Check the top box to select all the vectors, Scroll to the bottom and Select Mitigate.  Scroll to the top and **Commit Changes to System**.
+Then click the Network Section.  Notice all vectors are disabled.  Check the top box to select all the vectors, Scroll to the bottom and Select **Mitigate**.  Scroll to the top and **Commit Changes to System**.
 
 |image221|
 
@@ -62,6 +60,7 @@ You will now launch the attacks and show the behavior
 - Access the **Attacker** shell and run the following commands/attack (if already in the folder just issue the command)
 
 .. code-block:: console
+
   # sudo su
   # cd ~/scripts
   # ./multivector.sh
@@ -70,7 +69,7 @@ You will now launch the attacks and show the behavior
 |image36|
 |image37|
 
-.. NOTE:: The screens show different info, why? Use the last lesson to adjust thresholds of the current attacks to see different results.
+.. NOTE:: The screens show different info, why? **Device Dos** shows the status of all vectors for that profile and the current status and rates. Use the last lesson to adjust thresholds of the current attacks to see different results.
 
 .. HINT:: Manual thresholds under **Dos Overview** >> Filter Type >> Device Dos.  Scroll down and see all the vectors and rates.  Adjust if you desire.
 
@@ -80,7 +79,7 @@ You will now launch the attacks and show the behavior
 
 |image38|
 
-- Notice under Attack Duration the red heart symbol.  Signifies an ongoing attack.
+- Notice under Attack Duration the red heart symbol.  Signifies an ongoing attack. If you don't see it.  Use Ctrl - to shrink your screen view.
 
 .. NOTE:: Why is there no data in the Virtual Server Section?
 
@@ -89,9 +88,8 @@ You will now launch the attacks and show the behavior
 - Navigate to **Visibility >> Event Logs >> DoS >> Network >> Events**
 
 |image39|
-
 - Further explore the DoS Event logs. For example, clear the search and identify the “Stop” and “Start” times for an attack, type, action, PPS and Dropped Packets etc.
-
+- Cancel the **Attacker** attack Ctrl-C.
 .. |image220| image:: /_static/protectedobject.png
    :width: 1641px
    :height: 366px

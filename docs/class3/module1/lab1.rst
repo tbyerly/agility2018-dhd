@@ -40,10 +40,9 @@ The architecture and design decisions should have been made already. Based on F5
 
 - Click **Network** in the left hand menu. Then Select **Topology**.
 - You will notice the various options you can select based on the prior architecture decisions.
+- Click **Create** on the upper right side.
 - For this classes purpose **Click** on the VLAN Group image.
 |image203|
-- Click **Create** on the upper right side.
-
 - Fill out the information from the table below. Then Click **Done Editing** within that section.
 
   +-----------------------+----------------------------------+
