@@ -45,22 +45,22 @@ The architecture and design decisions should have been made already. Based on F5
 |image203|
 - Fill out the information from the table below. Then Click **Done Editing** within that section.
 
-  +-----------------------+----------------------------------+
-  | **VLAN Group Name:**  | defaultVlan                      |
-  |                       |                                  |
-  +-----------------------+----------------------------------+
-  | **Internal:           | 20                               |
-  | VLAN Tag**            |                                  |
-  +-----------------------+----------------------------------+
-  | **Internal:           | 1.2 Untagged (Click **Add**)     |
-  | Interfaces**          |                                  |
-  +-----------------------+----------------------------------+
-  | **External:           | 10                               |
-  | VLAN Tag**            |                                  |
-  +-----------------------+----------------------------------+
-  | **External:           | 1.1 Untagged (Click **Add**)     |
-  | Interfaces**          |                                  |
-  +-----------------------+----------------------------------+
++-----------------------+----------------------------------+
+| **VLAN Group Name:**  | defaultVlan                      |
+|                       |                                  |
++-----------------------+----------------------------------+
+| **Internal:           | 20                               |
+| VLAN Tag**            |                                  |
++-----------------------+----------------------------------+
+| **Internal:           | 1.2 Untagged (Click **Add**)     |
+| Interfaces**          |                                  |
++-----------------------+----------------------------------+
+| **External:           | 10                               |
+| VLAN Tag**            |                                  |
++-----------------------+----------------------------------+
+| **External:           | 1.1 Untagged (Click **Add**)     |
+| Interfaces**          |                                  |
++-----------------------+----------------------------------+
 
 |image204|
 - At the bottom of the page click **Finished** to create the default network.

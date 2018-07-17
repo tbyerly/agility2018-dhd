@@ -19,23 +19,23 @@ In this task you will configure **Object-Level** DoS protection for a network (L
 
 - Configure the Protected Object using the following information, and then click **Create**.
 
- +------------------------+--------------------+
- | Name                   | ServerNet          |
- +------------------------+--------------------+
- | Destination Address    | 10.1.20.0/24       |
- +------------------------+--------------------+
- | Port                   | \*All Ports        |
- +------------------------+--------------------+
- | Protocol               | All Protocols      |
- +------------------------+--------------------+
- | Protection Profile:    | dos                |
- +------------------------+--------------------+
- | Eviction Policy:       | Leave Blank        |
- +------------------------+--------------------+
- | VLAN(s):               | defaultVLAN        |
- +------------------------+--------------------+
- | Logging Profiles:      | local-dos          |
- +------------------------+--------------------+
++------------------------+--------------------+
+| Name                   | ServerNet          |
++------------------------+--------------------+
+| Destination Address    | 10.1.20.0/24       |
++------------------------+--------------------+
+| Port                   | \*All Ports        |
++------------------------+--------------------+
+| Protocol               | All Protocols      |
++------------------------+--------------------+
+| Protection Profile:    | dos                |
++------------------------+--------------------+
+| Eviction Policy:       | Leave Blank        |
++------------------------+--------------------+
+| VLAN(s):               | defaultVLAN        |
++------------------------+--------------------+
+| Logging Profiles:      | local-dos          |
++------------------------+--------------------+
 
 - Click **Save**
 
@@ -89,7 +89,9 @@ You will now launch the attacks and show the behavior
 
 |image39|
 - Further explore the DoS Event logs. For example, clear the search and identify the “Stop” and “Start” times for an attack, type, action, PPS and Dropped Packets etc.
-- Cancel the **Attacker** attack Ctrl-C.
+
+- Cancel the **Attacker** attack CTRL+C.
+
 .. |image220| image:: /_static/protectedobject.png
    :width: 1641px
    :height: 366px
