@@ -70,7 +70,8 @@ This script launches the Attack and then repeats for a total of ten occurrences.
 - Navigate to **Visibility > Event Logs > DoS > Network >Events**.
 
 |image208|
-- Go back to the **Attacker** and stop the script. Ctrl-C
+- Go back to the **Attacker** and stop the script. CTRL+C (This needs to be hit several times to break out of the script)
+
 - Notice no logs are captured.  We could have chosen **Learn Only** or **Detect Only** and had different results. If you want to test, feel free.
 
 .. NOTE:: If you want to run the other attacks, use the format above.  ./synflood.sh and udp_flood.sh behave similar.   If you are not seeing the traffic on the DHD CLI, Stop and Re-Start the tcpdump.
