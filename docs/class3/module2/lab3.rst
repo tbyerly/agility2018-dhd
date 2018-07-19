@@ -100,7 +100,7 @@ This is a long duration attack. You can terminate it with Ctrl+C when finished.
 
 |image54|
 
-- Select the filter type to **Virtual Server (DoS protected)** and **Server15** and view how various thresholds are dynamically adjusted based on the stress. But all the blocking is still being handled by the device-dos.
+- Select the filter type to **Protected Object** and then Select the Virtual Server **Server15** and view how various thresholds are dynamically adjusted based on the stress. But all the blocking is still being handled by the device-dos.
 
 - Terminate the attack in the Attacker CLI with Ctrl+C.
 
