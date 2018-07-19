@@ -5,7 +5,7 @@ Task 1 – View the New Visibility Page
 -----------------------------------------------------------------------------
 You can now use the new DHD Visibility page to view the Dashboard, Analysis, Event Logs and Debugging info.
 
-- In the Hybrid Defender Web UI, go to the Dashboard and access the Visibility tab.
+- In the Hybrid Defender Web UI, go to the Visibility >> Dashboard overview.
 
 .. NOTE:: DoS Visibility Dashboard defaults to not Auto-Refresh. Click the Button to set **Real-Time** to **ON**.
 

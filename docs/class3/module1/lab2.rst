@@ -11,7 +11,7 @@ Task 1 – Verify Communication Through the DHD Device.
 
   ``tcpdump -i 0.0 host 10.1.20.12``
 
-- **PuTTY** to the **Attacker** host from your jumpbox desktop shortcut. Accept the Warning.  Enter "ubuntu" as the user. I't will use **a pre-loaded public key** as the credentials.
+- **PuTTY** to the **Attacker** host from your jumpbox desktop shortcut. Accept the Warning.  Enter "ubuntu" as the user. It will use **a pre-loaded public key** as the credentials.
 
 - At the **config** prompt, type (or copy and paste) the following command:
 
@@ -28,11 +28,11 @@ The attacker can successfully communicate with a back-end resource behind the BI
 Task 2 – Disable **Device-Level** DHD DoS Protection
 ----------------------------------------------------
 
-- In the Configuration Utility, in the **DoS Configuration > Device Protection** section click **Network**.
+- In the Configuration Utility, in the **DoS Configuration >> Device Protection** section click **Network**.
 |image205|
 - On the left side of the page select the checkbox for **ICMPv4 flood** and **UDP Flood**.
 
-- At the bottom just below the last vector, chose the drop down **Set State** and then select **Disabled**.
+- At the bottom just below the last vector, choose the drop down **Set State** and then select **Disabled**.
 
 .. HINT:: This is the new method for selecting and changing multiple items at one-time. This will be how we will **Set State** and **Set Threshold**.
 
@@ -59,15 +59,15 @@ This script launches the Attack and then repeats for a total of ten occurrences.
 
 - Let the attack run for about 15 seconds before moving on.
 
-- In the Configuration Utility, open the **DoS Configuration > DoS Overview (non HTTP)** page.
+- In the Configuration Utility, open the **DoS Configuration >> DoS Overview (non HTTP)** page.
 
 - Make sure the Filter Type is "Dos Attack".
 
-- View the Protection Profile and notice no results are returned,  you disabled those vectors.
+- View the Protection Profile column in the display and notice no results are returned,  you disabled those vectors.
 
 |image207|
 
-- Navigate to **Visibility > Event Logs > DoS > Network >Events**.
+- Navigate to **Visibility >> Event Logs >> DoS >> Network >> Events**.
 
 |image208|
 - Go back to the **Attacker** and stop the script. CTRL+C (This needs to be hit several times to break out of the script)
@@ -83,7 +83,7 @@ Task 3 – Re-enable **Device-Level** DHD DoS Protection
 
 In this task you will re-configure **device-level** DoS protection and then issue the same command and review the results.
 
--  In the Configuration Utility, in the **DoS Configuration > Device Protection** under Log Publisher select "local-db-publisher".
+-  In the Configuration Utility, in the **DoS Configuration >> Device Protection** under Log Publisher select "local-db-publisher".
 
 - Next click the **Network** section.
 
@@ -103,7 +103,7 @@ Task 4 – Attack the |dhd| again and see what you can tell.
 
   ``for i in {1..10}; do ./icmpflood.sh; done``
 
-- In the Configuration Utility, open the **DoS Configuration > DoS Overview (non HTTP)** page.
+- In the Configuration Utility, open the **DoS Configuration >> DoS Overview (non HTTP)** page.
 
 - Make sure the Filter Type is "Device Dos".
 
@@ -125,7 +125,7 @@ Task 4 – Attack the |dhd| again and see what you can tell.
 - Manually Set The Detection Threshold PPS to 100 and the Mitigation Threshold EPS to 500. Scroll up and **Commit Changes to System**
 |image291|
 - Relaunch the Attack from the Attacker CLI.
-- In the Configuration Utility, open the **DoS Configuration > DoS Overview (non HTTP)** page.
+- In the Configuration Utility, open the **DoS Configuration >> DoS Overview (non HTTP)** page.
 
 - Make sure the Filter Type is "Dos Attack". See the Dropped traffic with the new thresholds. Alternatively, you can go "Device DoS", scroll down to ICMPv4 Flood and see the same information."
 |image292|

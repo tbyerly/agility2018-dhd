@@ -12,9 +12,7 @@ control, we use **Protected Objects** and configure mitigation settings for thos
 
 In this task you will configure **Object-Level** DoS protection for a network (L4), simulating your Server Network and then issue an attack and review the results.
 
-- In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protected Objects** page and in the **Protected Objects** section click the
-   **Create** dropdown and select **Protected Object**.
-
+- In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protected Objects** page and in the **Protected Objects** section click the **Create** dropdown and select **Protected Object**.
 |image220|
 
 - Configure the Protected Object using the following information, and then click **Create**.
@@ -45,7 +43,7 @@ launched at 10.1.20.12, which is an interface on the LAMP server.
 In the default dos profile no sections are selected or enabled for protected objects.
 
 - In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page.  **Click** dos, Then Check the **Network** box under the Families Heading.
-Then click the Network Section.  Notice all vectors are disabled.  Check the top box to select all the vectors, Scroll to the bottom and Select **Mitigate**.  Scroll to the top and **Commit Changes to System**.
+- Click the Network Section.  Notice all vectors are disabled.  Check the top box to select all the vectors, Scroll to the bottom and Select **Mitigate**.  Scroll to the top and **Commit Changes to System**.
 
 |image221|
 
@@ -65,7 +63,11 @@ You will now launch the attacks and show the behavior
   # cd ~/scripts
   # ./multivector.sh
 
-- Click **Refresh** on the DoS Overview page. Look at Explore both **DoS Attack** and **Device Dos**
+.. NOTE:: Ignore the "sudo: unable to resolve host xjumpbox" error.
+
+|image222|
+
+- Click **Refresh** on the DoS Overview page. Look at and explore both **DoS Attack** and **Device Dos** filters to refine your results.
 |image36|
 |image37|
 
@@ -110,3 +112,6 @@ You will now launch the attacks and show the behavior
 .. |image221| image:: /_static/defaultdosprofiledisabled.PNG
    :width: 1467px
    :height: 681px
+.. |image221| image:: /_static/sudoerrorignore.png
+   :width: 902px
+   :height: 134px
