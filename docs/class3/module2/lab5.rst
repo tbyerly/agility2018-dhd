@@ -1,4 +1,4 @@
-Lab 5 – Configuring L7  Behavioral Attack Protection
+Lab 5 – Configuring L7 Behavioral Attack Protection
 ====================================================
 
 In this exercise we will use a protected object and analyze how the |dhd| reacts and mitigates L7 attacks based on Behavioral Analysis.
@@ -8,20 +8,20 @@ Task 1 – Create Protection Profile for Dos Behavioral Object
 
 - In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page and click the **Create** button.
 
-- Name the profile dos_behavioral and **select** the "HTTP Families". **Click** the HTTP Vector page to configure.
-Click "Behavioral Bad Actor". The Fly Out opens and unselect "Bad Actor Detection".
+- Name the profile **dos_behavioral** and **select** the "HTTP Families". **Click** the "edit" pencil on the right side of the  HTTP Vector page to configure.
 
 - **Click** The "HTTP Group Configuration"
 -Place the "Operation Mode" into Blocking
 -The "Behavioral Base Attributes" into Standard Mitigation
 -Signature Detection Selected.
+- **Commit Changes to System**
 
-This places this profile into a behavioral based detection profile.
+This places this profile into a behavioral based detection profile. No vectors are used in this demo.
 
 Task 2 – Create Protected Object and Launch Attack
 --------------------------------------------------
 
-- In the BIG-IP Configuration Utility, open the **DoS Protection > Quick Configuration** page and in the Protected Objects section click
+- In the BIG-IP Configuration Utility, open the **DoS Protection >> Quick Configuration** page and in the Protected Objects section click
    **Create**.
 
 - Configure a protected object using the following information, and then click **Save**.
@@ -29,7 +29,7 @@ Task 2 – Create Protected Object and Launch Attack
 +------------------------+-----------------------------+
 | Name                   | Auction                     |
 +------------------------+-----------------------------+
-| Destination Address    | 10.1.20.11                  |
+| Destination Address    | 10.1.20.101                 |
 +------------------------+-----------------------------+
 | Service Port           | 80                          |
 +------------------------+-----------------------------+
@@ -57,17 +57,18 @@ Task 2 – Create Protected Object and Launch Attack
 -Source Address translation to none
 -Uncheck Address translation
 -Uncheck Port translation
--Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN (mbr931)
+-Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN.
 
-- To figure out interface type "tmsh list net vlan" You want the next hope to be the internal interface.
+- To figure out interface type "tmsh list net vlan" You want the next hop to be the internal interface.
 
 - Click **Update**
 
 - From the Good Client CLI, issue the following command.
 
 .. code-block:: console
-
-  ~/scripts/generate_clean_traffic.sh
+  #sudo su
+  # cd Scripts
+  #./generate_clean_traffic.sh
 
 
 Make sure you are receiving Status Code 200.
@@ -80,6 +81,8 @@ Make sure you are receiving Status Code 200.
 
    #/root/scripts/l7bdos-reset.sh
    #admd -s vs. | grep -e learning -e health -e attack
+
+You can use variations of the filters in grep if you are familiar.
 
 - Monitor the window.  When you see the following number go to 100, you will move on.
 

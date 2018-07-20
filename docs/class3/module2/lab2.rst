@@ -112,6 +112,6 @@ You will now launch the attacks and show the behavior
 .. |image221| image:: /_static/defaultdosprofiledisabled.PNG
    :width: 1467px
    :height: 681px
-.. |image221| image:: /_static/sudoerrorignore.png
+.. |image222| image:: /_static/sudoerrorignore.png
    :width: 902px
    :height: 134px
