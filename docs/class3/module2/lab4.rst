@@ -33,15 +33,15 @@ Click around a few links. This is the site we will launch an attack against and 
 
 - The tool will rapidly show the site offline (10-15 seconds, with trivial traffic load)
 
-- Refresh https://10.1.20.11 to show the effects of the attack. CLick links on the page.
+- Refresh https://10.1.20.11 to show the effects of the attack. Click links on the page.
 
-.. NOTE::  Since we are running locally from the Win7 system in a virtualized environment, you may be able to access the site, however it will be slower and often the GIFs will not load. An Internet user would not be able to “fight through” the attack to get to the server as often as a system on the local LAN.
+.. NOTE:: Since we are running locally from the Win7 system in a virtualized environment, you may be able to access the site, however it will be slower and often the GIFs will not load. An Internet user would not be able to “fight through” the attack to get to the server as often as a system on the local LAN.
 
 - Stop the slowloris attack by using CTRL+C.
 
 Start a more effective Slow Read attack.
 
-This attack is harder for DoS mitigation tools to mitigate and can be very effective even with a tiny number of concurrent connections trickling in very slowly to the server to fly below the radar of network detections. In our example we will open 10 connections per second and
+.. NOTE:: This attack is harder for DoS mitigation tools to mitigate and can be very effective even with a tiny number of concurrent connections trickling in very slowly to the server to fly below the radar of network detections. In our example we will open 10 connections per second and
 read the response data at 1 byte / sec. The attack would be effective even at 1 cps, it would just take a bit longer to build up the connections.
 
 - From the **Attacker** CLI/shell start the slowread attack:
@@ -62,10 +62,31 @@ Task 2 – Create Protection Profile for Dos HTTP Object
 
 - In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page and click the **Create** button.
 
-- Name the profile dos_HTTPS and **select** the HTTP Vectors. **Click** the HTTP Vector page to configure. At the far right click the "edit" pencil.
+- Name the profile dos_HTTPS and **select** the HTTP Families Vectors. Hover over the HTTP Vector page to configure. At the far right click the "edit" pencil.
 Change the settings depicted in the image below.
 
 |image402|
+
+Task 3 – Modify Default Eviction Policy
+---------------------------------------
+
+.. IMPORTANT:: When making a Slow-Read attack, a client establishes a connection to the Server and sends an appropriate HTTP request, However, the client reads
+ the response at a very slow speed. Some Slow-Read attack clients don’t read the response at all for long time and then starts reading data
+ one byte at a time just before the idle connection timeout. The clients sends a Zero window to the server which makes the Server to assume that the client
+  is busy reading the data. As a result, the server to keeps the connection opened for long period of time. Such multiple connections to the Server will consume the resources of the server and can make the server unresponsive to the new and genuine requests.
+
+In order to mitigate such an attack we need to make adjustments to the default-eviction-policy.
+
+- Navigate to Dos Configuration >> Eviction Policy and **Click** ob the default-eviction-policy.
+
+- Under "Slow Flow Monitoring" choose "enable" and change the value to 1024.
+- Under the "Grace Period" change the default value to 5 Seconds.
+- Under "Slow Flow Throttling" change the value to "absolute" and 50 connections as the value.
+|image403|
+
+What we are doing here is setting up the policy to recognize and then evict slow flows through the |dhd|.
+
+
 
 Task 3 – Create Protected Object
 --------------------------------
@@ -78,21 +99,23 @@ Task 3 – Create Protected Object
 - Configure a protected object using the following information, and then click **Save**.
 
   +------------------------+-----------------------------+
-  | Name                   | Server_HTTPS                |
+  | Name:                  | Server_HTTPS                |
   +------------------------+-----------------------------+
-  | Destination Address    | 10.1.20.11                  |
+  | Destination Address:   | 10.1.20.11                  |
   +------------------------+-----------------------------+
-  | Service Port           | 443                         |
+  | Service Port:          | 443                         |
   +------------------------+-----------------------------+
-  | Protocol               | TCP                         |
+  | Protocol:              | TCP                         |
   +------------------------+-----------------------------+
   | Service Profile:       | http                        |
   +------------------------+-----------------------------+
   | Protection Profile:    | dos_HTTPS                   |
   +------------------------+-----------------------------+
-  | VLAN(s)                | default_VLAN                |
+  |  Eviction Policy:      | default-eviction-policy     |
   +------------------------+-----------------------------+
-  | Logging Profile(s)     | local-dos                   |
+  | VLAN(s):               | default_VLAN                |
+  +------------------------+-----------------------------+
+  | Logging Profile(s):    | local-dos                   |
   +------------------------+-----------------------------+
 
 
@@ -101,7 +124,7 @@ Task 3 – Create Protected Object
 Task 4 – Configure Protection/Mitigation
 ----------------------------------------
 
-- Next we need to modify the VS we created to pass traffic.
+Next we need to modify the VS we created to pass traffic.
 
 - At the bottom of the Menu **Click** the "Show Advanced Menu"" >> Local Traffic >> Virtual Servers >> Virtual Server List >> Select the Server_HTTPS VS.
 
@@ -112,11 +135,19 @@ Task 4 – Configure Protection/Mitigation
 - Source Address translation to **none**
 - Uncheck Address translation
 - Uncheck Port translation
--Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN. If you have followed along, it will be the interface associated with 1.2
-
+- Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN. If you have followed along, it will be the interface associated with 1.2
 - To figure out interface type "tmsh list net vlan" You want the next hope to be the internal interface.
 
 - Click **Update**
+
+Next we need to modify the Virtual Server Address List Address
+
+- At the bottom of the Menu **Click** the "Show Advanced Menu"" >> Local Traffic >> Virtual Servers >> Virtual Address List >> Select the address 10.1.20.11
+
+- Under **Configuration** disable/ uncheck ARP.
+
+- Click **Update**
+
 
 Task 5 – Attack Website notice Mitigation/Protection
 ----------------------------------------------------
@@ -127,7 +158,14 @@ Task 5 – Attack Website notice Mitigation/Protection
   # cd ~/scripts
   # ./slowread.sh
 
-- In the |dhd| GUI access the tabs you opened previously and notice no attacks were detected.
+- From Firefox access the website and click around.  You will notice although the website is being DoS'd via slow read, the website remains available.
+
+- If you look in the command window of the Attacker...The tool even reports the site off-line, although the site remains available.
+
+.. admonition:: TMSH
+   tmctl -w 200 virtual_server_stat -s name,clientside.cur_conns,clientside.slow_conns,clientside.slow_killed,serverside.cur_conns,serverside.slow_conns,serverside.slow_killed
+
+- Notice as the slow connections increase, the |dhd| will start killing them.
 
 - Stop the slowread attack by using CTRL+C.
 
@@ -137,3 +175,6 @@ Task 5 – Attack Website notice Mitigation/Protection
 .. |image402| image:: /_static/dos_http5.png
    :width: 1410px
    :height: 713px
+.. |image403| image:: /_static/slowflow.png
+   :width: 1326px
+   :height: 553px

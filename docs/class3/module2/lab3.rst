@@ -17,8 +17,7 @@ control, we use **Protected Objects** and configure mitigation settings for thos
 
 In this task you will configure **object-level** DoS protection, and then issue an attack and review the results.
 
-- In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protected Objects** page and in the **Protected Objects** section click the
-      **Create** dropdown and select **Protected Object"**
+- In the BIG-IP Configuration Utility, open the **DoS Configuration** >> **Protected Objects** page and in the Protected Objects section click the **Create** dropdown and select **Protected Object**
 
 |image212|
 
