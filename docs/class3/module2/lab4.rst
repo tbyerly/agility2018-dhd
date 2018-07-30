@@ -72,12 +72,11 @@ Task 3 – Modify Default Eviction Policy
 
 .. IMPORTANT:: When making a Slow-Read attack, a client establishes a connection to the Server and sends an appropriate HTTP request, However, the client reads
  the response at a very slow speed. Some Slow-Read attack clients don’t read the response at all for long time and then starts reading data
- one byte at a time just before the idle connection timeout. The clients sends a Zero window to the server which makes the Server to assume that the client is busy reading the data.
-  As a result, the server to keeps the connection opened for long period of time. Such multiple connections to the Server will consume the resources of the server and can make the server unresponsive to the new and genuine requests.
+ one byte at a time just before the idle connection timeout. The clients sends a Zero window to the server which makes the Server to assume that the client is busy reading the data. As a result, the server to keeps the connection opened for long period of time. Such multiple connections to the Server will consume the resources of the server and can make the server unresponsive to the new and genuine requests.
 
 In order to mitigate such an attack we need to make adjustments to the default-eviction-policy.
 
-- Navigate to Dos Configuration >> Eviction Policy and **Click** ob the default-eviction-policy.
+- Navigate to Dos Configuration >> Eviction Policy and **Click** on the default-eviction-policy.
 
 - Under "Slow Flow Monitoring" choose "enable" and change the value to 1024.
 - Under the "Grace Period" change the default value to 5 Seconds.
@@ -91,32 +90,31 @@ What we are doing here is setting up the policy to recognize and then evict slow
 Task 3 – Create Protected Object
 --------------------------------
 
-- In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protected Objects** page and in the **Protected Objects** section click the
-   **Create** dropdown and select **Protected Object**.
+- In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protected Objects** page and in the **Protected Objects** section click the **Create** dropdown and select **Protected Object**.
 
 |image401|
 
 - Configure a protected object using the following information, and then click **Save**.
 
-  +------------------------+-----------------------------+
-  | Name:                  | Server_HTTPS                |
-  +------------------------+-----------------------------+
-  | Destination Address:   | 10.1.20.11                  |
-  +------------------------+-----------------------------+
-  | Service Port:          | 443                         |
-  +------------------------+-----------------------------+
-  | Protocol:              | TCP                         |
-  +------------------------+-----------------------------+
-  | Service Profile:       | http                        |
-  +------------------------+-----------------------------+
-  | Protection Profile:    | dos_HTTPS                   |
-  +------------------------+-----------------------------+
-  |  Eviction Policy:      | default-eviction-policy     |
-  +------------------------+-----------------------------+
-  | VLAN(s):               | default_VLAN                |
-  +------------------------+-----------------------------+
-  | Logging Profile(s):    | local-dos                   |
-  +------------------------+-----------------------------+
++------------------------+-----------------------------+
+| Name:                  | Server_HTTPS                |
++------------------------+-----------------------------+
+| Destination Address:   | 10.1.20.11                  |
++------------------------+-----------------------------+
+| Service Port:          | 443                         |
++------------------------+-----------------------------+
+| Protocol:              | TCP                         |
++------------------------+-----------------------------+
+| Service Profile:       | http                        |
++------------------------+-----------------------------+
+| Protection Profile:    | dos_HTTPS                   |
++------------------------+-----------------------------+
+|  Eviction Policy:      | default-eviction-policy     |
++------------------------+-----------------------------+
+| VLAN(s):               | default_VLAN                |
++------------------------+-----------------------------+
+| Logging Profile(s):    | local-dos                   |
++------------------------+-----------------------------+
 
 
 
@@ -136,7 +134,7 @@ Next we need to modify the VS we created to pass traffic.
 - Uncheck Address translation
 - Uncheck Port translation
 - Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN. If you have followed along, it will be the interface associated with 1.2
-- To figure out interface type "tmsh list net vlan" You want the next hop to be the internal interface. 1.2
+- To figure out interface type "tmsh list net vlan" You want the next hop to be the internal interface.
 
 - Click **Update**
 
@@ -160,9 +158,11 @@ Task 5 – Attack Website notice Mitigation/Protection
 
 - From Firefox access the website and click around.  You will notice although the website is being DoS'd via slow read, the website remains available.
 
-- If you look in the command window of the Attacker...The tool even reports the site off-line, although the site remains available.
+- If you look in the command window of the Attacker the tool even reports the site off-line, although the site remains available.
 
-.. admonition:: TMSH
+- On the DHD CLI run the following command.
+
+.. code-block:: console
 
    #tmctl -w 200 virtual_server_stat -s name,clientside.cur_conns,clientside.slow_conns,clientside.slow_killed,serverside.cur_conns,serverside.slow_conns,serverside.slow_killed
 
