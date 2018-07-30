@@ -11,9 +11,9 @@ Task 1 – Create Protection Profile for Dos Behavioral Object
 - Name the profile **dos_behavioral** and **select** the "HTTP Families". **Click** the "edit" pencil on the right side of the  HTTP Vector page to configure.
 
 - **Click** The "HTTP Group Configuration"
--Place the "Operation Mode" into Blocking
--The "Behavioral Base Attributes" into Standard Mitigation
--Signature Detection Selected.
+- Place the "Operation Mode" into Blocking
+- The "Behavioral Base Attributes" into Standard Mitigation
+- Signature Detection Selected.
 - **Commit Changes to System**
 
 This places this profile into a behavioral based detection profile. No vectors are used in this demo.
@@ -46,6 +46,10 @@ Task 2 – Create Protected Object and Launch Attack
 
 |image500|
 
+- Click in the whitespace of the Protected Object to get additional info that will be useful for detection and mitigation.
+
+|image506|
+
 .. WARNING:: Name needs to be exact or demo will fail.
 
 - Next we need to modify the VS we created earlier to pass traffic.
@@ -54,10 +58,10 @@ Task 2 – Create Protected Object and Launch Attack
 
 - Under ""Configuration"" Select **Advanced**
 - Ensure the following are Set:
--Source Address translation to none
--Uncheck Address translation
--Uncheck Port translation
--Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN.
+- Source Address translation to none
+- Uncheck Address translation
+- Uncheck Port translation
+- Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN.
 
 - To figure out interface type "tmsh list net vlan" You want the next hop to be the internal interface.
 
@@ -124,7 +128,7 @@ You can use variations of the filters in grep if you are familiar.
 
 - Choose option **1**, "Attack Auction"
 
-- You will see the attack start in the DHD SSH window:
+- You will see the attack start in the |dhd| SSH window:
 
 |image501|
 
@@ -138,7 +142,7 @@ You can use variations of the filters in grep if you are familiar.
 
 - Let this run for 2 minutes.  Stop the attack by pressing "Enter"" a couple of times in the **Attacker** window the choosing option "3" to stop the "Attack"
 
-.. NOTE:: The DHD does not record the end of the attack right away, it is very conservative, therefore you may have to wait 5 minutes to see the results.
+.. NOTE:: The |dhd| does not record the end of the attack right away, it is very conservative, therefore you may have to wait 5 minutes to see the results.
 
 - Look at the Event Logs.
 
@@ -178,3 +182,6 @@ You can use variations of the filters in grep if you are familiar.
 .. |image99| image:: /_static/image63.png
    :width: 6.54000in
    :height: 0.68068in
+.. |image504| image:: /_static/whitespace2.png
+   :width: 1448px
+   :height: 716px

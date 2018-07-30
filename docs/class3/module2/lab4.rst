@@ -72,8 +72,8 @@ Task 3 – Modify Default Eviction Policy
 
 .. IMPORTANT:: When making a Slow-Read attack, a client establishes a connection to the Server and sends an appropriate HTTP request, However, the client reads
  the response at a very slow speed. Some Slow-Read attack clients don’t read the response at all for long time and then starts reading data
- one byte at a time just before the idle connection timeout. The clients sends a Zero window to the server which makes the Server to assume that the client
-  is busy reading the data. As a result, the server to keeps the connection opened for long period of time. Such multiple connections to the Server will consume the resources of the server and can make the server unresponsive to the new and genuine requests.
+ one byte at a time just before the idle connection timeout. The clients sends a Zero window to the server which makes the Server to assume that the client is busy reading the data.
+  As a result, the server to keeps the connection opened for long period of time. Such multiple connections to the Server will consume the resources of the server and can make the server unresponsive to the new and genuine requests.
 
 In order to mitigate such an attack we need to make adjustments to the default-eviction-policy.
 
@@ -136,7 +136,7 @@ Next we need to modify the VS we created to pass traffic.
 - Uncheck Address translation
 - Uncheck Port translation
 - Set Transparent Next Hop to the Internal Interface Bridge Member of the VLAN. If you have followed along, it will be the interface associated with 1.2
-- To figure out interface type "tmsh list net vlan" You want the next hope to be the internal interface.
+- To figure out interface type "tmsh list net vlan" You want the next hop to be the internal interface. 1.2
 
 - Click **Update**
 
@@ -163,7 +163,8 @@ Task 5 – Attack Website notice Mitigation/Protection
 - If you look in the command window of the Attacker...The tool even reports the site off-line, although the site remains available.
 
 .. admonition:: TMSH
-   tmctl -w 200 virtual_server_stat -s name,clientside.cur_conns,clientside.slow_conns,clientside.slow_killed,serverside.cur_conns,serverside.slow_conns,serverside.slow_killed
+
+   #tmctl -w 200 virtual_server_stat -s name,clientside.cur_conns,clientside.slow_conns,clientside.slow_killed,serverside.cur_conns,serverside.slow_conns,serverside.slow_killed
 
 - Notice as the slow connections increase, the |dhd| will start killing them.
 

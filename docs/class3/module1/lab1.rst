@@ -18,6 +18,14 @@ Task 1 – Initial Set-up
 
 .. NOTE:: If you are familiar with the BIG-IP UI, You will notice the menus on the left are consolidated. This is an indication you are working with a DDoS Hybrid defender device.
 
+Expand each panel section to see the components available in each section.
+
+- Dos Configuration: Where most day-to-day configuration takes place.
+- Dos Setup: Where one-time or infrequent system Dos configuration is performed.
+- Network: The new simplified Security Network Configuration utility to add new network topologies to the system.
+- Visibility: Were the Analyst will spend a majority of the time looking at the GUI and logs.
+- System: Shows a subset of the system utilities found in the traditional TMUI System menu. (Available in Advanced View on the DHD)
+
 |image201|
 - If you need to access more options, there  is a shortcut at the bottom of the Menu page. **Show Advanced Menu**
 
