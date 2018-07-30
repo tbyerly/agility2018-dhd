@@ -70,9 +70,10 @@ Task 2 – Create Protected Object and Launch Attack
 - From the Good Client CLI, issue the following command.
 
 .. code-block:: console
+
   #sudo su
-  # cd Scripts
-  #./generate_clean_traffic.sh
+  # cd scripts
+  #./generate_clean_traffic_101.sh
 
 
 Make sure you are receiving Status Code 200.
@@ -104,19 +105,20 @@ You can use variations of the filters in grep if you are familiar.
 
 - baseline learning_confidence in % - How confident the system is in the baseline learning.
 
-- This should be between 80% - 90%
+  - This should be between 80% - 90%
 
 - learned_bins_count - number of learned bins
 
-- This should be > 0
+  - This should be > 0
 
 - good_table_size - number of learned requests
 
-- This should be > 4000
+  - This should be > 4000
 
 - good_table_confidence - how confident, as a percentage, the system is in the good table.
 
-- It must be 100% for behavioral signatures.
+  - It must be 100% for behavioral signatures.
+
 
 - From the Attacker CLI issue the following command:
 
@@ -182,6 +184,6 @@ You can use variations of the filters in grep if you are familiar.
 .. |image99| image:: /_static/image63.png
    :width: 6.54000in
    :height: 0.68068in
-.. |image504| image:: /_static/whitespace2.png
+.. |image506| image:: /_static/whitespace2.png
    :width: 1448px
    :height: 716px
