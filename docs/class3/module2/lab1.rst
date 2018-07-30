@@ -5,6 +5,9 @@ Task 1 – View the New Visibility Page
 -----------------------------------------------------------------------------
 You can now use the new DHD Visibility page to view the Dashboard, Analysis, Event Logs and Debugging info.
 
+- Take advantage of the expandable window feature to give more screen space to the GUI.
+|image218|
+
 - In the Hybrid Defender Web UI, go to the Visibility >> Dashboard overview.
 
 .. NOTE:: DoS Visibility Dashboard defaults to not Auto-Refresh. Click the Button to set **Real-Time** to **ON**.
@@ -73,3 +76,6 @@ Now focus on the Right Panel.
 .. |image217| image:: /_static/image41.png
    :width: 1093px
    :height: 548px
+.. |image218| image:: /_static/expandwindow.png
+   :width: 751px
+   :height: 292px
