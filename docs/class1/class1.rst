@@ -55,6 +55,12 @@ Task 1 – Open your RDP client and connect to your Windows Jumpbox
 
 - A URL will be provided by your Instructor at the training site that will access the training portal.
 
+ - In the training portal you will enter the given class number and student number.
+
+ |image0|
+
+ - Login
+
 - Click the Jumpbox RDP link.
 
 |image6|
@@ -65,7 +71,7 @@ This will RDP to the Jumpbox where you will work all the labs from.
 
 - Login to the Jumpbox
 
--  User name: Jumpbox\external\_user. Password: f5DEMOs4u
+-  User name: Jumpbox external\_user. Password: f5DEMOs4u
 
 |image3|
 
@@ -77,13 +83,13 @@ This will RDP to the Jumpbox where you will work all the labs from.
 
 .. NOTE:: We need to ensure the Jumpbox and the |dhd| are in time sync. Please run the following commands from an Elevated Command Prompt. (Administrator)
 
-net start w32time
-w32tm /config /update /manualpeerlist:10.1.1.245
-net stop w32time && net start w32time
+- net start w32time
+- w32tm /config /update /manualpeerlist:10.1.1.245
+- net stop w32time && net start w32time
 
-.. |image0| image:: /_static/image2.png
-   :width: 5.30694in
-   :height: 5.22014in
+.. |image0| image:: /_static/agilitylandingpage2018.png
+   :width: 1172px
+   :height: 840px
 .. |image3| image:: /_static/image5.png
    :width: 2.98681in
    :height: 3.46042in
