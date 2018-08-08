@@ -40,12 +40,14 @@ In this task you will configure **Object-Level** DoS protection for a network (L
 This protected object is defending all ports/protocols for 10.1.20.0/24, which is the network behind the Hybrid Defender. Attacks will be
 launched at 10.1.20.12, which is an interface on the LAMP server.
 
-In the default dos profile no sections are selected or enabled for protected objects.
+In the default **dos** profile no sections are selected or enabled for protected objects in the default configuration.
 
 - In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page.  **Click** dos, Then Check the **Network** box under the Families Heading.
 - Click the Network Section.  Notice all vectors are disabled.  Check the top box to select all the vectors, Scroll to the bottom and Select **Mitigate**.  Scroll to the top and **Commit Changes to System**.
 
 |image221|
+
+- Navigate to **DoS Configuration >> Device Protection**. Under Log Publisher select "local-db-publisher" from the drop down. Select **Commit Changes to System**.  This publishes our logs to the appropriate location for analysis.
 
 You will now launch the attacks and show the behavior
 
@@ -73,9 +75,11 @@ You will now launch the attacks and show the behavior
 
 .. NOTE:: The screens show different info, why? **Device Dos** shows the status of all vectors for that profile and the current status and rates. Use the last lesson to adjust thresholds of the current attacks to see different results.
 
-.. HINT:: Manual thresholds under **Dos Overview** >> Filter Type >> Device Dos.  Scroll down and see all the vectors and rates.  Adjust if you desire.
+.. HINT:: Manual thresholds under **Dos Overview** >> **Filter Type** >> **Device DoS**.  Scroll down and see all the vectors and rates.  Adjust if you desire.
 
-- Change the View Filter and see how you get different Views of some of he same data in a different context.
+- Change the View Filter and see how you get different Views of some of the same data in a different context.
+
+- Make sure you adjust the filter to **Protected Object** and select **ServerNet**.  This will show the status of the protected object, not the device level protection.
 
 - Navigate to **Visibility >> Dashboard**. Explore the amount of rich data returned. Hover over the attacks. Scroll down and see what information is supplied.
 
@@ -92,7 +96,9 @@ You will now launch the attacks and show the behavior
 |image39|
 - Further explore the DoS Event logs. For example, clear the search and identify the “Stop” and “Start” times for an attack, type, action, PPS and Dropped Packets etc.
 
-- Cancel the **Attacker** attack CTRL+C.
+-  **Clean-up**: On the Attacker CLI, if the attack is still running be certain to end it with Ctrl-C.
+
+-  **Clean-up**: After stopping the attack, delete the ServerNet Protected Object.
 
 .. |image220| image:: /_static/protectedobject.png
    :width: 1641px

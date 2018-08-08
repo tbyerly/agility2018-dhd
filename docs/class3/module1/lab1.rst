@@ -14,7 +14,7 @@ Task 1 – Initial Set-up
 
 .. NOTE:: When you first power up a F5 DHD device you would normally go through the
   steps of licensing, provisioning and basic set-up.  We have licensed, assigned the management
-  IP, hostname, NTP and DNS servers for you.
+  IP, hostname, NTP and DNS servers for you. Verify DHD and Jumpbox are showing same time.
 
 .. NOTE:: If you are familiar with the BIG-IP UI, You will notice the menus on the left are consolidated. This is an indication you are working with a DDoS Hybrid defender device.
 
@@ -47,8 +47,8 @@ Task 2 – DDoS Hybrid Defender Base Configuration
 The architecture and design decisions should have been made already. Based on F5 recommendations we are going to deploy this device in L2 Transparent Mode.
 
 - Click **Network** in the left hand menu. Then Select **Topology**.
-- You will notice the various options you can select based on the prior architecture decisions.
 - Click **Create** on the upper right side.
+- You will notice the various options you can select based on the prior architecture decisions.
 - For this classes purpose **Click** on the VLAN Group image.
 |image203|
 - Fill out the information from the table below. Then Click **Done Editing** within that section.

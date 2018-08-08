@@ -47,6 +47,10 @@ Task 2 – Disable **Device-Level** DHD DoS Protection
   # cd scripts
   # ls
 
+.. NOTE:: Ignore the "sudo: unable to resolve host xjumpbox" error.
+
+|image222|
+
 These are some of the different scripts we’ll be using during the exercises to simulate DoS attacks.
 
 - Type (or copy and paste) the following command:
@@ -125,6 +129,7 @@ Task 4 – Attack the |dhd| again and see what you can tell.
 - Manually Set The Detection Threshold PPS to 100 and the Mitigation Threshold EPS to 500. Scroll up and **Commit Changes to System**
 |image291|
 - Relaunch the Attack from the Attacker CLI.
+
 - In the Configuration Utility, open the **DoS Configuration >> DoS Overview (non HTTP)** page.
 
 - Make sure the Filter Type is "Dos Attack". See the Dropped traffic with the new thresholds. Alternatively, you can go "Device DoS", scroll down to ICMPv4 Flood and see the same information."
@@ -161,3 +166,6 @@ This concludes this section where we looked at setting manual thresholds to miti
 .. |image292| image:: /_static/icmpv4flooddropped.png
    :width: 1593px
    :height: 346px
+.. |image222| image:: /_static/sudoerrorignore.png
+   :width: 902px
+   :height: 134px

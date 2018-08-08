@@ -75,6 +75,12 @@ This will RDP to the Jumpbox where you will work all the labs from.
 
 |image5|
 
+.. NOTE:: We need to ensure the Jumpbox and the |dhd| are in time sync. Please run the following commands from an Elevated Command Prompt. (Administrator)
+
+net start w32time
+w32tm /config /update /manualpeerlist:10.1.1.245
+net stop w32time && net start w32time
+
 .. |image0| image:: /_static/image2.png
    :width: 5.30694in
    :height: 5.22014in
