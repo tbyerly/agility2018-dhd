@@ -168,7 +168,9 @@ Task 5 – Attack Website notice Mitigation/Protection
 
 - Notice as the slow connections increase, the |dhd| will start killing them.
 
-- Stop the slowread attack by using CTRL+C.
+-  **Clean-up**: On the Attacker CLI, if the attack is still running be certain to end it with Ctrl-C.
+
+-  **Clean-up**: After stopping the attack, delete the Server Protected Object.
 
 .. |image401| image:: /_static/protectedobject.png
    :width: 1641px
