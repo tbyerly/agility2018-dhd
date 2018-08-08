@@ -55,11 +55,11 @@ Task 1 – Open your RDP client and connect to your Windows Jumpbox
 
 - A URL will be provided by your Instructor at the training site that will access the training portal.
 
- - In the training portal you will enter the given class number and student number.
+- In the training portal you will enter the given class number and student number.
 
- |image0|
+|image0|
 
- - Login
+- Login
 
 - Click the Jumpbox RDP link.
 

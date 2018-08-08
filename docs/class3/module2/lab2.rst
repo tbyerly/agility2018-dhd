@@ -65,7 +65,7 @@ You will now launch the attacks and show the behavior
   # cd ~/scripts
   # ./multivector.sh
 
-.. NOTE:: Ignore the "sudo: unable to resolve host xjumpbox" error.
+.. NOTE:: Ignore the "sudo: unable to resolve host" error.
 
 |image222|
 
