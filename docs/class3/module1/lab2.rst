@@ -47,7 +47,7 @@ Task 2 – Disable **Device-Level** DHD DoS Protection
   # cd scripts
   # ls
 
-.. NOTE:: Ignore the "sudo: unable to resolve host xjumpbox" error.
+.. NOTE:: Ignore the "sudo: unable to resolve host" error.
 
 |image222|
 
