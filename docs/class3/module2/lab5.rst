@@ -8,8 +8,11 @@ Task 1 – Create Protection Profile for Dos Behavioral Object
 
 - In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page and click the **Create** button.
 
-- Name the profile **dos_behavioral** and **select** the "HTTP Families".
+- Name the profile **dos_behavioral** and **select** the "Network" and "HTTP Families".
+- Hover over the Network Box.  Click the Pencil in the right corner.
+- Ensure Dynamic Signature Enforcement is "enabled".
 - Hover in the HTTP box and **Click** in the ""White Space""
+- Click "Per Source IP Requests" Under  Behavioral and Stress Based.
 - Click the HTTP Group Configuration Link. On the Right Side.
 - Under Behavioral and Stress Based Attributes, Set the Operation Mode to **Blocking**
 - Leave Threshold Mode in Manual.
@@ -18,7 +21,7 @@ Task 1 – Create Protection Profile for Dos Behavioral Object
 - **Commit Changes to System**
 
 - Go back and click in HTTP again.
-- Select "Per Source IP Requests" Under  Behavioral and Stress Based, Select Request Blocking.
+- Select "Per Source IP Requests" Under  Behavioral and Stress Based, Select Request Blocking (Near the bottom, right).
 - **Commit Changes to System**
 
 This places this profile into a behavioral based detection profile. No vectors are used in this demo.
@@ -72,6 +75,7 @@ Task 2 – Create Protected Object and Launch Attack
 
 - Click **Update**
 
+- Next we need to adjust for ARP.
 - Go to >> Local Traffic >> Virtual Servers >> Virtual Address List >> Select the Server 10.1.20.101
 - Under Configuration Un-Select ARP.
 - **Click Update**
@@ -85,7 +89,7 @@ Task 2 – Create Protected Object and Launch Attack
   #./generate_clean_traffic_101.sh
 
 
-Make sure you are receiving Status Code 200.
+Make sure you are receiving Status Code 200. If you are not receiving a 200, ask for assistance.
 
 .. NOTE::  This will need to run for approximately 10 minutes.
 
