@@ -75,9 +75,9 @@ You will now launch the attacks and show the behavior
 
 .. NOTE:: The screens show different info, why? **Device Dos** shows the status of all vectors for that profile and the current status and rates. Use the last lesson to adjust thresholds of the current attacks to see different results.
 
-.. HINT:: Manual thresholds under **Dos Overview** >> **Filter Type** >> **Device DoS**.  Scroll down and see all the vectors and rates.  Adjust if you desire.
+.. HINT:: Manual thresholds under **Dos Overview >> Filter Type >> Device DoS**.  Scroll down and see all the vectors and rates.  Adjust if you desire.
 
-- Change the View Filter and see how you get different Views of some of the same data in a different context.
+- Change the **View Filter** and see how you get different Views of some of the same data in a different context.
 
 - Make sure you adjust the filter to **Protected Object** and select **ServerNet**.  This will show the status of the protected object, not the device level protection.
 
@@ -85,7 +85,7 @@ You will now launch the attacks and show the behavior
 
 |image38|
 
-- Notice under Attack Duration the red heart symbol.  Signifies an ongoing attack. If you don't see it.  Use Ctrl - to shrink your screen view.
+- Notice under Attack Duration the red heart symbol.  Signifies an ongoing attack. If you don't see it.  Use Ctrl - to shrink your screen view. Or use the arrow at the top to expand.
 
 .. NOTE:: Why is there no data in the Virtual Server Section?
 

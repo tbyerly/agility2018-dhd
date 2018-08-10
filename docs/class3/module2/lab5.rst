@@ -8,12 +8,17 @@ Task 1 – Create Protection Profile for Dos Behavioral Object
 
 - In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page and click the **Create** button.
 
-- Name the profile **dos_behavioral** and **select** the "HTTP Families". **Click** the "edit" pencil on the right side of the  HTTP Vector page to configure.
+- Name the profile **dos_behavioral** and **select** the "HTTP Families".
+- Hover in the HTTP box and **Click** in the ""White Space""
+- Click the HTTP Group Configuration Link. On the Right Side.
+- Under Behavioral and Stress Based Attributes, Set the Operation Mode to **Blocking**
+- Leave Threshold Mode in Manual.
+- Under Behavioral Based, Set the Mitigation to **Standard Mitigation**
+- Ensure Signature Detection is Selected.
+- **Commit Changes to System**
 
-- **Click** The "HTTP Group Configuration"
-- Place the "Operation Mode" into Blocking
-- The "Behavioral Base Attributes" into Standard Mitigation
-- Signature Detection Selected.
+- Go back and click in HTTP again.
+- Select "Per Source IP Requests" Under  Behavioral and Stress Based, Select Request Blocking.
 - **Commit Changes to System**
 
 This places this profile into a behavioral based detection profile. No vectors are used in this demo.
@@ -35,7 +40,7 @@ Task 2 – Create Protected Object and Launch Attack
 +------------------------+-----------------------------+
 | Protocol               | TCP                         |
 +------------------------+-----------------------------+
-| Service Profile:       | DHD_http                    |
+| Service Profile:       | http                        |
 +------------------------+-----------------------------+
 | Protection Profile:    | dos_behavioral              |
 +------------------------+-----------------------------+
@@ -66,6 +71,10 @@ Task 2 – Create Protected Object and Launch Attack
 - To figure out interface type "tmsh list net vlan" You want the next hop to be the internal interface.
 
 - Click **Update**
+
+- Go to >> Local Traffic >> Virtual Servers >> Virtual Address List >> Select the Server 10.1.20.101
+- Under Configuration Un-Select ARP.
+- **Click Update**
 
 - From the Good Client CLI, issue the following command.
 
@@ -124,7 +133,7 @@ You can use variations of the filters in grep if you are familiar.
 
 .. code-block:: console
 
-   ~/scripts/http_flood.sh
+   ~/scripts/http_flood_101.sh
 
 |image92|
 
