@@ -65,6 +65,21 @@ Task 2 – Create Protection Profile for Dos HTTP Object
 - Name the profile dos_HTTPS and **select** the HTTP Families Vectors. Hover over the HTTP Vector page to configure. At the far right click the "edit" pencil.
 Change the settings depicted in the image below.
 
+- Hover in the HTTP box and **Click** in the ""White Space""
+- Click "Per Source IP requests"
+- Click the HTTP Group Configuration Link. On the Right Side.
+- Under Behavioral and Stress Based Attributes, Set the Operation Mode to **Blocking**
+- Leave Threshold Mode in Manual.
+- Under Behavioral Based, Set the Mitigation to **Standard Mitigation**
+- Ensure Signature Detection is Selected.
+- **Commit Changes to System**
+
+- Go back and click in HTTP again.
+- Select "Per Source IP Requests" Under  Behavioral and Stress Based, Select Request Blocking. Bottom Right.
+- Select "Per Source IP Requests" Under TPS Based.
+- Click Request Blocking Rate Limit.
+- **Commit Changes to System**
+
 |image402|
 
 Task 3 – Modify Default Eviction Policy
