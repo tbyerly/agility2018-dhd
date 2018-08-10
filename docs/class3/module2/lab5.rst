@@ -151,6 +151,9 @@ You can use variations of the filters in grep if you are familiar.
 
 |image97|
 
+- You will see the dhd| issue a reset when it mitigates the attack.
+|image507|
+
 - Explore Dos Configuration >> Protected Objects.  Click on the "Attack Status" to expand.
 
 |image503|
@@ -200,3 +203,6 @@ You can use variations of the filters in grep if you are familiar.
 .. |image506| image:: /_static/whitespace2.png
    :width: 1448px
    :height: 716px
+.. |image507| image:: /_static/behavioralresults.png
+   :width: 708px
+   :height: 815px
