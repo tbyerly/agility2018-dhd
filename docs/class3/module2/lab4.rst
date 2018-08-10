@@ -41,8 +41,8 @@ Click around a few links. This is the site we will launch an attack against and 
 
 Start a more effective Slow Read attack.
 
-.. NOTE:: This attack is harder for DoS mitigation tools to mitigate and can be very effective even with a tiny number of concurrent connections trickling in very slowly to the server to fly below the radar of network detections. In our example we will open 10 connections per second and
-read the response data at 1 byte / sec. The attack would be effective even at 1 cps, it would just take a bit longer to build up the connections.
+.. NOTE:: This attack is harder for DoS mitigation tools to mitigate and can be very effective even with a tiny number of concurrent connections trickling in very slowly to the server to fly below the radar of network detections.
+ In our example we will open 10 connections per second and read the response data at 1 byte / sec. The attack would be effective even at 1 cps, it would just take a bit longer to build up the connections.
 
 - From the **Attacker** CLI/shell start the slowread attack:
 
@@ -57,12 +57,12 @@ As soon as the site is down (service available: NO) in the Attacker CLI, refresh
 
 - Stop the slowread attack by using CTRL+C.
 
-Task 2 – Create Protection Profile for Dos HTTP Object
+Task 2 – Create Protection Profile for Dos https Object
 ------------------------------------------------------
 
 - In the BIG-IP Configuration Utility, open the **DoS Configuration >> Protection Profiles** page and click the **Create** button.
 
-- Name the profile dos_HTTPS and **select** the HTTP Families Vectors. Hover over the HTTP Vector page to configure. At the far right click the "edit" pencil.
+- Name the profile dos_HTTPS and **select** the HTTP Families Vectors.
 Change the settings depicted in the image below.
 
 - Hover in the HTTP box and **Click** in the ""White Space""
@@ -72,14 +72,8 @@ Change the settings depicted in the image below.
 - Leave Threshold Mode in Manual.
 - Under Behavioral Based, Set the Mitigation to **Standard Mitigation**
 - Ensure Signature Detection is Selected.
+- Under Mitigation select Request Blocking "Rate Limit"
 - **Commit Changes to System**
-
-- Go back and click in HTTP again.
-- Select "Per Source IP Requests" Under  Behavioral and Stress Based, Select Request Blocking. Bottom Right.
-- Select "Per Source IP Requests" Under TPS Based.
-- Click Request Blocking Rate Limit.
-- **Commit Changes to System**
-
 |image402|
 
 Task 3 – Modify Default Eviction Policy
@@ -96,6 +90,7 @@ In order to mitigate such an attack we need to make adjustments to the default-e
 - Under "Slow Flow Monitoring" choose "enable" and change the value to 1024.
 - Under the "Grace Period" change the default value to 5 Seconds.
 - Under "Slow Flow Throttling" change the value to "absolute" and 50 connections as the value.
+- Click **Update** when finished.
 |image403|
 
 What we are doing here is setting up the policy to recognize and then evict slow flows through the |dhd|.
@@ -190,9 +185,9 @@ Task 5 – Attack Website notice Mitigation/Protection
 .. |image401| image:: /_static/protectedobject.png
    :width: 1641px
    :height: 366px
-.. |image402| image:: /_static/dos_http5.png
-   :width: 1410px
-   :height: 713px
+.. |image402| image:: /_static/dos_http6.png
+   :width: 1321px
+   :height: 693px
 .. |image403| image:: /_static/slowflow.png
    :width: 1326px
    :height: 553px
