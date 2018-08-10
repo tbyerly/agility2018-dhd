@@ -151,7 +151,7 @@ You can use variations of the filters in grep if you are familiar.
 
 |image97|
 
-- You will see the \dhd| issue a reset when it mitigates the attack.
+- You will see the dhd| issue a reset when it mitigates the attack.
 |image507|
 
 - Explore Dos Configuration >> Protected Objects.  Click on the "Attack Status" to expand.
